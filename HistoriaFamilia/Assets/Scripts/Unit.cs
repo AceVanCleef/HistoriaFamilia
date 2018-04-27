@@ -40,7 +40,6 @@ public class Unit : MonoBehaviour {
 		float deltaTime = 3.0f;
 
 		//Todo: timing DOES NOT WORK yet.
-		Debug.Log("CurrentPath: " + CurrentPath);
 		while (CurrentPath != null)
 		{
 		/*

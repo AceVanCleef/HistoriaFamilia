@@ -13,7 +13,8 @@ public class BoardManager : MonoBehaviour {
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
 	public GameObject SelectedUnit;
 
-	public TileType[] TileTypes;
+	public TileType[] TileTypes;	//defined in inspector.
+	//Idee für Indexsicherheit: public Dictionary<TileType.TopographicalFeature, TileType> TileTypez;
 
 	// stores the tile type key.
 	int[,] _tiles = null;
@@ -168,9 +169,11 @@ public class BoardManager : MonoBehaviour {
 		// clear out our unit's old path.
 		SelectedUnit.GetComponent<Unit>().CurrentPath = null;
 
+
 		//prevents walking into mountains.
 		// Note: Other strategy is to check when clicking on a tile if it IsWalkable.
 		if ( UnitCanEnterTile(x, y) == false ) return;
+
 
 		// Pathfinding using the Dijkstra algorithm.
 
@@ -181,11 +184,13 @@ public class BoardManager : MonoBehaviour {
 		// Nodes we haven't checked yet.'
 		List<Node> unvisited = new List<Node>();
 
+
 		Node source = graph[
 			SelectedUnit.GetComponent<Unit>().TileX,
 			SelectedUnit.GetComponent<Unit>().TileY
 		];
 		Node target = graph[x, y];
+
 
 		//populate with data:
 		dist[source] = 0; //distance of source = 0.
@@ -205,6 +210,7 @@ public class BoardManager : MonoBehaviour {
 
 			unvisited.Add (v);
 		}
+
 
 		while (unvisited.Count > 0)
 		{
@@ -253,9 +259,7 @@ public class BoardManager : MonoBehaviour {
 		}
 		//right now, currentPath describes a route from our target to our source, 
 		// so we need to invert it.
-
 		currentPath.Reverse();
-
 		SelectedUnit.GetComponent<Unit>().CurrentPath = currentPath;
 	}
 
