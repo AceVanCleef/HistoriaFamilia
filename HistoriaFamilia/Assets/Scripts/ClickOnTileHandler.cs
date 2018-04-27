@@ -10,6 +10,7 @@ public class ClickOnTileHandler : MonoBehaviour {
 
 	void OnMouseUp()
 	{
+		Debug.Log("clicking on" + TilePositionX + "-" + TilePositionY);
 		Map.GeneratePathTo(TilePositionX, TilePositionY);
 		Map.SelectedUnit.GetComponent<Unit>().MoveToTargettile();
 	}
