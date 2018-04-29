@@ -135,7 +135,9 @@ public class BoardManager : MonoBehaviour {
 	/// allocates visual prefabs
 	void GenerateMapVisuals()
 	{
-	
+		//create root node of gameBoard.
+		_boardHolder = new GameObject("Board").transform;
+		//setup floor tiles
 		for( int x = 0; x < BoardSizeX; ++x)
 		{
 			for( int y = 0; y < BoardSizeY; ++y)
@@ -144,6 +146,7 @@ public class BoardManager : MonoBehaviour {
 				// E.g. 0 = Grass, 1 = Swamp, 2 = Mountains.
 				TileType tt = TileTypes[ _tiles[x,y] ];
 				GameObject go = Instantiate(tt.TileVisualPrefab, new Vector2(x,y), Quaternion.identity) as GameObject;
+				go.transform.SetParent(_boardHolder);
 
 				//#UserInput: Let click handler of tile prefab know which tile it is related to (position information):
 				ClickOnTileHandler coth = go.GetComponent<ClickOnTileHandler>();

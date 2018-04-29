@@ -7,20 +7,21 @@ public class Unit : MonoBehaviour {
 	//Coordinates of tile in Unit Model.
 	public int TileX;
 	public int TileY;
+	[HideInInspector]
 	public BoardManager Map;
 
 	//pathfinding: stores the path from this unit ( = source) to target Node
 	public List<Node> CurrentPath = null;
 
-	// activates from tile to tile Lerp - transition
+	// activates from-tile-to-tile Lerp - transition
 	private bool IsWalking = false;
 	//Coordinates of the tile which is the final destination of this unit's movement.
 	private int finalWalkDestinationX;
 	private int finalWalkDestinationY;
 	// How many seconds should the movement transition last?
-	[Tooltip("Duration of movement transition in sec. / tile")]
+	[Tooltip("Duration of tile-to-tile movement in sec. / tile")]
 	public float LerpDuration = 0.25f;
-	// this keeps track and updates the current lerp time.
+	// keeps track and updates the current lerp time.
 	private float _currentLerpTime = 0f;
 
 	void Update()
@@ -55,7 +56,7 @@ public class Unit : MonoBehaviour {
 
 	private void ManageUnitMovement()
 	{
-		// Lerp - transition from tile to tile
+		// Lerp - transition from-tile-to-tile.
 		if (IsWalking)
 		{
 			if( HasReachedNextTile() )
