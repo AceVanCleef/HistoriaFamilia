@@ -13,10 +13,27 @@ public class Unit : MonoBehaviour {
 	public List<Node> CurrentPath = null;
 
 	// activates from tile to tile Lerp - transition
-	public bool IsWalking = false;
+	private bool IsWalking = false;
+	//Coordinates of the tile which is the final destination of this unit's movement.
+	private int finalWalkDestinationX;
+	private int finalWalkDestinationY;
+	// How many seconds should the movement transition last?
+	[Tooltip("Duration of movement transition in sec. / tile")]
+	public float LerpDuration = 0.25f;
+	// this keeps track and updates the current lerp time.
+	private float _currentLerpTime = 0f;
 
 	void Update()
 	{
+		DrawDebugLine();
+		
+		ManageUnitMovement();
+	}
+
+	private void DrawDebugLine()
+	{
+		// Draw our debug line showing the pathfinding!
+		// NOTE: This won't appear in the actual game view.
 		if (CurrentPath != null)
 		{
 			int currNode = 0;
@@ -34,34 +51,41 @@ public class Unit : MonoBehaviour {
 				currNode++;
 			}
 		}
+	}
 
+	private void ManageUnitMovement()
+	{
 		// Lerp - transition from tile to tile
 		if (IsWalking)
 		{
-			if(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f)
+			if( HasReachedNextTile() )
 				MoveToNextTile();
 
+			// controls the speed of each tile transition.
+			_currentLerpTime += Time.deltaTime;
+			if (_currentLerpTime == LerpDuration)
+			{
+				_currentLerpTime = LerpDuration;
+			}
+			// percentage = [0,1] where 0 means "at startPosition" and 1 means "reached lerp endPosition". Anything in between means "still moving".
+			float percentage = _currentLerpTime / LerpDuration;
 			// Smoothly animate towards the correct map tile.
-			transform.position = Vector2.Lerp(transform.position, Map.TileCoordToWorldCoord( TileX, TileY ), 5f * Time.deltaTime);
-		}
+			transform.position = Vector2.Lerp(transform.position, Map.TileCoordToWorldCoord( TileX, TileY ), percentage);	//25f * Time.deltaTime
 
+			if ( HasReachedFinalDestination() ) {
+				IsWalking = false;
+				// Teleport us to our correct "current" position, in case we
+				// haven't finished the animation yet.
+				transform.position = Map.TileCoordToWorldCoord( TileX, TileY );
+			}
+		}
 	}
 
-	public void MoveToTargettile()
+	public void InitializeWalkingTo(int x, int y)
 	{
-		//Todo: timing DOES NOT WORK yet.
-		while (CurrentPath != null)
-		{
-			// Have we moved our visible piece close enough to the target tile that we can
-			// advance to the next step in our pathfinding?
-			Debug.Log(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f);
-			if(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f)
-				MoveToNextTile();
-
-			// Smoothly animate towards the correct map tile.
-			transform.position = Vector2.Lerp(transform.position, Map.TileCoordToWorldCoord( TileX, TileY ), 25f * Time.deltaTime);
-			Debug.Log(transform.position);
-		}
+		IsWalking = true;
+		finalWalkDestinationX = x;
+		finalWalkDestinationY = y;
 	}
 
 	public void MoveToNextTile()
@@ -70,20 +94,33 @@ public class Unit : MonoBehaviour {
 		
 		//Remove the old current/first node from the path.
 		CurrentPath.RemoveAt(0);
+		//reset lerp timer.
+		_currentLerpTime = 0f;
 
-		//Now grab the new first node and move us to that position.
+		// Teleport us to our correct "current" position, in case we
+		// haven't finished the animation yet.
+		transform.position = Map.TileCoordToWorldCoord( TileX, TileY );
+
+		//Now grab the new first node and move us to that position (= endPos of Lerp).
 		TileX = CurrentPath[0].x;
 		TileY = CurrentPath[0].y;
-		transform.position = Map.TileCoordToWorldCoord( TileX, TileY );
 
 		if (CurrentPath.Count == 1)
 		{
 			// We only have one tile left in the path, and that tile MUST be our ultimate
 			// destination. So let's just clear our pathfinding info.
 			CurrentPath = null;
-			IsWalking = false;
 		}
-		Debug.Log("IsWalking = " + IsWalking);
+	}
+
+	private bool HasReachedNextTile()
+	{
+		return Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f;
+	}
+
+	private bool HasReachedFinalDestination()
+	{
+		return Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( finalWalkDestinationX, finalWalkDestinationY )) < 0.001f;
 	}
 
 }
