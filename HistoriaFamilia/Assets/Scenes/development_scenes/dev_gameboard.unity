@@ -158,12 +158,18 @@ MonoBehaviour:
   - Topography: 0
     TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,
       type: 2}
+    MovementCost: 1
+    IsWalkable: 1
   - Topography: 1
     TileVisualPrefab: {fileID: 1382657848433486, guid: 611c3834566792a4f907ac86cba39939,
       type: 2}
+    MovementCost: 2
+    IsWalkable: 1
   - Topography: 2
     TileVisualPrefab: {fileID: 1825857283138250, guid: 4a2789e78248cd24cacf8a1b154562b8,
       type: 2}
+    MovementCost: 9999
+    IsWalkable: 1
   BoardSizeX: 10
   BoardSizeY: 10
 --- !u!1 &1123182419 stripped

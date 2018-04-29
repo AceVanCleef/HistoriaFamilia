@@ -10,10 +10,11 @@ public class ClickOnTileHandler : MonoBehaviour {
 
 	void OnMouseUp()
 	{
-		Debug.Log("onmouseenter? yes");
+		//Debug.Log("onmouseenter? yes");
 		Map.GeneratePathTo(TilePositionX, TilePositionY);
-		Debug.Log("generated path? yes");
-		Map.SelectedUnit.GetComponent<Unit>().MoveToTargettile();
-		Debug.Log("moved to targettile and finished? yes");
+		//Debug.Log("generated path? yes");
+		//Map.SelectedUnit.GetComponent<Unit>().MoveToTargettile();
+		Map.SelectedUnit.GetComponent<Unit>().IsWalking = true;
+		//Debug.Log("moved to targettile and finished? yes");
 	}
 }

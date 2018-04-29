@@ -12,6 +12,9 @@ public class Unit : MonoBehaviour {
 	//pathfinding: stores the path from this unit ( = source) to target Node
 	public List<Node> CurrentPath = null;
 
+	// activates from tile to tile Lerp - transition
+	public bool IsWalking = false;
+
 	void Update()
 	{
 		if (CurrentPath != null)
@@ -31,27 +34,33 @@ public class Unit : MonoBehaviour {
 				currNode++;
 			}
 		}
+
+		// Lerp - transition from tile to tile
+		if (IsWalking)
+		{
+			if(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f)
+				MoveToNextTile();
+
+			// Smoothly animate towards the correct map tile.
+			transform.position = Vector2.Lerp(transform.position, Map.TileCoordToWorldCoord( TileX, TileY ), 5f * Time.deltaTime);
+		}
+
 	}
+
 	public void MoveToTargettile()
 	{
-		// timing: https://answers.unity.com/questions/425477/wait-for-5-seconds-.html
-		float timer = 0.0f;
-		float timerMax = 3.0f;
-		float deltaTime = 3.0f;
-
 		//Todo: timing DOES NOT WORK yet.
 		while (CurrentPath != null)
 		{
-		/*
-			timer += Time.deltaTime;
-			if(timer >= timerMax)
-			{
-				Debug.Log("entered");
+			// Have we moved our visible piece close enough to the target tile that we can
+			// advance to the next step in our pathfinding?
+			Debug.Log(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f);
+			if(Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f)
 				MoveToNextTile();
-				timerMax = timerMax + deltaTime;
-			}
-			*/
-			MoveToNextTile();
+
+			// Smoothly animate towards the correct map tile.
+			transform.position = Vector2.Lerp(transform.position, Map.TileCoordToWorldCoord( TileX, TileY ), 25f * Time.deltaTime);
+			Debug.Log(transform.position);
 		}
 	}
 
@@ -72,6 +81,9 @@ public class Unit : MonoBehaviour {
 			// We only have one tile left in the path, and that tile MUST be our ultimate
 			// destination. So let's just clear our pathfinding info.
 			CurrentPath = null;
+			IsWalking = false;
 		}
+		Debug.Log("IsWalking = " + IsWalking);
 	}
+
 }
