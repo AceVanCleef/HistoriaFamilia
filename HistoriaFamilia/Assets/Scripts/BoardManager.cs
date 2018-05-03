@@ -27,16 +27,22 @@ public class BoardManager : MonoBehaviour {
 	List<Node> currentPath = null;
 
 	void Start () {
-		// Set Position of selected unit.
-		Unit unit = SelectedUnit.GetComponent<Unit>();
-		unit.TileX = (int) SelectedUnit.transform.position.x;
-		unit.TileY = (int) SelectedUnit.transform.position.y;
-		unit.Map = this;
+        UpdateSelectedUnitValues();
 
-		GenerateMapData();
+
+        GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisuals();
 	}
+
+    public void UpdateSelectedUnitValues()
+    {
+        // Set Position of selected unit.
+        Unit unit = SelectedUnit.GetComponent<Unit>();
+        unit.TileX = (int)SelectedUnit.transform.position.x;
+        unit.TileY = (int)SelectedUnit.transform.position.y;
+        unit.Map = this;
+    }
 
 	void GenerateMapData()
 	{

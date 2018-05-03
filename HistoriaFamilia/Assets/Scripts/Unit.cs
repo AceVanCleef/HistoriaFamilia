@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour {
 
 	void Update()
 	{
-		DrawDebugLine();
+		//DrawDebugLine();
 		
 		ManageUnitMovement();
 	}
