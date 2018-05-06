@@ -131,6 +131,7 @@ MonoBehaviour:
   TileX: 0
   TileY: 0
   Map: {fileID: 0}
+  LerpDuration: 0.25
 --- !u!212 &212279247635318172
 SpriteRenderer:
   m_ObjectHideFlags: 1

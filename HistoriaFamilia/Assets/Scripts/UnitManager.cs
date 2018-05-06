@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour {
     public List <GameObject> AllUnit = null;
-    public int[,] PossitionUnit = null;
+    public int[,] PositionUnit = null;
     public BoardManager BoardManager;
+
+	//for testing:
+	public GameObject Unit1;
+	public GameObject Unit2;
+	public GameObject Unit3;
 
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
 	public GameObject SelectedUnit;
 
      void Start()
     {
-       // PossitionUnit = new int[BoardManager.BoardSizeX,BoardManager.BoardSizeY];
+       // PositionUnit = new int[BoardManager.BoardSizeX,BoardManager.BoardSizeY];
 
-	   UpdateSelectedUnitValues();
+	   //UpdateSelectedUnitValues();
+
+	   //will be replaced with initialize/createUnits()
+	   Unit1.GetComponent<Unit>().Map = BoardManager;
+	   Unit2.GetComponent<Unit>().Map = BoardManager;
+	   Unit3.GetComponent<Unit>().Map = BoardManager;
     }
 
 	public void UpdateSelectedUnitValues()
@@ -23,8 +33,14 @@ public class UnitManager : MonoBehaviour {
         Unit unit = SelectedUnit.GetComponent<Unit>();
         unit.TileX = (int)SelectedUnit.transform.position.x;
         unit.TileY = (int)SelectedUnit.transform.position.y;
-        unit.Map = BoardManager;
+        //unit.Map = BoardManager;
     }
+
+	public bool HasUnitOnTile(int x, int y)
+	{
+		
+		return false;
+	}
   
     public GameObject GetUnitAt(int x , int y)
     {

@@ -7,8 +7,18 @@ public class ClickOnTileHandler : MonoBehaviour {
 	// Position of clicked Tile.
 	public int TilePositionX;
 	public int TilePositionY;
+
+	//Inizialized in BoardManager.GenerateMapVisuals().
+	[HideInInspector]
 	public BoardManager Map;
+	[HideInInspector]
     public UnitManager UnitManager;
+
+	void OnMouseDown()
+	{
+		Debug.Log("Klicked on Tile " + TilePositionX + ":" + TilePositionY + ". Has a Unit? "+ UnitManager.HasUnitOnTile(TilePositionX, TilePositionY));
+	}
+
     /*
 	void OnMouseUp()
 	{
@@ -19,9 +29,10 @@ public class ClickOnTileHandler : MonoBehaviour {
 		//Debug.Log("moved to targettile and finished? yes");
 	}
     */
+	/*
     void OnMouseDown()
     {
-        //Debug.Log(UnitManager.SelectedUnit != null);
+        Debug.Log(UnitManager.SelectedUnit != null);
         if (UnitManager.SelectedUnit != null)
         {
             //Move Selected Unit
@@ -53,4 +64,5 @@ public class ClickOnTileHandler : MonoBehaviour {
             return false;
         }
     }
+	*/
 }

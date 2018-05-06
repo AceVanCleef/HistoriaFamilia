@@ -5,10 +5,12 @@ using UnityEngine;
 public class Unit : MonoBehaviour {
 
 	//Coordinates of tile in Unit Model.
+	//[HideInInspector]
 	public int TileX;
+	//[HideInInspector]
 	public int TileY;
-	[HideInInspector]
-	public BoardManager Map;
+	//[HideInInspector]
+	public BoardManager Map;	//Todo: must be set during unit creation in UnitManager.
 
 	//pathfinding: stores the path from this unit ( = source) to target Node
 	public List<Node> CurrentPath = null;
@@ -23,6 +25,14 @@ public class Unit : MonoBehaviour {
 	public float LerpDuration = 0.25f;
 	// keeps track and updates the current lerp time.
 	private float _currentLerpTime = 0f;
+
+	void Start()
+	{
+		// Set Position of selected unit.
+		//GameObject parentGameobj = transform.parent.gameObject;
+        TileX = (int)transform.position.x;
+        TileY = (int)transform.position.y;
+	}
 
 	void Update()
 	{
