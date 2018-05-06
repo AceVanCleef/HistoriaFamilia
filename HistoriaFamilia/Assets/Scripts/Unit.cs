@@ -29,7 +29,6 @@ public class Unit : MonoBehaviour {
 	void Start()
 	{
 		// Set Position of selected unit.
-		//GameObject parentGameobj = transform.parent.gameObject;
         TileX = (int)transform.position.x;
         TileY = (int)transform.position.y;
 	}

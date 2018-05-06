@@ -38,7 +38,12 @@ public class UnitManager : MonoBehaviour {
 
 	public bool HasUnitOnTile(int x, int y)
 	{
-		
+		if (Unit1.GetComponent<Unit>().TileX == x && Unit1.GetComponent<Unit>().TileY == y)
+			return true;
+		if (Unit2.GetComponent<Unit>().TileX == x && Unit2.GetComponent<Unit>().TileY == y)
+			return true;
+		if (Unit3.GetComponent<Unit>().TileX == x && Unit3.GetComponent<Unit>().TileY == y)
+			return true;
 		return false;
 	}
   
