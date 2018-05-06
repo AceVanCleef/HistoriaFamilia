@@ -17,7 +17,32 @@ public class ClickOnTileHandler : MonoBehaviour {
 	void OnMouseDown()
 	{
 		Debug.Log("Klicked on Tile " + TilePositionX + ":" + TilePositionY + ". Has a Unit? "+ UnitManager.HasUnitOnTile(TilePositionX, TilePositionY));
+		if (UnitManager.IsUnitSelected()){
+			MoveSelectedUnit();
+		} else {
+			SelectUnit();
+		}
+		
 	}
+
+	private void SelectUnit()
+	{
+		if (UnitManager.HasUnitOnTile(TilePositionX, TilePositionY))
+			{
+				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(TilePositionX, TilePositionY);
+				Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
+			}
+	}
+
+	private void MoveSelectedUnit()
+	{
+		Debug.Log("Move selected unit now!");
+		Map.GeneratePathTo(TilePositionX, TilePositionY);
+        UnitManager.SelectedUnit.GetComponent<Unit>().InitializeWalkingTo(TilePositionX, TilePositionY);
+		UnitManager.DeselectUnit();
+	}
+
+
 
     /*
 	void OnMouseUp()

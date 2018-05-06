@@ -46,6 +46,29 @@ public class UnitManager : MonoBehaviour {
 			return true;
 		return false;
 	}
+
+	public GameObject ChooseUnitAsSelectedOnTile(int x, int y)
+	{
+		if (Unit1.GetComponent<Unit>().TileX == x && Unit1.GetComponent<Unit>().TileY == y)
+			SelectedUnit = Unit1;
+		if (Unit2.GetComponent<Unit>().TileX == x && Unit2.GetComponent<Unit>().TileY == y)
+			SelectedUnit = Unit2;
+		if (Unit3.GetComponent<Unit>().TileX == x && Unit3.GetComponent<Unit>().TileY == y)
+			SelectedUnit = Unit3;
+		return SelectedUnit;
+	}
+
+	public bool IsUnitSelected()
+	{
+		return SelectedUnit != null;
+	}
+
+	public void DeselectUnit()
+	{
+		SelectedUnit = null;
+	}
+
+
   
     public GameObject GetUnitAt(int x , int y)
     {
