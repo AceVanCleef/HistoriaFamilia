@@ -21,23 +21,23 @@ public class ClickOnTileHandler : MonoBehaviour {
     */
     void OnMouseDown()
     {
-        Debug.Log(Map.SelectedUnit != null);
-        if (Map.SelectedUnit != null)
+        //Debug.Log(UnitManager.SelectedUnit != null);
+        if (UnitManager.SelectedUnit != null)
         {
             //Move Selected Unit
 
             //Debug.Log("onmouseenter? yes");
             Map.GeneratePathTo(TilePositionX, TilePositionY);
             //Debug.Log("generated path? yes");
-            Map.SelectedUnit.GetComponent<Unit>().InitializeWalkingTo(TilePositionX, TilePositionY);
+            UnitManager.SelectedUnit.GetComponent<Unit>().InitializeWalkingTo(TilePositionX, TilePositionY);
             //Debug.Log("moved to targettile and finished? yes");
         }
         else
         {
 
-          Map.SelectedUnit = UnitManager.GetUnitAt(TilePositionX, TilePositionY);
+          UnitManager.SelectedUnit = UnitManager.GetUnitAt(TilePositionX, TilePositionY);
             Debug.Log("I just Tried to Klick on a Unit");
-            Map.UpdateSelectedUnitValues();
+            UnitManager.UpdateSelectedUnitValues();
         }
 
      }

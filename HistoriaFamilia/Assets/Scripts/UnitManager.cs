@@ -7,9 +7,23 @@ public class UnitManager : MonoBehaviour {
     public int[,] PossitionUnit = null;
     public BoardManager BoardManager;
 
+	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
+	public GameObject SelectedUnit;
+
      void Start()
     {
        // PossitionUnit = new int[BoardManager.BoardSizeX,BoardManager.BoardSizeY];
+
+	   UpdateSelectedUnitValues();
+    }
+
+	public void UpdateSelectedUnitValues()
+    {
+        // Set Position of selected unit.
+        Unit unit = SelectedUnit.GetComponent<Unit>();
+        unit.TileX = (int)SelectedUnit.transform.position.x;
+        unit.TileY = (int)SelectedUnit.transform.position.y;
+        unit.Map = BoardManager;
     }
   
     public GameObject GetUnitAt(int x , int y)

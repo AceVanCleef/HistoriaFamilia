@@ -11,7 +11,8 @@ public class BoardManager : MonoBehaviour {
 	private Transform _boardHolder;
 
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
-	public GameObject SelectedUnit;
+	//public GameObject SelectedUnit;
+	public UnitManager UnitManager;
 
 	public TileType[] TileTypes;	//defined in inspector.
 	//Idee für Indexsicherheit: public Dictionary<TileType.TopographicalFeature, TileType> TileTypez;
@@ -27,14 +28,14 @@ public class BoardManager : MonoBehaviour {
 	List<Node> currentPath = null;
 
 	void Start () {
-        UpdateSelectedUnitValues();
+        //UpdateSelectedUnitValues();
 
 
         GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisuals();
 	}
-
+/*
     public void UpdateSelectedUnitValues()
     {
         // Set Position of selected unit.
@@ -43,7 +44,7 @@ public class BoardManager : MonoBehaviour {
         unit.TileY = (int)SelectedUnit.transform.position.y;
         unit.Map = this;
     }
-
+	*/
 	void GenerateMapData()
 	{
 		_tiles = new int[BoardSizeX,BoardSizeY];
@@ -162,6 +163,7 @@ public class BoardManager : MonoBehaviour {
 				// allow access to GameBoard's script --> required for access to MoveSelectedUnitTo() 
 				// within coth.
 				coth.Map = this; //this script component.
+				coth.UnitManager = UnitManager;
 			}
 		}
 	}
@@ -176,7 +178,7 @@ public class BoardManager : MonoBehaviour {
 	public void GeneratePathTo(int x, int y)
 	{	
 		// clear out our unit's old path.
-		SelectedUnit.GetComponent<Unit>().CurrentPath = null;
+		UnitManager.SelectedUnit.GetComponent<Unit>().CurrentPath = null;
 
 
 		//prevents walking into mountains.
@@ -195,8 +197,8 @@ public class BoardManager : MonoBehaviour {
 
 
 		Node source = graph[
-			SelectedUnit.GetComponent<Unit>().TileX,
-			SelectedUnit.GetComponent<Unit>().TileY
+			UnitManager.SelectedUnit.GetComponent<Unit>().TileX,
+			UnitManager.SelectedUnit.GetComponent<Unit>().TileY
 		];
 		Node target = graph[x, y];
 
@@ -269,20 +271,20 @@ public class BoardManager : MonoBehaviour {
 		//right now, currentPath describes a route from our target to our source, 
 		// so we need to invert it.
 		currentPath.Reverse();
-		SelectedUnit.GetComponent<Unit>().CurrentPath = currentPath;
+		UnitManager.SelectedUnit.GetComponent<Unit>().CurrentPath = currentPath;
 	}
 
 
 	public void TeleportSelectedUnitTo(int x, int y)
 	{
 		//set Unit Model data:
-		Unit unitModel = SelectedUnit.GetComponent<Unit>();
+		Unit unitModel = UnitManager.SelectedUnit.GetComponent<Unit>();
 		unitModel.TileX = x;
 		unitModel.TileY = y;
 		Debug.Log(unitModel.TileX + " - "  + unitModel.TileY);
 
 		//no pathfinding:
-		SelectedUnit.transform.position = TileCoordToWorldCoord(x, y);
+		UnitManager.SelectedUnit.transform.position = TileCoordToWorldCoord(x, y);
 	}
 
 	// Notes about path finding:
