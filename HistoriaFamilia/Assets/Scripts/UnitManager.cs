@@ -19,12 +19,13 @@ public class UnitManager : MonoBehaviour {
     {
        // PositionUnit = new int[BoardManager.BoardSizeX,BoardManager.BoardSizeY];
 
-	   //UpdateSelectedUnitValues();
-
 	   //will be replaced with initialize/createUnits()
 	   Unit1.GetComponent<Unit>().Map = BoardManager;
 	   Unit2.GetComponent<Unit>().Map = BoardManager;
 	   Unit3.GetComponent<Unit>().Map = BoardManager;
+	   Unit1.GetComponent<ClickOnUnitHandler>().UnitManager = this;
+	   Unit2.GetComponent<ClickOnUnitHandler>().UnitManager = this;
+	   Unit3.GetComponent<ClickOnUnitHandler>().UnitManager = this;
     }
 
 	public void UpdateSelectedUnitValues()

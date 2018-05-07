@@ -45,6 +45,9 @@ TagManager:
   - name: Floor
     uniqueID: 4134207709
     locked: 0
+  - name: GameBoard
+    uniqueID: 1664313755
+    locked: 0
   - name: Units
     uniqueID: 1645855749
     locked: 0

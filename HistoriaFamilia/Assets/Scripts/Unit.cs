@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
-	//Coordinates of tile in Unit Model.
+	//Coordinates of Unit on GameBoard.
 	//[HideInInspector]
 	public int TileX;
 	//[HideInInspector]
@@ -91,14 +91,14 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	public void InitializeWalkingTo(int x, int y)
+	public void MoveUnitToTileAt(int x, int y)
 	{
 		IsWalking = true;
 		finalWalkDestinationX = x;
 		finalWalkDestinationY = y;
 	}
 
-	public void MoveToNextTile()
+	private void MoveToNextTile()
 	{
 		if (CurrentPath == null) return;
 		

@@ -152,8 +152,13 @@ public class BoardManager : MonoBehaviour {
 				// _tiles[x,y] stores the index value which indicades which tile type it should have.
 				// E.g. 0 = Grass, 1 = Swamp, 2 = Mountains.
 				TileType tt = TileTypes[ _tiles[x,y] ];
-				GameObject go = Instantiate(tt.TileVisualPrefab, new Vector2(x,y), Quaternion.identity) as GameObject;
+				GameObject go = Instantiate(tt.TileVisualPrefab, new Vector3(x,y), Quaternion.identity) as GameObject;
 				go.transform.SetParent(_boardHolder);
+				//sorting layers so that ClickOnUnitHandler can detect units instead of tiles when SelectedUnit != null.
+				// Note that camera is on z = -10f and underlying layers must have a z-value larger than 0 while 
+				// closer to the camera ones lower than 0 (negative values).
+				// In Short: z > 0 --> further away from camera; z < 0 --> closer to camera.
+				go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0.05f);
 
 				//#UserInput: Let click handler of tile prefab know which tile it is related to (position information):
 				ClickOnTileHandler coth = go.GetComponent<ClickOnTileHandler>();
