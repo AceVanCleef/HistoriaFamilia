@@ -147,7 +147,7 @@ public class BoardManager : MonoBehaviour {
 		//setup floor tiles
 		for( int x = 0; x < BoardSizeX; ++x)
 		{
-			for( int y = 0; y < BoardSizeY; ++y)
+			for( int y = 0; y < BoardSizeY; ++y )
 			{
 				// _tiles[x,y] stores the index value which indicades which tile type it should have.
 				// E.g. 0 = Grass, 1 = Swamp, 2 = Mountains.
@@ -158,6 +158,7 @@ public class BoardManager : MonoBehaviour {
 				// Note that camera is on z = -10f and underlying layers must have a z-value larger than 0 while 
 				// closer to the camera ones lower than 0 (negative values).
 				// In Short: z > 0 --> further away from camera; z < 0 --> closer to camera.
+				// This is of utmost importance regarding OnMouseDown() - event detection.
 				go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0.05f);
 
 				//#UserInput: Let click handler of tile prefab know which tile it is related to (position information):
