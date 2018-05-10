@@ -26,7 +26,7 @@ public class ClickOnTileHandler : MonoBehaviour {
 	{
 		Debug.Log("Move selected unit now!");
 		Map.GeneratePathTo(TilePositionX, TilePositionY);
-        UnitManager.SelectedUnit.GetComponent<Unit>().MoveUnitToTileAt(TilePositionX, TilePositionY);
+        UnitManager.GetSelectedUnit().GetComponent<Unit>().MoveUnitToTileAt(TilePositionX, TilePositionY);
 		UnitManager.DeselectUnit();
 	}
 

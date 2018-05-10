@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour {
 
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _unitsHolder;
-	[Tooltip("Stores which units are currently alive and fighting on the battlefield.")]
-    public List <GameObject> AllUnits = null;
+	[SerializeField, Tooltip("Stores which units are currently alive and fighting on the battlefield. Note: Do not use this field. Instead define units using Spawn Data field.")]
+    private List <GameObject> AllUnits = null;
 
+	[HideInInspector]
     public BoardManager BoardManager;
 
 	[Tooltip("Define what unit types do exist and which attribute values they have.")]
@@ -18,29 +20,20 @@ public class UnitManager : MonoBehaviour {
 	[Tooltip("Define where what kind of unit will spawn at the beginning of a match.")]
 	public List <UnitSpawnData> SpawnData;
 
-	//for testing:
-	public GameObject Unit1;
-	public GameObject Unit2;
-	public GameObject Unit3;
 
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
-	public GameObject SelectedUnit;
+	[SerializeField]
+	private GameObject SelectedUnit;
 
      void Start()
     {
 		InitializeUnitsOnMapCreation();
-		//will be replaced with initialize/createUnits()
-		Unit1.GetComponent<Unit>().Map = BoardManager;
-		Unit2.GetComponent<Unit>().Map = BoardManager;
-		Unit3.GetComponent<Unit>().Map = BoardManager;
-		Unit1.GetComponent<ClickOnUnitHandler>().UnitManager = this;
-		Unit2.GetComponent<ClickOnUnitHandler>().UnitManager = this;
-		Unit3.GetComponent<ClickOnUnitHandler>().UnitManager = this;
     }
 
 	// -------------------------- Unit Creation ---------------------------------
 	private void InitializeUnitsOnMapCreation()
 	{
+		_unitsHolder = new GameObject("Units").transform;
 		foreach (UnitSpawnData usd in SpawnData)
 		{
 			CreateUnitAt(usd.SpawnPosX, usd.SpawnPosY, usd.Unit_Type);
@@ -54,7 +47,6 @@ public class UnitManager : MonoBehaviour {
 
 		//instantiate at x, y as UnitArcheType unitType such as Archer, Infantry or others:
 		Debug.Log(x + "-" + y + " is " + unitType);
-		_unitsHolder = new GameObject("Units").transform;
 		UnitType ut = UnitTypes[ (int) unitType ];
 		GameObject go = Instantiate(ut.UnitVisualPrefab, new Vector3(x, y, 0), 
 			Quaternion.identity) as GameObject;
@@ -67,38 +59,30 @@ public class UnitManager : MonoBehaviour {
         unitScript.Map = BoardManager;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
+
+		//add unit to AllUnits
+		AllUnits.Add(go);
 	}
 
 
 	// -------------------------- Unit Selection ---------------------------------
-	public void UpdateSelectedUnitValues()
+	private void UpdateSelectedUnitValues()
     {
         // Set Position of selected unit.
         Unit unit = SelectedUnit.GetComponent<Unit>();
         unit.TileX = (int)SelectedUnit.transform.position.x;
         unit.TileY = (int)SelectedUnit.transform.position.y;
-        //unit.Map = BoardManager;
     }
 
 	public bool HasUnitOnTile(int x, int y)
 	{
-		if (Unit1.GetComponent<Unit>().TileX == x && Unit1.GetComponent<Unit>().TileY == y)
-			return true;
-		if (Unit2.GetComponent<Unit>().TileX == x && Unit2.GetComponent<Unit>().TileY == y)
-			return true;
-		if (Unit3.GetComponent<Unit>().TileX == x && Unit3.GetComponent<Unit>().TileY == y)
-			return true;
-		return false;
+		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
 
 	public GameObject ChooseUnitAsSelectedOnTile(int x, int y)
 	{
-		if (Unit1.GetComponent<Unit>().TileX == x && Unit1.GetComponent<Unit>().TileY == y)
-			SelectedUnit = Unit1;
-		if (Unit2.GetComponent<Unit>().TileX == x && Unit2.GetComponent<Unit>().TileY == y)
-			SelectedUnit = Unit2;
-		if (Unit3.GetComponent<Unit>().TileX == x && Unit3.GetComponent<Unit>().TileY == y)
-			SelectedUnit = Unit3;
+		SelectedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
+			.First();
 		return SelectedUnit;
 	}
 
@@ -112,14 +96,8 @@ public class UnitManager : MonoBehaviour {
 		SelectedUnit = null;
 	}
 
-  /*
-    public GameObject GetUnitAt(int x , int y)
-    {
-     GameObject KlickedUnit = AllUnits.Find(u => x == u.GetComponent<Unit>().TileX && y == u.GetComponent<Unit>().TileY);
-        Debug.Log("KlickedUnit: " + KlickedUnit);
-        return KlickedUnit;
-
-
-    }
-	*/
+	public GameObject GetSelectedUnit()
+	{
+		return SelectedUnit;
+	}
 }

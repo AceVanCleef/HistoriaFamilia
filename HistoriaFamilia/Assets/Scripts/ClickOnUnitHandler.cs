@@ -25,7 +25,6 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		if (!UnitManager.IsUnitSelected()) {
 			SelectUnit();
 		}
-		//Debug.Log("Selected unit == null?" + !UnitManager.IsUnitSelected());
 	}
 
 	private void SelectUnit()

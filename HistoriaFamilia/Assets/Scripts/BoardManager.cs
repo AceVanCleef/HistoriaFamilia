@@ -171,7 +171,7 @@ public class BoardManager : MonoBehaviour {
 	public void GeneratePathTo(int x, int y)
 	{	
 		// clear out our unit's old path.
-		UnitManager.SelectedUnit.GetComponent<Unit>().CurrentPath = null;
+		UnitManager.GetSelectedUnit().GetComponent<Unit>().CurrentPath = null;
 
 
 		//prevents walking into mountains.
@@ -190,8 +190,8 @@ public class BoardManager : MonoBehaviour {
 
 
 		Node source = graph[
-			UnitManager.SelectedUnit.GetComponent<Unit>().TileX,
-			UnitManager.SelectedUnit.GetComponent<Unit>().TileY
+			UnitManager.GetSelectedUnit().GetComponent<Unit>().TileX,
+			UnitManager.GetSelectedUnit().GetComponent<Unit>().TileY
 		];
 		Node target = graph[x, y];
 
@@ -264,20 +264,7 @@ public class BoardManager : MonoBehaviour {
 		//right now, currentPath describes a route from our target to our source, 
 		// so we need to invert it.
 		currentPath.Reverse();
-		UnitManager.SelectedUnit.GetComponent<Unit>().CurrentPath = currentPath;
-	}
-
-	//Todo, move to UnitManager?
-	public void TeleportSelectedUnitTo(int x, int y)
-	{
-		//set Unit Model data:
-		Unit unitModel = UnitManager.SelectedUnit.GetComponent<Unit>();
-		unitModel.TileX = x;
-		unitModel.TileY = y;
-		Debug.Log(unitModel.TileX + " - "  + unitModel.TileY);
-
-		//no pathfinding:
-		UnitManager.SelectedUnit.transform.position = TileCoordToWorldCoord(x, y);
+		UnitManager.GetSelectedUnit().GetComponent<Unit>().CurrentPath = currentPath;
 	}
 
 	// Notes about path finding:
