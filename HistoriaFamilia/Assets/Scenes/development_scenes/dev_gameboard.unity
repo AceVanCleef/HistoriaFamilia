@@ -140,10 +140,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26ff5bcf4535e94c826faa31e93f8d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllUnit:
-  - {fileID: 0}
-  - {fileID: 0}
+  AllUnits: []
   BoardManager: {fileID: 863546212}
+  UnitTypes:
+  - Unit_Type: 0
+    UnitVisualPrefab: {fileID: 1094505156277608, guid: 494c65c819f1020439c994700ccf0a9d,
+      type: 2}
+    MovementReach: 5
+  - Unit_Type: 1
+    UnitVisualPrefab: {fileID: 1357806524081410, guid: 4ee13177b3f6a564aae9cde62f1abedf,
+      type: 2}
+    MovementReach: 6
+  - Unit_Type: 2
+    UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
+      type: 2}
+    MovementReach: 4
+  SpawnData:
+  - Unit_Type: 0
+    SpawnPosX: 0
+    SpawnPosY: 8
+  - Unit_Type: 1
+    SpawnPosX: 8
+    SpawnPosY: 0
+  - Unit_Type: 2
+    SpawnPosX: 8
+    SpawnPosY: 8
   Unit1: {fileID: 2000876386}
   Unit2: {fileID: 722102654}
   Unit3: {fileID: 503469556}
@@ -155,7 +176,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 321084948}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -398,7 +419,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 863546210}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.603904, y: -0.5095201, z: -0.14097558}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

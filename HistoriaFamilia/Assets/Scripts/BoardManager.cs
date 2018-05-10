@@ -10,8 +10,6 @@ public class BoardManager : MonoBehaviour {
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _boardHolder;
 
-	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
-	//public GameObject SelectedUnit;
 	public UnitManager UnitManager;
 
 	public TileType[] TileTypes;	//defined in inspector.
@@ -28,23 +26,12 @@ public class BoardManager : MonoBehaviour {
 	List<Node> currentPath = null;
 
 	void Start () {
-        //UpdateSelectedUnitValues();
-
 
         GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisuals();
 	}
-/*
-    public void UpdateSelectedUnitValues()
-    {
-        // Set Position of selected unit.
-        Unit unit = SelectedUnit.GetComponent<Unit>();
-        unit.TileX = (int)SelectedUnit.transform.position.x;
-        unit.TileY = (int)SelectedUnit.transform.position.y;
-        unit.Map = this;
-    }
-	*/
+
 	void GenerateMapData()
 	{
 		_tiles = new int[BoardSizeX,BoardSizeY];
@@ -280,7 +267,7 @@ public class BoardManager : MonoBehaviour {
 		UnitManager.SelectedUnit.GetComponent<Unit>().CurrentPath = currentPath;
 	}
 
-
+	//Todo, move to UnitManager?
 	public void TeleportSelectedUnitTo(int x, int y)
 	{
 		//set Unit Model data:
