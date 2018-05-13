@@ -86,12 +86,15 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+
 	public bool UnitCanEnterTile(int x, int y) {
+        TileType tt = TileTypes[_tiles[x, y]];
 
-		// We could test the unit's walk/hover/fly type against various
-		// terrain flags here to see if they are allowed to enter the tile.
+        // We could test the unit's walk/hover/fly type against various
+        // terrain flags here to see if they are allowed to enter the tile.
 
-		return TileTypes[ _tiles[x,y] ].IsWalkable;
+        Debug.Log("allowed to walk on:" + tt.Topography + "? " + UnitManager.IsallowedToWalk(tt));
+        return UnitManager.IsallowedToWalk(tt);
 	}
 
 	float CostToEnterTile(int x, int y)

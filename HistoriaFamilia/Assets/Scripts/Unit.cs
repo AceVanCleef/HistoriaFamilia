@@ -26,6 +26,10 @@ public class Unit : MonoBehaviour {
 	// keeps track and updates the current lerp time.
 	private float _currentLerpTime = 0f;
 
+	// identifies what UnitType it is by mapping Unit to UnitType.
+    [HideInInspector]
+    public UnitType.UnitArcheType Unit_Type;
+
 	void Start()
 	{
 		// Set Position of selected unit.

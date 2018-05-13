@@ -73,6 +73,7 @@ public class UnitManager : MonoBehaviour {
 		Unit unitScript = go.GetComponent<Unit>();
 		unitScript.TileX = (int)go.transform.position.x;
         unitScript.TileY = (int)go.transform.position.y;
+		unitScript.Unit_Type = unitType;
         unitScript.Map = BoardManager;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
@@ -117,4 +118,13 @@ public class UnitManager : MonoBehaviour {
 	{
 		return SelectedUnit;
 	}
+
+	public bool IsallowedToWalk(TileType tile)
+    {
+        // UnitTypes[indextoselectunittypeattributes]
+        //var CantWalkOn = SelectedUnit.GetComponent<Unit>().GetComponent<UnitType>().ProhibitedToWalkOn;
+        int index = (int) SelectedUnit.GetComponent<Unit>().Unit_Type;
+        Debug.Log("unittype key: " + index + " is " + UnitTypes[index].Unit_Type);
+        return !UnitTypes[index].ProhibitedToWalkOn.Contains(tile.Topography);
+    }
 }
