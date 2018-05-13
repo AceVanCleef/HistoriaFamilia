@@ -93,8 +93,8 @@ public class BoardManager : MonoBehaviour {
         // We could test the unit's walk/hover/fly type against various
         // terrain flags here to see if they are allowed to enter the tile.
 
-        Debug.Log("allowed to walk on:" + tt.Topography + "? " + UnitManager.IsallowedToWalk(tt));
-        return UnitManager.IsallowedToWalk(tt);
+        Debug.Log("allowed to walk on:" + tt.Topography + "? " + UnitManager.IsAllowedToWalk(tt));
+        return UnitManager.IsAllowedToWalk(tt);
 	}
 
 	float CostToEnterTile(int x, int y)

@@ -119,7 +119,9 @@ public class UnitManager : MonoBehaviour {
 		return SelectedUnit;
 	}
 
-	public bool IsallowedToWalk(TileType tile)
+
+
+	public bool IsAllowedToWalk(TileType tile)
     {
         // UnitTypes[indextoselectunittypeattributes]
         //var CantWalkOn = SelectedUnit.GetComponent<Unit>().GetComponent<UnitType>().ProhibitedToWalkOn;
