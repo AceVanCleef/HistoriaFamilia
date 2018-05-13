@@ -291,4 +291,4 @@ public class BoardManager : MonoBehaviour {
 	// Notes about path finding:
 	// Two algorightms are available: Dijkstra and A*.
 	// Dijkstra is a bit slower than A*, but simpler to implement and also guarantees to find the goal.
-}
+} //This is the End
