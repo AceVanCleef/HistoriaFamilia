@@ -22,6 +22,8 @@ public class UnitType {
 	public UnitArcheType Unit_Type;
 	public GameObject UnitVisualPrefab;
 
+	public float MaxHealth = 10;
 	public float MovementReach = 6;
+	public float BaseAttackPower = 5;
  	public List<TileType.TopographicalFeature> ProhibitedToWalkOn;
 }

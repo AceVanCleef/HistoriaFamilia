@@ -30,6 +30,9 @@ public class Unit : MonoBehaviour {
     [HideInInspector]
     public UnitType.UnitArcheType Unit_Type;
 
+	// Health System
+	public float CurrentHealth;
+
 	void Start()
 	{
 		// Set Position of selected unit.
@@ -66,6 +69,8 @@ public class Unit : MonoBehaviour {
 			}
 		}
 	}
+
+	// -------------------------- Unit Movement ---------------------------------
 
 	private void ManageUnitMovement()
 	{

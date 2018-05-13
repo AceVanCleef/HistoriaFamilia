@@ -25,6 +25,14 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		if (!UnitManager.IsUnitSelected()) {
 			SelectUnit();
 		}
+
+		// Note: Work in progress. [Stefan]
+		if (UnitManager.IsUnitSelected() && !UnitManager.IsTargetSelected()) {
+			//TargetEnemy();
+		}
+		if (UnitManager.IsUnitSelected() && UnitManager.IsTargetSelected()) {
+			//AttackEnemy();
+		}
 	}
 
 	private void SelectUnit()
@@ -34,5 +42,21 @@ public class ClickOnUnitHandler : MonoBehaviour {
 				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(_unit.TileX, _unit.TileY);
 				Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
 			}
+	}
+
+	private void TargetEnemy()
+	{
+		if (UnitManager.HasEnemyOnTile(_unit.TileX, _unit.TileY))
+			{
+				GameObject selectedTarget = UnitManager.TargetUnitAt(_unit.TileX, _unit.TileY);
+				Debug.Log("Selected TARGET is on (" + selectedTarget.GetComponent<Unit>().TileX + ":" + selectedTarget.GetComponent<Unit>().TileY + ")");
+			}
+	}
+
+	private void AttackEnemy()
+	{
+		UnitManager.AttackTargetedUnit();
+		UnitManager.DeselectTarget();
+		UnitManager.DeselectUnit();
 	}
 }

@@ -25,6 +25,8 @@ public class UnitManager : MonoBehaviour {
 	[SerializeField][Tooltip("Hint: Leave this empty.")]
 	private GameObject SelectedUnit;
 
+	private GameObject TargetedUnit;
+
      void Start()
     {
 		PreventEnumToIndexMappingErrorOFUnitTypes();
@@ -75,6 +77,7 @@ public class UnitManager : MonoBehaviour {
         unitScript.TileY = (int)go.transform.position.y;
 		unitScript.Unit_Type = unitType;
         unitScript.Map = BoardManager;
+		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 
@@ -82,6 +85,62 @@ public class UnitManager : MonoBehaviour {
 		AllUnits.Add(go);
 	}
 
+	// -------------------------- Targeting a hostile Unit ---------------------------------
+	public bool HasEnemyOnTile(int x, int y)
+	{
+		//TODO: differentiate between hostile and friendly units.
+		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
+	}
+
+	public GameObject TargetUnitAt(int x, int y)
+	{
+		TargetedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
+			.First();
+		return TargetedUnit;
+	}
+
+	public bool IsTargetSelected()
+	{
+		return TargetedUnit != null;
+	}
+
+	public void DeselectTarget()
+	{
+		TargetedUnit = null;
+	}
+
+	// -------------------------- Unit Combat ---------------------------------
+	public Unit[] GetTargetsInRangetsFrom(int x, int y)
+	{
+		//TODO: ensure that selected units first walk, then attack.
+		//XXX: Maybe a UI should be implemented first.
+		return null;
+	}
+
+	public void AttackTargetedUnit()
+	{
+		Unit selectedUnit = SelectedUnit.GetComponent<Unit>();
+		Unit targetedUnit = TargetedUnit.GetComponent<Unit>();
+		int su = (int) selectedUnit.Unit_Type;
+
+		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower);
+		if (targetedUnit.CurrentHealth < 0.01f)
+		{
+			DestroyUnit(TargetedUnit);
+			DeselectTarget(); //just for safety reasons. might be removed in the future.
+		}
+	}
+
+	private float CalculateDamage(float baseAttackPower)
+	{
+		return baseAttackPower;
+	}
+
+	private void DestroyUnit(GameObject unit)
+	{
+		AllUnits.Remove(unit);
+		Destroy(unit);
+	}
 
 	// -------------------------- Unit Selection ---------------------------------
 	private void UpdateSelectedUnitValues()
@@ -94,6 +153,7 @@ public class UnitManager : MonoBehaviour {
 
 	public bool HasUnitOnTile(int x, int y)
 	{
+		//TODO: differentiate between your units and other players units.
 		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
 
