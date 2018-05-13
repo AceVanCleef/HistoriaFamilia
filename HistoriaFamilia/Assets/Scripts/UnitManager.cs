@@ -27,8 +27,25 @@ public class UnitManager : MonoBehaviour {
 
      void Start()
     {
+		PreventEnumToIndexMappingErrorOFUnitTypes();
 		InitializeUnitsOnMapCreation();
     }
+
+	// asserts correct mapping from UnitType.UnitArcheType to UnitType[]'s index 
+	// and prevents duplicates of the same UnitType.UnitArcheType value.
+	// Note: If a designer wants to add two types of e.g. Archers such as Longbow- and CompositeBowArchers,  
+	// extend the UnitType.UnitArcheType enum.
+	private void PreventEnumToIndexMappingErrorOFUnitTypes()
+	{
+		Debug.Log("Entering Prevent Index error of Units");
+		UnitTypes = UnitTypes.OrderBy(ut => ut.Unit_Type)
+					.DistinctBy(ut => ut.Unit_Type)
+					.ToArray();
+		foreach(UnitType unit in UnitTypes)
+		{
+			Debug.Log(unit.Unit_Type + "-" + unit.MovementReach);
+		}
+	}
 
 	// -------------------------- Unit Creation ---------------------------------
 	private void InitializeUnitsOnMapCreation()

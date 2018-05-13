@@ -35,14 +35,14 @@ public class BoardManager : MonoBehaviour {
 
 	// asserts correct mapping from TileType.TopographicalFeature to TileType[]'s index 
 	// and prevents duplicates of the same TileType.TopographicalFeature value.
-	// Note: If a designer wants to add two types of e.g. Mountains, extend 
-	// the TileType.TopographicalFeature enum.
+	// Note: If a designer wants to add two types of e.g. Mountains such as IcyMountains and Volcanos,  
+	// extend the TileType.TopographicalFeature enum.
 	private void PreventEnumToIndexMappingErrorOFTileTypes()
 	{
 		Debug.Log("Entering Prevent Index error");
-		TileTypes = TileTypes.OrderBy(tt => tt.Topography)/*.DistinctBy<TileType>(tt => tt.Topography)*/.ToArray();
-		//todo: remove duplicates:
-
+		TileTypes = TileTypes.OrderBy(tt => tt.Topography)
+						.DistinctBy(tt => tt.Topography)
+						.ToArray();
 		foreach(TileType tile in TileTypes)
 		{
 			Debug.Log(tile.Topography + "-" + tile.MovementCost);

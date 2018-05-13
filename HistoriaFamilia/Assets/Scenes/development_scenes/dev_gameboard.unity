@@ -449,6 +449,11 @@ MonoBehaviour:
       type: 2}
     MovementCost: 1
     IsWalkable: 1
+  - Topography: 0
+    TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,
+      type: 2}
+    MovementCost: 1
+    IsWalkable: 1
   BoardSizeX: 10
   BoardSizeY: 10
 --- !u!1 &1035820570
