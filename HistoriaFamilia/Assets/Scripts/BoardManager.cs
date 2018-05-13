@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-//to allow [Serializable] which alloes showing variables of subclasses in the inspector.
+//to allow [Serializable] which allows showing variables of subclasses in the inspector.
 using System;
 
 public class BoardManager : MonoBehaviour {
@@ -32,8 +33,25 @@ public class BoardManager : MonoBehaviour {
 		GenerateMapVisuals();
 	}
 
+	// asserts correct mapping from TileType.TopographicalFeature to TileType[]'s index 
+	// and prevents duplicates of the same TileType.TopographicalFeature value.
+	// Note: If a designer wants to add two types of e.g. Mountains, extend 
+	// the TileType.TopographicalFeature enum.
+	private void PreventEnumToIndexMappingErrorOFTileTypes()
+	{
+		Debug.Log("Entering Prevent Index error");
+		TileTypes = TileTypes.OrderBy(tt => tt.Topography)/*.DistinctBy<TileType>(tt => tt.Topography)*/.ToArray();
+		//todo: remove duplicates:
+
+		foreach(TileType tile in TileTypes)
+		{
+			Debug.Log(tile.Topography + "-" + tile.MovementCost);
+		}
+	}
+
 	void GenerateMapData()
 	{
+		PreventEnumToIndexMappingErrorOFTileTypes();
 		_tiles = new int[BoardSizeX,BoardSizeY];
 		
 		//initialize our map tiles

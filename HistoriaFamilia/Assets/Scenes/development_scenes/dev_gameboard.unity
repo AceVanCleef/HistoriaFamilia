@@ -147,14 +147,17 @@ MonoBehaviour:
     UnitVisualPrefab: {fileID: 1094505156277608, guid: 494c65c819f1020439c994700ccf0a9d,
       type: 2}
     MovementReach: 5
+    ProhibitedToWalkOn: 
   - Unit_Type: 1
     UnitVisualPrefab: {fileID: 1357806524081410, guid: 4ee13177b3f6a564aae9cde62f1abedf,
       type: 2}
     MovementReach: 6
+    ProhibitedToWalkOn: 
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
       type: 2}
     MovementReach: 4
+    ProhibitedToWalkOn: 
   SpawnData:
   - Unit_Type: 0
     SpawnPosX: 0
@@ -168,6 +171,9 @@ MonoBehaviour:
   - Unit_Type: 0
     SpawnPosX: 1
     SpawnPosY: 2
+  - Unit_Type: 1
+    SpawnPosX: 5
+    SpawnPosY: 5
   SelectedUnit: {fileID: 0}
 --- !u!4 &321084950
 Transform:
@@ -428,11 +434,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitManager: {fileID: 321084949}
   TileTypes:
-  - Topography: 0
-    TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,
-      type: 2}
-    MovementCost: 1
-    IsWalkable: 1
   - Topography: 1
     TileVisualPrefab: {fileID: 1382657848433486, guid: 611c3834566792a4f907ac86cba39939,
       type: 2}
@@ -442,6 +443,11 @@ MonoBehaviour:
     TileVisualPrefab: {fileID: 1825857283138250, guid: 4a2789e78248cd24cacf8a1b154562b8,
       type: 2}
     MovementCost: 9999
+    IsWalkable: 1
+  - Topography: 0
+    TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,
+      type: 2}
+    MovementCost: 1
     IsWalkable: 1
   BoardSizeX: 10
   BoardSizeY: 10

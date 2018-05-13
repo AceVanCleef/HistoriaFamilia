@@ -23,4 +23,5 @@ public class UnitType {
 	public GameObject UnitVisualPrefab;
 
 	public float MovementReach = 6;
+ 	public List<TileType.TopographicalFeature> ProhibitedToWalkOn;
 }

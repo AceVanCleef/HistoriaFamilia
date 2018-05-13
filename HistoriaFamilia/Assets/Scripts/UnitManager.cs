@@ -7,7 +7,7 @@ public class UnitManager : MonoBehaviour {
 
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _unitsHolder;
-	[SerializeField, Tooltip("Stores which units are currently alive and fighting on the battlefield. Note: Do not use this field. Instead define units using Spawn Data field.")]
+	[SerializeField][Tooltip("Stores which units are currently alive and fighting on the battlefield. Note: Do not use this field. Instead define units using Spawn Data field.")]
     private List <GameObject> AllUnits = null;
 
 	[HideInInspector]
@@ -22,7 +22,7 @@ public class UnitManager : MonoBehaviour {
 
 
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
-	[SerializeField]
+	[SerializeField][Tooltip("Hint: Leave this empty.")]
 	private GameObject SelectedUnit;
 
      void Start()
