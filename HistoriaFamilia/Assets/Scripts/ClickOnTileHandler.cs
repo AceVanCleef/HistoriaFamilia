@@ -26,8 +26,9 @@ public class ClickOnTileHandler : MonoBehaviour {
 	{
 		Debug.Log("Move selected unit now!");
 		Map.GeneratePathTo(TilePositionX, TilePositionY);
-        UnitManager.GetSelectedUnit().GetComponent<Unit>().MoveUnitToTileAt(TilePositionX, TilePositionY);
-		UnitManager.DeselectUnit();
+        GameObject su = UnitManager.GetSelectedUnit();
+		su.GetComponent<Unit>().MoveUnitToTileAt(TilePositionX, TilePositionY);
+		//UnitManager.DeselectUnit(); //moving to Unit script? Or not needed here at all? Maybe as reaction to UnitUI.
 	}
 
 }

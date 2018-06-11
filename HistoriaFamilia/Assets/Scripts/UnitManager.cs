@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class UnitManager : MonoBehaviour {
+
+	//UnitUI (Attack, Wait, Cancel)
+	public GameObject UnitUI;
+	private bool _displayUnitUI = false;
+	public Button AttackBtn;
+	public Button WaitBtn;
+	public Button CancelBtn;
 
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _unitsHolder;
@@ -26,11 +35,17 @@ public class UnitManager : MonoBehaviour {
 	private GameObject SelectedUnit;
 
 	private GameObject TargetedUnit;
+	private bool _enemyCanBeSelected;
 
      void Start()
     {
 		PreventEnumToIndexMappingErrorOFUnitTypes();
 		InitializeUnitsOnMapCreation();
+
+		AttackBtn.onClick.AddListener(AllowTargetingEnemy);
+		WaitBtn.onClick.AddListener(Wait);
+		CancelBtn.onClick.AddListener(Cancel);
+
     }
 
 	// asserts correct mapping from UnitType.UnitArcheType to UnitType[]'s index 
@@ -110,6 +125,10 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	// -------------------------- Unit Combat ---------------------------------
+	public bool ReadyToLockOnTarget() {
+		return _enemyCanBeSelected;
+	}
+
 	public Unit[] GetTargetsInRangetsFrom(int x, int y)
 	{
 		//TODO: ensure that selected units first walk, then attack.
@@ -129,6 +148,7 @@ public class UnitManager : MonoBehaviour {
 			DestroyUnit(TargetedUnit);
 			DeselectTarget(); //just for safety reasons. might be removed in the future.
 		}
+		DisableTargetingenemy();
 	}
 
 	private float CalculateDamage(float baseAttackPower)
@@ -161,6 +181,9 @@ public class UnitManager : MonoBehaviour {
 	{
 		SelectedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
 			.First();
+
+		ShowUnitUI();
+
 		return SelectedUnit;
 	}
 
@@ -172,6 +195,7 @@ public class UnitManager : MonoBehaviour {
 	public void DeselectUnit()
 	{
 		SelectedUnit = null;
+		HideUnitUI();
 	}
 
 	public GameObject GetSelectedUnit()
@@ -189,4 +213,42 @@ public class UnitManager : MonoBehaviour {
         Debug.Log("unittype key: " + index + " is " + UnitTypes[index].Unit_Type);
         return !UnitTypes[index].ProhibitedToWalkOn.Contains(tile.Topography);
     }
+
+
+	// -------------------------- Unit UI Control ---------------------------------
+	private void ToggleUnitUI() {
+		_displayUnitUI = !_displayUnitUI;
+		UnitUI.SetActive(_displayUnitUI);
+	}
+
+	private void ShowUnitUI() {
+	Debug.Log("ShowUnitUI");
+		_displayUnitUI = true;
+		UnitUI.SetActive(_displayUnitUI);
+	}
+
+	private void HideUnitUI() {
+		Debug.Log("HideUnitUI");
+		_displayUnitUI = false;
+		UnitUI.SetActive(_displayUnitUI);
+	}
+
+	private void Cancel() {
+		Debug.Log("Cancel");
+	}
+
+	private void Wait() {
+		Debug.Log("Wait");
+		DeselectTarget();
+		DeselectUnit();
+	}
+
+	private void AllowTargetingEnemy() {
+		_enemyCanBeSelected = true;
+		//do additional UI stuff, e.g. display targeting area.
+	}
+
+	private void DisableTargetingenemy() {
+		_enemyCanBeSelected = false;
+	}
 }
