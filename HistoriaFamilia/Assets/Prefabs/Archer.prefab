@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 61786353197966572}
   - component: {fileID: 114962127933792444}
   - component: {fileID: 114832537743897224}
+  - component: {fileID: 95037817524595164}
   m_Layer: 8
   m_Name: Archer
   m_TagString: Unit
@@ -97,6 +98,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
+--- !u!95 &95037817524595164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1094505156277608}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30ea91fa1311bc2499a56c543c922750, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114832537743897224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +142,8 @@ MonoBehaviour:
   TileY: 0
   Map: {fileID: 0}
   LerpDuration: 0.25
+  Unit_Type: 0
+  CurrentHealth: 0
 --- !u!212 &212286873520702916
 SpriteRenderer:
   m_ObjectHideFlags: 1

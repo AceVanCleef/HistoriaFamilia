@@ -23,15 +23,29 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		Debug.Log("Clicked on a unit." + "Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
 		
 		if (!UnitManager.IsUnitSelected()) {
+			Debug.Log("A");
 			SelectUnit();
 		}
 
 		// Note: Work in progress. [Stefan]
 		if (UnitManager.IsUnitSelected() && !UnitManager.IsTargetSelected()) {
-			TargetEnemy();
-		}
-		if (UnitManager.IsUnitSelected() && UnitManager.IsTargetSelected()) {
-			//AttackEnemy();
+			Debug.Log("B");
+			Unit su = UnitManager.GetSelectedUnit().GetComponent<Unit>();
+			/* Bug note: directly jumps into UnitArrived state. Todo: Fix it.
+			*
+			//Unit staying on the spot: (.GetUnitState().InUnitSelectedState)
+			if (su.GetUnitState().InUnitSelectedState && su.TileX == _unit.TileX && su.TileY == _unit.TileY) {
+				Debug.Log("C: staying at SPOT");
+				su.GetUnitState().UnitSelected2UnitArrived();
+				return;
+			}
+			*/
+
+			//Target enemy if SelectedUnit is in Arrived state. Note: Can't attack itself
+			if (su.GetUnitState().InSelectingTargetState && (su.TileX != _unit.TileX || su.TileY != _unit.TileY) ) {
+				Debug.Log("D: attacking");
+				TargetEnemy();
+			}
 		}
 	}
 
@@ -40,14 +54,15 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		if (UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY))
 			{
 				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(_unit.TileX, _unit.TileY);
-				Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
+				if (selectedUnit != null)	Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
 			}
 	}
 
 	private void TargetEnemy()
 	{
-		if (UnitManager.ReadyToLockOnTarget() && UnitManager.HasEnemyOnTile(_unit.TileX, _unit.TileY))
+		if (UnitManager.HasEnemyOnTile(_unit.TileX, _unit.TileY))
 			{
+				//todo: check IsUnitINRange?
 				GameObject selectedTarget = UnitManager.TargetUnitAt(_unit.TileX, _unit.TileY);
 				Debug.Log("Selected TARGET is on (" + selectedTarget.GetComponent<Unit>().TileX + ":" + selectedTarget.GetComponent<Unit>().TileY + ")");
 				AttackEnemy();

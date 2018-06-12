@@ -35,14 +35,14 @@ public class UnitManager : MonoBehaviour {
 	private GameObject SelectedUnit;
 
 	private GameObject TargetedUnit;
-	private bool _enemyCanBeSelected;
+	//private bool _enemyCanBeSelected;
 
-     void Start()
+    void Start()
     {
 		PreventEnumToIndexMappingErrorOFUnitTypes();
 		InitializeUnitsOnMapCreation();
 
-		AttackBtn.onClick.AddListener(AllowTargetingEnemy);
+		AttackBtn.onClick.AddListener(AquireTarget);
 		WaitBtn.onClick.AddListener(Wait);
 		CancelBtn.onClick.AddListener(Cancel);
 
@@ -126,7 +126,7 @@ public class UnitManager : MonoBehaviour {
 
 	// -------------------------- Unit Combat ---------------------------------
 	public bool ReadyToLockOnTarget() {
-		return _enemyCanBeSelected;
+		return false ;// _enemyCanBeSelected;
 	}
 
 	public Unit[] GetTargetsInRangetsFrom(int x, int y)
@@ -142,13 +142,16 @@ public class UnitManager : MonoBehaviour {
 		Unit targetedUnit = TargetedUnit.GetComponent<Unit>();
 		int su = (int) selectedUnit.Unit_Type;
 
+		selectedUnit.GetUnitState().SelectingTarget2Attacking();
+
+
 		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower);
 		if (targetedUnit.CurrentHealth < 0.01f)
 		{
 			DestroyUnit(TargetedUnit);
 			DeselectTarget(); //just for safety reasons. might be removed in the future.
 		}
-		DisableTargetingenemy();
+		selectedUnit.GetUnitState().Attacking2Resting();
 	}
 
 	private float CalculateDamage(float baseAttackPower)
@@ -182,6 +185,12 @@ public class UnitManager : MonoBehaviour {
 		SelectedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
 			.First();
 
+		// only get selected when in Ready state.
+		if ( !SelectedUnit.GetComponent<Unit>().GetUnitState().InReadyState ) {
+			SelectedUnit = null;
+			return null;
+		}
+		SelectedUnit.GetComponent<Unit>().GetUnitState().Ready2UnitSelected();
 		ShowUnitUI();
 
 		return SelectedUnit;
@@ -214,6 +223,9 @@ public class UnitManager : MonoBehaviour {
         return !UnitTypes[index].ProhibitedToWalkOn.Contains(tile.Topography);
     }
 
+	public bool HasSelectedUnitReachedFinalDestination() {
+		return SelectedUnit.GetComponent<Unit>().HasReachedFinalDestination();
+	}
 
 	// -------------------------- Unit UI Control ---------------------------------
 	private void ToggleUnitUI() {
@@ -243,12 +255,24 @@ public class UnitManager : MonoBehaviour {
 		DeselectUnit();
 	}
 
+	// -------------------------- Pseudo State Machine ---------------------------------
+
 	private void AllowTargetingEnemy() {
-		_enemyCanBeSelected = true;
+		//_enemyCanBeSelected = true;
+		//do additional UI stuff, e.g. display targeting area.
+	}
+
+	private void AquireTarget() {
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		if ( !su.GetUnitState().InUnitArrivedState) return;
+		su.GetUnitState().UnitArrived2SelectingTarget();
+		//Todo: - display TargetSelector cursor in UI. - do logic stuff regarding selecting a target.
+
 		//do additional UI stuff, e.g. display targeting area.
 	}
 
 	private void DisableTargetingenemy() {
-		_enemyCanBeSelected = false;
+		//_enemyCanBeSelected = false;
 	}
+
 }

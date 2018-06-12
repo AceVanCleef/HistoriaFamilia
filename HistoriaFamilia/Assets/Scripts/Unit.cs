@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using System;
+
 public class Unit : MonoBehaviour {
 
 	//Coordinates of Unit on GameBoard.
@@ -33,11 +35,78 @@ public class Unit : MonoBehaviour {
 	// Health System
 	public float CurrentHealth;
 
+	[SerializeField] //made visible in inspector for debugging.
+	private UnitState _unitState;
+	//a really dumb implementation of a state machine.
+	[Serializable]
+	public class UnitState {
+
+		/*Links to FSM:
+			https://millionlords.com/finite-state-machine-unity/
+			https://www.youtube.com/watch?v=D6hAftj3AgM
+		*/
+
+		//Variables to check against.
+		public bool InReadyState			= true;
+		public bool InUnitSelectedState		= false;
+		public bool InUnitArrivedState		= false;
+		public bool InSelectingTargetState	= false;
+		public bool InAttackingState		= false;
+		public bool InRestingState			= false;
+
+		// ------------ transitions (forward, backward where allowed) ----------------
+		//Ready state
+		public void Ready2UnitSelected () {
+			InReadyState = false;
+			InUnitSelectedState = true;
+		}
+		public void UnitSelected2Ready () {
+			InReadyState = true;
+			InUnitSelectedState = false;
+		}
+		//UnitSelected state
+		public void UnitSelected2UnitArrived () {
+			InUnitSelectedState = false;
+			InUnitArrivedState = true;
+		}
+		public void UnitArrived2UnitSelected () {
+			InUnitSelectedState = true;
+			InUnitArrivedState = false;
+		}
+		//UnitArrived state
+		public void UnitArrived2SelectingTarget () {
+			InUnitArrivedState = false;
+			InSelectingTargetState = true;
+		}
+		public void SelectingTarget2UnitSelected () {
+			InUnitSelectedState = true;
+			InSelectingTargetState = false;
+		}
+		//SelectingTarget state
+		public void SelectingTarget2Attacking () {
+			InSelectingTargetState = false;
+			InAttackingState = true;
+		}
+		//Attacking state
+		public void Attacking2Resting () {
+			InAttackingState = false;
+			InRestingState = true;
+		}
+		//Resting state
+		public void Resting2Ready () {
+			InRestingState = false;
+			InReadyState = true;
+		}
+		//Back to Ready state. The cycle is now closed.
+	}
+
 	void Start()
 	{
 		// Set Position of selected unit.
         TileX = (int)transform.position.x;
         TileY = (int)transform.position.y;
+
+		_unitState = new UnitState();
 	}
 
 	void Update()
@@ -70,6 +139,10 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	public UnitState GetUnitState() {
+		return _unitState;
+	}
+
 	// -------------------------- Unit Movement ---------------------------------
 
 	private void ManageUnitMovement()
@@ -96,13 +169,16 @@ public class Unit : MonoBehaviour {
 				// Teleport us to our correct "current" position, in case we
 				// haven't finished the animation yet.
 				transform.position = Map.TileCoordToWorldCoord( TileX, TileY );
+				// update state machine.
+				_unitState.UnitSelected2UnitArrived();
 			}
 		}
 	}
 
 	public void MoveUnitToTileAt(int x, int y)
 	{
-		IsWalking = true;
+		if (! _unitState.InUnitSelectedState) return;
+		IsWalking = true; //initializes walking.
 		finalWalkDestinationX = x;
 		finalWalkDestinationY = y;
 	}
@@ -137,7 +213,7 @@ public class Unit : MonoBehaviour {
 		return Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( TileX, TileY )) < 0.1f;
 	}
 
-	private bool HasReachedFinalDestination()
+	public bool HasReachedFinalDestination()
 	{
 		return Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( finalWalkDestinationX, finalWalkDestinationY )) < 0.001f;
 	}
