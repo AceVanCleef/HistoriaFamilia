@@ -12,7 +12,10 @@ public class Unit : MonoBehaviour {
 	//[HideInInspector]
 	public int TileY;
 	//[HideInInspector]
-	public BoardManager Map;	//Todo: must be set during unit creation in UnitManager.
+	public BoardManager Map;
+	//For StateMachine's Cancel transition.
+	private int _previousPosX;
+	private int _previousPosY;
 
 	//pathfinding: stores the path from this unit ( = source) to target Node
 	public List<Node> CurrentPath = null;
@@ -78,8 +81,8 @@ public class Unit : MonoBehaviour {
 			InUnitArrivedState = false;
 			InSelectingTargetState = true;
 		}
-		public void SelectingTarget2UnitSelected () {
-			InUnitSelectedState = true;
+		public void SelectingTarget2UnitArrived () {
+			InUnitArrivedState = true;
 			InSelectingTargetState = false;
 		}
 		//SelectingTarget state
@@ -98,6 +101,12 @@ public class Unit : MonoBehaviour {
 			InReadyState = true;
 		}
 		//Back to Ready state. The cycle is now closed.
+
+		//transitions for Wait
+		public void UnitArrived2Resting () {
+			InUnitArrivedState = false;
+			InRestingState = true;
+		}
 	}
 
 	void Start()
@@ -178,6 +187,8 @@ public class Unit : MonoBehaviour {
 	public void MoveUnitToTileAt(int x, int y)
 	{
 		if (! _unitState.InUnitSelectedState) return;
+		_previousPosX = TileX;
+		_previousPosY = TileY;
 		IsWalking = true; //initializes walking.
 		finalWalkDestinationX = x;
 		finalWalkDestinationY = y;
@@ -218,4 +229,9 @@ public class Unit : MonoBehaviour {
 		return Vector2.Distance(transform.position, Map.TileCoordToWorldCoord( finalWalkDestinationX, finalWalkDestinationY )) < 0.001f;
 	}
 
+	public void TeleportToPreviousPosition () {
+		transform.position = Map.TileCoordToWorldCoord( _previousPosX, _previousPosY );
+		TileX = _previousPosX;
+		TileY = _previousPosY;
+	}
 }

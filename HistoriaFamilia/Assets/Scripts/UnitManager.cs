@@ -35,7 +35,6 @@ public class UnitManager : MonoBehaviour {
 	private GameObject SelectedUnit;
 
 	private GameObject TargetedUnit;
-	//private bool _enemyCanBeSelected;
 
     void Start()
     {
@@ -125,9 +124,6 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	// -------------------------- Unit Combat ---------------------------------
-	public bool ReadyToLockOnTarget() {
-		return false ;// _enemyCanBeSelected;
-	}
 
 	public Unit[] GetTargetsInRangetsFrom(int x, int y)
 	{
@@ -245,22 +241,8 @@ public class UnitManager : MonoBehaviour {
 		UnitUI.SetActive(_displayUnitUI);
 	}
 
-	private void Cancel() {
-		Debug.Log("Cancel");
-	}
 
-	private void Wait() {
-		Debug.Log("Wait");
-		DeselectTarget();
-		DeselectUnit();
-	}
-
-	// -------------------------- Pseudo State Machine ---------------------------------
-
-	private void AllowTargetingEnemy() {
-		//_enemyCanBeSelected = true;
-		//do additional UI stuff, e.g. display targeting area.
-	}
+	// -------------------------- Unit UI Control Callbacks for State Machine ---------------------------------
 
 	private void AquireTarget() {
 		Unit su = SelectedUnit.GetComponent<Unit>();
@@ -271,8 +253,30 @@ public class UnitManager : MonoBehaviour {
 		//do additional UI stuff, e.g. display targeting area.
 	}
 
-	private void DisableTargetingenemy() {
-		//_enemyCanBeSelected = false;
+	private void Cancel() {
+		Debug.Log("Cancel");
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		if (su.GetUnitState().InUnitSelectedState) {
+			su.GetUnitState().UnitSelected2Ready();
+			HideUnitUI();
+			DeselectTarget();
+			DeselectUnit();
+		}
+		if (su.GetUnitState().InUnitArrivedState) {
+			//move backwards.
+			su.TeleportToPreviousPosition();
+			su.GetUnitState().UnitArrived2UnitSelected();
+		}
+		if (su.GetUnitState().InSelectingTargetState)	su.GetUnitState().SelectingTarget2UnitArrived();
 	}
 
+	private void Wait() {
+		Debug.Log("Wait");
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		if ( !su.GetUnitState().InUnitArrivedState) return;
+		su.GetUnitState().UnitArrived2Resting();
+		HideUnitUI();
+		DeselectTarget();
+		DeselectUnit();
+	}
 }
