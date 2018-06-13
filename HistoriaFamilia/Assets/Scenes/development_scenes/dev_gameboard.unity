@@ -170,7 +170,7 @@ MonoBehaviour:
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
       type: 2}
-    MaxHealth: 10
+    MaxHealth: 15
     MovementReach: 4
     BaseAttackPower: 5
     ProhibitedToWalkOn: 02000000
@@ -254,7 +254,7 @@ MonoBehaviour:
   - Topography: 2
     TileVisualPrefab: {fileID: 1825857283138250, guid: 4a2789e78248cd24cacf8a1b154562b8,
       type: 2}
-    MovementCost: 9999
+    MovementCost: 4
     IsWalkable: 1
   - Topography: 0
     TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,

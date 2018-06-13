@@ -178,8 +178,7 @@ public class BoardManager : MonoBehaviour {
 				// within coth.
 				coth.Map = this; //this script component.
 				coth.UnitManager = UnitManager;
-				//enable tile hovering color fill
-				Debug.Log(go.GetComponentsInChildren<SpriteHighlightManager>()[0]);
+				//enable tile hovering effect (color fill)
 				coth.SHM = go.GetComponentsInChildren<SpriteHighlightManager>()[0];
 			}
 		}
@@ -294,4 +293,48 @@ public class BoardManager : MonoBehaviour {
 	// Notes about path finding:
 	// Two algorightms are available: Dijkstra and A*.
 	// Dijkstra is a bit slower than A*, but simpler to implement and also guarantees to find the goal.
+
+
+	// -------------------------- Movement and Attack Range ---------------------------------
+
+	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
+	{
+		List<Node> root = new List<Node>();
+		Debug.Log("In GetValidMoves - root");
+		GetValidMoves(startPosX, startPosY, movePoints, root);
+		return root;
+	}
+
+	private void GetValidMoves(int startPosX, int startPosY, int movePoints, List<Node> validMoves) {
+		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
+		Node startTile = graph[startPosX, startPosY];
+		validMoves.Add(startTile);
+		for (int i = 0; i < startTile.Neighbours.Count; i++)
+		{
+			//get moveCost:
+			Node currentNeighbour = startTile.Neighbours[i];
+			TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
+			int moveCost = tt.MovementCost;
+			//calculate remaining ???
+			int nextMoveCost = movePoints - moveCost;
+			if (nextMoveCost >= 0 && !validMoves.Contains(startTile.Neighbours[i]))
+				GetValidMoves(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextMoveCost, validMoves);
+		}
+	}
+
+	public List<SpriteHighlightManager> GetSpriteHighlightManagersInRangeBy(List<Node> validMoves) {
+		//Getting all children from _boardHolder: https://answers.unity.com/questions/594210/get-all-children-gameobjects.html
+		List<SpriteHighlightManager> shmBag = new List<SpriteHighlightManager>();
+		foreach (Transform child in _boardHolder.transform) {
+			foreach (Node currentNode in validMoves) {
+				if (currentNode.x == child.position.x && currentNode.y == child.position.y) {
+					//add SHM to List<SHM>
+					SpriteHighlightManager currentSHM = child.GetComponentsInChildren<SpriteHighlightManager>()[0];
+					shmBag.Add(currentSHM);
+				}
+			}
+		}
+		return shmBag;
+	}
+
 } //This is the End

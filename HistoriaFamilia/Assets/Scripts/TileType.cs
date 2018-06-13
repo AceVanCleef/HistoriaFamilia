@@ -50,7 +50,7 @@ public class TileType {
 	*/
 
 
-	public float MovementCost = 1;
+	public int MovementCost = 1;
 
 	public bool IsWalkable = true;
 

@@ -36,6 +36,10 @@ public class UnitManager : MonoBehaviour {
 
 	private GameObject TargetedUnit;
 
+	//Unit movement and attacking range
+	List<Node> _validMoves;
+	List<SpriteHighlightManager> _allSHMInRange;
+
     void Start()
     {
 		PreventEnumToIndexMappingErrorOFUnitTypes();
@@ -106,6 +110,11 @@ public class UnitManager : MonoBehaviour {
 		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
 
+		
+	public bool IsTargetInRangeOfSelectedUnitAt(int x, int y) {
+		return _validMoves.Any(node => node.x == x && node.y == y);
+	}
+
 	public GameObject TargetUnitAt(int x, int y)
 	{
 		TargetedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
@@ -148,6 +157,7 @@ public class UnitManager : MonoBehaviour {
 			DeselectTarget(); //just for safety reasons. might be removed in the future.
 		}
 		selectedUnit.GetUnitState().Attacking2Resting();
+		ResetHightlightingOfTiles();
 	}
 
 	private float CalculateDamage(float baseAttackPower)
@@ -186,8 +196,16 @@ public class UnitManager : MonoBehaviour {
 			SelectedUnit = null;
 			return null;
 		}
-		SelectedUnit.GetComponent<Unit>().GetUnitState().Ready2UnitSelected();
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		su.GetUnitState().Ready2UnitSelected();
 		ShowUnitUI();
+		//show movement range area on map
+		int movePoints = (int) UnitTypes[(int) su.Unit_Type].MovementReach;
+		_validMoves = BoardManager.GetValidMoves(su.TileX, su.TileY, movePoints);
+		_allSHMInRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_validMoves);
+		Debug.Log(_validMoves.Count);
+		Debug.Log(_allSHMInRange.Count);
+		HighlightTilesInMovementRange();
 
 		return SelectedUnit;
 	}
@@ -208,7 +226,11 @@ public class UnitManager : MonoBehaviour {
 		return SelectedUnit;
 	}
 
+	// -------------------------- SelectedUnit movement ---------------------------------
 
+	public bool CanSelectedUnitReachTileAt(int x, int y) {
+		return _validMoves.Any(node => node.x == x && node.y == y);
+	}
 
 	public bool IsAllowedToWalk(TileType tile)
     {
@@ -261,6 +283,8 @@ public class UnitManager : MonoBehaviour {
 			HideUnitUI();
 			DeselectTarget();
 			DeselectUnit();
+
+			ResetHightlightingOfTiles();
 		}
 		if (su.GetUnitState().InUnitArrivedState) {
 			//move backwards.
@@ -276,7 +300,22 @@ public class UnitManager : MonoBehaviour {
 		if ( !su.GetUnitState().InUnitArrivedState) return;
 		su.GetUnitState().UnitArrived2Resting();
 		HideUnitUI();
+		ResetHightlightingOfTiles();
 		DeselectTarget();
 		DeselectUnit();
+	}
+
+	// ---------------- Tiles Highlighting for Movement and Attacking range of SelectedUnit -------------------
+
+	private void HighlightTilesInMovementRange() {
+		foreach (SpriteHighlightManager shm in _allSHMInRange) {
+			shm.SetToMovementColor();
+		}
+	}
+
+	private void ResetHightlightingOfTiles() {
+		foreach (SpriteHighlightManager shm in _allSHMInRange) {
+			shm.ResetColor();
+		}
 	}
 }

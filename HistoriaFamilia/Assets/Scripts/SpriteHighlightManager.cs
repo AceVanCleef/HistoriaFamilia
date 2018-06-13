@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpriteHighlightManager : MonoBehaviour {
+	// SpriteRenderer Doc: https://docs.unity3d.com/ScriptReference/SpriteRenderer.html
 
 	private SpriteRenderer sp;
 	private Color _initialColor;
@@ -24,4 +25,7 @@ public class SpriteHighlightManager : MonoBehaviour {
 		sp.color = _initialColor;
 	}
 
+	public void SetToMovementColor () {
+		sp.color = InMovementRangeColor;
+	}
 }

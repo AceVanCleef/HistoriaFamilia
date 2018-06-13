@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4810695665632448}
   - component: {fileID: 212961634793512836}
+  - component: {fileID: 114904418055486618}
   m_Layer: 0
   m_Name: VisualRepresentation
   m_TagString: Untagged
@@ -111,6 +112,21 @@ MonoBehaviour:
   TilePositionY: 0
   Map: {fileID: 0}
   UnitManager: {fileID: 0}
+  SHM: {fileID: 0}
+--- !u!114 &114904418055486618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144079360867788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db393ab159bd70544855b14a0191f40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HoverColor: {r: 0.74509805, g: 0.9098039, b: 0, a: 0.78431374}
+  InMovementRangeColor: {r: 0.2205882, g: 0.2205882, b: 0.2205882, a: 0.78431374}
+  InAttackRangeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &212961634793512836
 SpriteRenderer:
   m_ObjectHideFlags: 1
