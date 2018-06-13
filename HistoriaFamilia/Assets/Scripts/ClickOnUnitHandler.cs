@@ -56,7 +56,7 @@ public class ClickOnUnitHandler : MonoBehaviour {
 
 	private void TargetEnemy()
 	{
-		if (UnitManager.HasEnemyOnTile(_unit.TileX, _unit.TileY) /*&& UnitManager.IsTargetInRangeOfSelectedUnitAt(_unit.TileX, _unit.TileY)*/ )
+		if (UnitManager.HasEnemyOnTile(_unit.TileX, _unit.TileY) && UnitManager.IsTargetInRangeOfSelectedUnitAt(_unit.TileX, _unit.TileY) )
 			{
 				//todo: check IsUnitINRange?
 				GameObject selectedTarget = UnitManager.TargetUnitAt(_unit.TileX, _unit.TileY);

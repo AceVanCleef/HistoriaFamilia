@@ -14,6 +14,7 @@ public class ClickOnTileHandler : MonoBehaviour {
 	[HideInInspector]
     public UnitManager UnitManager;
 	public SpriteHighlightManager SHM;
+	private Color _previousColor;
 
 	void OnMouseDown()
 	{
@@ -33,11 +34,12 @@ public class ClickOnTileHandler : MonoBehaviour {
 
 
 	void OnMouseEnter() {
+		_previousColor = SHM.GetCurrentColor();
 		SHM.SetToHoverColor();
 	}
 	
 	void OnMouseExit() {
-		SHM.ResetColor();
+		SHM.SetColorTo(_previousColor);
 	}
 
 }

@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HoverColor: {r: 0.74509805, g: 0.9098039, b: 0, a: 0.78431374}
   InMovementRangeColor: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 0.78431374}
-  InAttackRangeColor: {r: 0, g: 0, b: 0, a: 0}
+  InAttackRangeColor: {r: 0.93333334, g: 0, b: 0, a: 0.391}
 --- !u!212 &212384074752662822
 SpriteRenderer:
   m_ObjectHideFlags: 1

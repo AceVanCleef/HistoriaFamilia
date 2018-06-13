@@ -28,4 +28,16 @@ public class SpriteHighlightManager : MonoBehaviour {
 	public void SetToMovementColor () {
 		sp.color = InMovementRangeColor;
 	}
+
+	public void SetToAttackColor () {
+		sp.color = InAttackRangeColor;
+	}
+
+	public Color GetCurrentColor() {
+		return sp.color;
+	}
+
+	public void SetColorTo(Color newColor) {
+		sp.color = newColor;
+	}
 }

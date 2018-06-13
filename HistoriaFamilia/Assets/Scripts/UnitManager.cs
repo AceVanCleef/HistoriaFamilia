@@ -38,6 +38,7 @@ public class UnitManager : MonoBehaviour {
 
 	//Unit movement and attacking range
 	List<Node> _validMoves;
+	List<Node> _tilesInAttackRange;
 	List<SpriteHighlightManager> _allSHMInRange;
 
     void Start()
@@ -104,15 +105,23 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	// -------------------------- Targeting a hostile Unit ---------------------------------
+	private void PrepareAttackRangeVisual() {
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		int attackRange = (int) UnitTypes[(int) su.Unit_Type].AttackRange;
+		_tilesInAttackRange = BoardManager.GetTilesInAttackRange(su.TileX, su.TileY, attackRange);
+		ResetHightlightingOfTiles();
+		_allSHMInRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
+		HighlightTilesInAttackRange();
+	}
+	
 	public bool HasEnemyOnTile(int x, int y)
 	{
 		//TODO: differentiate between hostile and friendly units.
 		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
-
-		
+	
 	public bool IsTargetInRangeOfSelectedUnitAt(int x, int y) {
-		return _validMoves.Any(node => node.x == x && node.y == y);
+		return _tilesInAttackRange.Any(node => node.x == x && node.y == y);
 	}
 
 	public GameObject TargetUnitAt(int x, int y)
@@ -203,8 +212,6 @@ public class UnitManager : MonoBehaviour {
 		int movePoints = (int) UnitTypes[(int) su.Unit_Type].MovementReach;
 		_validMoves = BoardManager.GetValidMoves(su.TileX, su.TileY, movePoints);
 		_allSHMInRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_validMoves);
-		Debug.Log(_validMoves.Count);
-		Debug.Log(_allSHMInRange.Count);
 		HighlightTilesInMovementRange();
 
 		return SelectedUnit;
@@ -270,6 +277,7 @@ public class UnitManager : MonoBehaviour {
 		Unit su = SelectedUnit.GetComponent<Unit>();
 		if ( !su.GetUnitState().InUnitArrivedState) return;
 		su.GetUnitState().UnitArrived2SelectingTarget();
+		PrepareAttackRangeVisual();
 		//Todo: - display TargetSelector cursor in UI. - do logic stuff regarding selecting a target.
 
 		//do additional UI stuff, e.g. display targeting area.
@@ -291,7 +299,10 @@ public class UnitManager : MonoBehaviour {
 			su.TeleportToPreviousPosition();
 			su.GetUnitState().UnitArrived2UnitSelected();
 		}
-		if (su.GetUnitState().InSelectingTargetState)	su.GetUnitState().SelectingTarget2UnitArrived();
+		if (su.GetUnitState().InSelectingTargetState){
+			su.GetUnitState().SelectingTarget2UnitArrived();
+			ResetHightlightingOfTiles();
+		}
 	}
 
 	private void Wait() {
@@ -310,6 +321,12 @@ public class UnitManager : MonoBehaviour {
 	private void HighlightTilesInMovementRange() {
 		foreach (SpriteHighlightManager shm in _allSHMInRange) {
 			shm.SetToMovementColor();
+		}
+	}
+
+	private void HighlightTilesInAttackRange() {
+		foreach (SpriteHighlightManager shm in _allSHMInRange) {
+			shm.SetToAttackColor();
 		}
 	}
 

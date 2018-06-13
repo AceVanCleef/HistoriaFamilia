@@ -157,8 +157,9 @@ MonoBehaviour:
     UnitVisualPrefab: {fileID: 1094505156277608, guid: 494c65c819f1020439c994700ccf0a9d,
       type: 2}
     MaxHealth: 10
-    MovementReach: 5
+    MovementReach: 6
     BaseAttackPower: 5
+    AttackRange: 3
     ProhibitedToWalkOn: 
   - Unit_Type: 1
     UnitVisualPrefab: {fileID: 1357806524081410, guid: 4ee13177b3f6a564aae9cde62f1abedf,
@@ -166,13 +167,15 @@ MonoBehaviour:
     MaxHealth: 10
     MovementReach: 6
     BaseAttackPower: 5
+    AttackRange: 1
     ProhibitedToWalkOn: 
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
       type: 2}
-    MaxHealth: 15
-    MovementReach: 4
+    MaxHealth: 10
+    MovementReach: 6
     BaseAttackPower: 5
+    AttackRange: 1
     ProhibitedToWalkOn: 02000000
   SpawnData:
   - Unit_Type: 0

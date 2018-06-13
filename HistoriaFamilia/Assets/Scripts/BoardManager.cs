@@ -322,11 +322,35 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
-	public List<SpriteHighlightManager> GetSpriteHighlightManagersInRangeBy(List<Node> validMoves) {
+	public List<Node> GetTilesInAttackRange(int startPosX, int startPosY, int attackRange)
+	{
+		List<Node> root = new List<Node>();
+		GetTilesInAttackRange(startPosX, startPosY, attackRange, root);
+		return root;
+	}
+
+	private void GetTilesInAttackRange(int startPosX, int startPosY, int attackRange, List<Node> validTiles) {
+		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
+		Node startTile = graph[startPosX, startPosY];
+		validTiles.Add(startTile);
+		for (int i = 0; i < startTile.Neighbours.Count; i++)
+		{
+			//get moveCost:
+			/*Node currentNeighbour = startTile.Neighbours[i];
+			TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
+			int moveCost = tt.MovementCost;*/
+			//calculate remaining ???
+			int nextAttackCost = attackRange - 1;
+			if (nextAttackCost >= 0 && !validTiles.Contains(startTile.Neighbours[i]))
+				GetTilesInAttackRange(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextAttackCost, validTiles);
+		}
+	}
+
+	public List<SpriteHighlightManager> GetSpriteHighlightManagersInRangeBy(List<Node> validTiles) {
 		//Getting all children from _boardHolder: https://answers.unity.com/questions/594210/get-all-children-gameobjects.html
 		List<SpriteHighlightManager> shmBag = new List<SpriteHighlightManager>();
 		foreach (Transform child in _boardHolder.transform) {
-			foreach (Node currentNode in validMoves) {
+			foreach (Node currentNode in validTiles) {
 				if (currentNode.x == child.position.x && currentNode.y == child.position.y) {
 					//add SHM to List<SHM>
 					SpriteHighlightManager currentSHM = child.GetComponentsInChildren<SpriteHighlightManager>()[0];
