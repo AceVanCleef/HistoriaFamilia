@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,12 +11,21 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
     private float vertical;
     private float horizontal;
+    public GameObject canvas, transitionObject;
+    private String levelName;
+    private GameObject obj;
+    public PlayerInteraction interact;
+    private bool bookbool, bedbool;
     // Use this for initialization
     void Start()
     {
+        bedbool = false;
+        bookbool = false;
         //Get and store a reference to the Rigidbody2D component so that we can access it.
         rb2d = GetComponent<Rigidbody2D>();
         anim = this.GetComponent<Animator>();
+        Hide();
+        obj = GameObject.Find("Book");
     }
     private void Update()
     {
@@ -59,5 +70,51 @@ public class PlayerMovement : MonoBehaviour
         }
             return direction.normalized;
         }
+    void Hide()
+    {
+
+        canvas.SetActive(false);
+    }
+    void Show()
+    {
+        canvas.SetActive(true);
+    }
+   
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("I have collided with" + collision.gameObject);
+       
+        if (collision.gameObject.name == "Book")
+        {
+            bookbool = true;
+            //Add somwthing here  
+            Invoke("Show", 1);
+                Debug.Log("UI Active");
+
+
+        }
+        Debug.Log("I collided with"+collision.name);
+        if (collision.gameObject.name == "Trainsition")
+            Debug.Log("I try to send a message");
+        bedbool = true;
+           
+        if (bookbool && bedbool)
+        {
+            SceneManager.LoadScene(levelName);
+        }
+        Debug.Log("send a message to Transition");
 
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Hide();
+        Debug.Log("I Hid The UI Senpai");
+    }
+
+   public void SetLevelName(string name)
+    {
+        levelName = name;
+    }
+ 
+}

@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour {
     private Animator anim;
+    private AudioSource source;
+    public AudioClip book;
+    private float volLowRange = .5f;
+    private float volHighRange = 1.0f;
+    public string levelname;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         anim = this.GetComponent<Animator>();
-
+        source = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,7 +26,9 @@ public class PlayerInteraction : MonoBehaviour {
     {
         
             anim.SetBool("PickedUp", true);
-        
+        float vol = Random.Range(volLowRange, volHighRange);
+        source.PlayOneShot(book, vol);
+
     }
 
 
@@ -29,6 +37,7 @@ public class PlayerInteraction : MonoBehaviour {
         anim.SetBool("PickedUp", false);
 
     }
+    
 
 
 }
