@@ -178,6 +178,9 @@ public class BoardManager : MonoBehaviour {
 				// within coth.
 				coth.Map = this; //this script component.
 				coth.UnitManager = UnitManager;
+				//enable tile hovering color fill
+				Debug.Log(go.GetComponentsInChildren<SpriteHighlightManager>()[0]);
+				coth.SHM = go.GetComponentsInChildren<SpriteHighlightManager>()[0];
 			}
 		}
 	}

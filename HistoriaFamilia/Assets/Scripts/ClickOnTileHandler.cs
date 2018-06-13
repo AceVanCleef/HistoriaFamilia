@@ -13,6 +13,7 @@ public class ClickOnTileHandler : MonoBehaviour {
 	public BoardManager Map;
 	[HideInInspector]
     public UnitManager UnitManager;
+	public SpriteHighlightManager SHM;
 
 	void OnMouseDown()
 	{
@@ -29,6 +30,15 @@ public class ClickOnTileHandler : MonoBehaviour {
         Unit su = UnitManager.GetSelectedUnit().GetComponent<Unit>();
 		su.MoveUnitToTileAt(TilePositionX, TilePositionY);
 		//UnitManager.DeselectUnit(); //moving to Unit script? Or not needed here at all? Maybe as reaction to UnitUI.
+	}
+
+
+	void OnMouseEnter() {
+		SHM.SetToHoverColor();
+	}
+	
+	void OnMouseExit() {
+		SHM.ResetColor();
 	}
 
 }

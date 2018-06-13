@@ -20,32 +20,28 @@ public class ClickOnUnitHandler : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		Debug.Log("Clicked on a unit." + "Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
+		Debug.Log("Clicked on a unit. Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
 		
 		if (!UnitManager.IsUnitSelected()) {
-			Debug.Log("A");
 			SelectUnit();
 		}
 
 		// Note: Work in progress. [Stefan]
 		if (UnitManager.IsUnitSelected() && !UnitManager.IsTargetSelected()) {
-			Debug.Log("B");
 			Unit su = UnitManager.GetSelectedUnit().GetComponent<Unit>();
-			/* Bug note: directly jumps into UnitArrived state. Todo: Fix it.
-			*
-			//Unit staying on the spot: (.GetUnitState().InUnitSelectedState)
-			if (su.GetUnitState().InUnitSelectedState && su.TileX == _unit.TileX && su.TileY == _unit.TileY) {
+
+			//Target enemy if SelectedUnit is in Arrived state. Note: Can't attack itself
+			if (su.GetUnitState().InSelectingTargetState && (su.TileX != _unit.TileX || su.TileY != _unit.TileY) ) {
+				TargetEnemy();
+			}
+			/* Todo: make this work.
+			if (su.GetUnitState().InUnitSelectedState && (su.TileX == _unit.TileX && su.TileY == _unit.TileY)) {
+				//Unit staying on the spot:.
 				Debug.Log("C: staying at SPOT");
 				su.GetUnitState().UnitSelected2UnitArrived();
 				return;
 			}
 			*/
-
-			//Target enemy if SelectedUnit is in Arrived state. Note: Can't attack itself
-			if (su.GetUnitState().InSelectingTargetState && (su.TileX != _unit.TileX || su.TileY != _unit.TileY) ) {
-				Debug.Log("D: attacking");
-				TargetEnemy();
-			}
 		}
 	}
 
