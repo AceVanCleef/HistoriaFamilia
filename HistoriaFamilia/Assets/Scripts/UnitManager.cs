@@ -39,7 +39,8 @@ public class UnitManager : MonoBehaviour {
 	//Unit movement and attacking range
 	List<Node> _validMoves;
 	List<Node> _tilesInAttackRange;
-	List<SpriteHighlightManager> _allSHMInRange;
+	List<SpriteHighlightManager> _allSHMInMovementRange;
+	List<SpriteHighlightManager> _allSHMInAttackRange;
 
     void Start()
     {
@@ -109,8 +110,8 @@ public class UnitManager : MonoBehaviour {
 		Unit su = SelectedUnit.GetComponent<Unit>();
 		int attackRange = (int) UnitTypes[(int) su.Unit_Type].AttackRange;
 		_tilesInAttackRange = BoardManager.GetTilesInAttackRange(su.TileX, su.TileY, attackRange);
-		ResetHightlightingOfTiles();
-		_allSHMInRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
+		ResetHightlightingOfTiles(_allSHMInMovementRange);
+		_allSHMInAttackRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
 		HighlightTilesInAttackRange();
 	}
 	
@@ -166,7 +167,7 @@ public class UnitManager : MonoBehaviour {
 			DeselectTarget(); //just for safety reasons. might be removed in the future.
 		}
 		selectedUnit.GetUnitState().Attacking2Resting();
-		ResetHightlightingOfTiles();
+		ResetHightlightingOfTiles(_allSHMInAttackRange);
 	}
 
 	private float CalculateDamage(float baseAttackPower)
@@ -211,7 +212,7 @@ public class UnitManager : MonoBehaviour {
 		//show movement range area on map
 		int movePoints = (int) UnitTypes[(int) su.Unit_Type].MovementReach;
 		_validMoves = BoardManager.GetValidMoves(su.TileX, su.TileY, movePoints);
-		_allSHMInRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_validMoves);
+		_allSHMInMovementRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_validMoves);
 		HighlightTilesInMovementRange();
 
 		return SelectedUnit;
@@ -279,8 +280,6 @@ public class UnitManager : MonoBehaviour {
 		su.GetUnitState().UnitArrived2SelectingTarget();
 		PrepareAttackRangeVisual();
 		//Todo: - display TargetSelector cursor in UI. - do logic stuff regarding selecting a target.
-
-		//do additional UI stuff, e.g. display targeting area.
 	}
 
 	private void Cancel() {
@@ -292,7 +291,7 @@ public class UnitManager : MonoBehaviour {
 			DeselectTarget();
 			DeselectUnit();
 
-			ResetHightlightingOfTiles();
+			ResetHightlightingOfTiles(_allSHMInMovementRange);
 		}
 		if (su.GetUnitState().InUnitArrivedState) {
 			//move backwards.
@@ -301,7 +300,8 @@ public class UnitManager : MonoBehaviour {
 		}
 		if (su.GetUnitState().InSelectingTargetState){
 			su.GetUnitState().SelectingTarget2UnitArrived();
-			ResetHightlightingOfTiles();
+			ResetHightlightingOfTiles(_allSHMInAttackRange);
+			HighlightTilesInMovementRange();
 		}
 	}
 
@@ -311,7 +311,8 @@ public class UnitManager : MonoBehaviour {
 		if ( !su.GetUnitState().InUnitArrivedState) return;
 		su.GetUnitState().UnitArrived2Resting();
 		HideUnitUI();
-		ResetHightlightingOfTiles();
+		ResetHightlightingOfTiles(_allSHMInMovementRange);
+		ResetHightlightingOfTiles(_allSHMInAttackRange);
 		DeselectTarget();
 		DeselectUnit();
 	}
@@ -319,18 +320,19 @@ public class UnitManager : MonoBehaviour {
 	// ---------------- Tiles Highlighting for Movement and Attacking range of SelectedUnit -------------------
 
 	private void HighlightTilesInMovementRange() {
-		foreach (SpriteHighlightManager shm in _allSHMInRange) {
+		foreach (SpriteHighlightManager shm in _allSHMInMovementRange) {
 			shm.SetToMovementColor();
 		}
 	}
 
 	private void HighlightTilesInAttackRange() {
-		foreach (SpriteHighlightManager shm in _allSHMInRange) {
+		foreach (SpriteHighlightManager shm in _allSHMInAttackRange) {
 			shm.SetToAttackColor();
 		}
 	}
 
-	private void ResetHightlightingOfTiles() {
+	private void ResetHightlightingOfTiles(List<SpriteHighlightManager> _allSHMInRange) {
+		if (_allSHMInRange == null) return;
 		foreach (SpriteHighlightManager shm in _allSHMInRange) {
 			shm.ResetColor();
 		}
