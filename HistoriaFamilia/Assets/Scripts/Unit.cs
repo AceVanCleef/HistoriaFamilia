@@ -36,7 +36,7 @@ public class Unit : MonoBehaviour {
     public UnitType.UnitArcheType Unit_Type;
 
 	// Health System
-	public float CurrentHealth;
+	public int CurrentHealth;
 
 	[SerializeField] //made visible in inspector for debugging.
 	private UnitState _unitState;
@@ -109,6 +109,9 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+	public GameObject HPViewPrefab;
+	private Transform _HPView;
+
 	void Start()
 	{
 		// Set Position of selected unit.
@@ -116,6 +119,30 @@ public class Unit : MonoBehaviour {
         TileY = (int)transform.position.y;
 
 		_unitState = new UnitState();
+
+		InitializeTextNode();
+	}
+
+	private void InitializeTextNode() {
+		//1) attach instance of prefab to parent: https://answers.unity.com/questions/341714/setting-the-parent-of-a-transform-which-resides-in.html
+		//2) wrap TextMesh's GameObject into empty gameobject to simplify scaling of text: 
+		//	"Since the Text system is still the legacy one, you need to make really big text on a large 
+		//   canvas or group empty GameObject and then scale it down to the small size you want for placement. 
+		//   This uses the renderer scaler rather than the font system and gives you better quality."
+		// source: https://forum.unity.com/threads/really-really-small-fonts-for-in-scene-text-not-possible.342483/
+		GameObject hpViewPrefParent = Instantiate(HPViewPrefab, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+		//3) Get child of prefab: 
+		_HPView = hpViewPrefParent.gameObject.transform.GetChild(0);
+		Debug.Log("hp view: " + _HPView);
+		hpViewPrefParent.transform.parent = this.transform;
+		hpViewPrefParent.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.6f, -1.0f);
+		SetHPText(CurrentHealth);
+	}
+
+	public void SetHPText(int newHP) {
+		if (newHP < 0) return;
+		_HPView.GetComponent<TextMesh>().text = newHP.ToString();
+		//How to get the TextMesh: https://answers.unity.com/questions/624224/create-a-textmesh-in-c.html
 	}
 
 	void Update()

@@ -144,6 +144,15 @@ MonoBehaviour:
   LerpDuration: 0.25
   Unit_Type: 0
   CurrentHealth: 0
+  _unitState:
+    InReadyState: 1
+    InUnitSelectedState: 0
+    InUnitArrivedState: 0
+    InSelectingTargetState: 0
+    InAttackingState: 0
+    InRestingState: 0
+  HPViewPrefab: {fileID: 1762899402743678, guid: afc40917ea2986a429bdcef47a43fb5f,
+    type: 2}
 --- !u!212 &212318795444231330
 SpriteRenderer:
   m_ObjectHideFlags: 1

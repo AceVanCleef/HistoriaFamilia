@@ -160,7 +160,8 @@ public class UnitManager : MonoBehaviour {
 		selectedUnit.GetUnitState().SelectingTarget2Attacking();
 
 
-		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower);
+		targetedUnit.CurrentHealth -= (int) CalculateDamage(UnitTypes[su].BaseAttackPower);
+		targetedUnit.SetHPText(targetedUnit.CurrentHealth);
 		if (targetedUnit.CurrentHealth < 0.01f)
 		{
 			DestroyUnit(TargetedUnit);
