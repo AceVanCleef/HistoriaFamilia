@@ -35,6 +35,6 @@ alt="game development on the go" width="240" height="180" border="10" /></a>
 ### Historia Familia - Early (and probably final) Prototype Demo
 The currently final version of this project.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=https://youtu.be/drRlSIyTVDc
-" target="_blank"><img src="http://img.youtube.com/vi/https://youtu.be/drRlSIyTVDc/0.jpg" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=drRlSIyTVDc
+" target="_blank"><img src="http://img.youtube.com/vi/drRlSIyTVDc/0.jpg" 
 alt="game development on the go" width="240" height="180" border="10" /></a>
