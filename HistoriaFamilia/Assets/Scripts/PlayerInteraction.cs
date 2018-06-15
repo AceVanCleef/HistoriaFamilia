@@ -20,16 +20,12 @@ public class PlayerInteraction : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-            anim.SetBool("PickedUp", true);
+        if(Input.GetKeyDown(KeyCode.Space))
+        anim.SetBool("PickedUp", true);
         float vol = Random.Range(volLowRange, volHighRange);
         source.PlayOneShot(book, vol);
-
     }
+  
 
 
     private void OnTriggerExit2D(Collider2D collision)
