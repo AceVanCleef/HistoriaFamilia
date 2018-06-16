@@ -20,11 +20,19 @@ public class PlayerManager : MonoBehaviour {
 		return _currentPlayer;
 	}
 
+	public bool HasCurrentPlayerUsedAllHisUnits() {
+		return _currentPlayer.AllUnits.All(unit => unit.GetComponent<Unit>().GetUnitState().InRestingState == true);
+	}
+
 	public Player NextPlayer () {
 		_currentPlayerID++;
 		// If last player finished turn, select the first player.
 		if (_currentPlayerID > AllPlayers.Count - 1) _currentPlayerID = FIRST_PLAYER_ID;
 		_currentPlayer = AllPlayers[_currentPlayerID];
+		//reactivate units.
+		foreach (GameObject unit in _currentPlayer.AllUnits) {
+			unit.GetComponent<Unit>().GetUnitState().Resting2Ready();
+		}
 		return _currentPlayer;
 	}
 
@@ -41,5 +49,9 @@ public class PlayerManager : MonoBehaviour {
 	public void OwningPlayerLooses(GameObject unit) {
 		Player owningPlayer = AllPlayers.Where(p => p.PlayerID == unit.GetComponent<Unit>().OwningPlayerID).First();
 		owningPlayer.AllUnits.Remove(unit);
+	}
+
+	public bool HasCurrentPlayerWon() {
+		return GetAllHostileUnits() == null;
 	}
 }

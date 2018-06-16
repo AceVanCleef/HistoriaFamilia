@@ -161,6 +161,7 @@ public class UnitManager : MonoBehaviour {
 		}
 		selectedUnit.GetUnitState().Attacking2Resting();
 		ResetHightlightingOfTiles(_allSHMInAttackRange);
+		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
 	}
 
 	private float CalculateDamage(float baseAttackPower)
@@ -307,6 +308,7 @@ public class UnitManager : MonoBehaviour {
 		ResetHightlightingOfTiles(_allSHMInAttackRange);
 		DeselectTarget();
 		DeselectUnit();
+		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
 	}
 
 	// ---------------- Tiles Highlighting for Movement and Attacking range of SelectedUnit -------------------
