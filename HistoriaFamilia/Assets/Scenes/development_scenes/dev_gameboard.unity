@@ -128,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321084950}
   - component: {fileID: 321084949}
+  - component: {fileID: 321084951}
   m_Layer: 0
   m_Name: UnitManager
   m_TagString: Untagged
@@ -177,22 +178,6 @@ MonoBehaviour:
     BaseAttackPower: 6
     AttackRange: 1
     ProhibitedToWalkOn: 02000000
-  SpawnData:
-  - Unit_Type: 0
-    SpawnPosX: 0
-    SpawnPosY: 8
-  - Unit_Type: 1
-    SpawnPosX: 8
-    SpawnPosY: 0
-  - Unit_Type: 2
-    SpawnPosX: 8
-    SpawnPosY: 8
-  - Unit_Type: 0
-    SpawnPosX: 1
-    SpawnPosY: 2
-  - Unit_Type: 1
-    SpawnPosX: 5
-    SpawnPosY: 5
   SelectedUnit: {fileID: 0}
 --- !u!4 &321084950
 Transform:
@@ -207,6 +192,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321084951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 321084948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758d852da091d1f4ab923893d6a1fcd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllPlayers:
+  - PlayerID: 0
+    TeamID: 0
+    IsAIControlled: 0
+    SpawnData:
+    - Unit_Type: 0
+      SpawnPosX: 1
+      SpawnPosY: 1
+    - Unit_Type: 0
+      SpawnPosX: 7
+      SpawnPosY: 1
+    - Unit_Type: 1
+      SpawnPosX: 3
+      SpawnPosY: 3
+    - Unit_Type: 1
+      SpawnPosX: 6
+      SpawnPosY: 3
+    - Unit_Type: 2
+      SpawnPosX: 5
+      SpawnPosY: 4
+    AllUnits: []
+  - PlayerID: 1
+    TeamID: 1
+    IsAIControlled: 1
+    SpawnData:
+    - Unit_Type: 0
+      SpawnPosX: 1
+      SpawnPosY: 8
+    - Unit_Type: 0
+      SpawnPosX: 8
+      SpawnPosY: 8
+    - Unit_Type: 1
+      SpawnPosX: 3
+      SpawnPosY: 6
+    - Unit_Type: 1
+      SpawnPosX: 6
+      SpawnPosY: 6
+    - Unit_Type: 2
+      SpawnPosX: 7
+      SpawnPosY: 4
+    AllUnits: []
 --- !u!1 &863546210
 GameObject:
   m_ObjectHideFlags: 0

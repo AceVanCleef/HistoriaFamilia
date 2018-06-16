@@ -16,6 +16,8 @@ public class Unit : MonoBehaviour {
 	//For StateMachine's Cancel transition.
 	private int _previousPosX;
 	private int _previousPosY;
+	//identifies its owner
+	public int OwningPlayerID;
 
 	//pathfinding: stores the path from this unit ( = source) to target Node
 	public List<Node> CurrentPath = null;

@@ -16,18 +16,13 @@ public class UnitManager : MonoBehaviour {
 
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _unitsHolder;
-	[SerializeField][Tooltip("Stores which units are currently alive and fighting on the battlefield. Note: Do not use this field. Instead define units using Spawn Data field.")]
-    private List <GameObject> AllUnits = null;
 
+	private PlayerManager _pm;
 	[HideInInspector]
     public BoardManager BoardManager;
 
 	[Tooltip("Define what unit types do exist and which attribute values they have.")]
 	public UnitType[] UnitTypes;	//defined in inspector.
-
-
-	[Tooltip("Define where what kind of unit will spawn at the beginning of a match.")]
-	public List <UnitSpawnData> SpawnData;
 
 
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
@@ -72,15 +67,20 @@ public class UnitManager : MonoBehaviour {
 	// -------------------------- Unit Creation ---------------------------------
 	private void InitializeUnitsOnMapCreation()
 	{
+		_pm = GetComponent<PlayerManager>();
 		_unitsHolder = new GameObject("Units").transform;
-		foreach (UnitSpawnData usd in SpawnData)
+		foreach (Player p in _pm.AllPlayers)
 		{
-			CreateUnitAt(usd.SpawnPosX, usd.SpawnPosY, usd.Unit_Type);
+			foreach (UnitSpawnData usd in p.SpawnData)
+			{
+				CreateUnitAt(usd.SpawnPosX, usd.SpawnPosY, usd.Unit_Type, p);
+			}
 		}
+		
 	}
 
 	//eventually public if fabrics will call CreateUnitAt().
-	private void CreateUnitAt(int x, int y, UnitType.UnitArcheType unitType)
+	private void CreateUnitAt(int x, int y, UnitType.UnitArcheType unitType, Player p)
 	{
 		//???: rename unitType to unitTypeCode?
 
@@ -95,14 +95,14 @@ public class UnitManager : MonoBehaviour {
 		Unit unitScript = go.GetComponent<Unit>();
 		unitScript.TileX = (int)go.transform.position.x;
         unitScript.TileY = (int)go.transform.position.y;
+		unitScript.OwningPlayerID = p.PlayerID;
 		unitScript.Unit_Type = unitType;
         unitScript.Map = BoardManager;
 		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 
-		//add unit to AllUnits
-		AllUnits.Add(go);
+		p.AllUnits.Add(go);
 	}
 
 	// -------------------------- Targeting a hostile Unit ---------------------------------
@@ -117,8 +117,7 @@ public class UnitManager : MonoBehaviour {
 	
 	public bool HasEnemyOnTile(int x, int y)
 	{
-		//TODO: differentiate between hostile and friendly units.
-		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
+		return _pm.GetAllHostileUnits().Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
 	
 	public bool IsTargetInRangeOfSelectedUnitAt(int x, int y) {
@@ -127,7 +126,7 @@ public class UnitManager : MonoBehaviour {
 
 	public GameObject TargetUnitAt(int x, int y)
 	{
-		TargetedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
+		TargetedUnit = _pm.GetAllHostileUnits().Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
 			.First();
 		return TargetedUnit;
 	}
@@ -143,13 +142,6 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	// -------------------------- Unit Combat ---------------------------------
-
-	public Unit[] GetTargetsInRangetsFrom(int x, int y)
-	{
-		//TODO: ensure that selected units first walk, then attack.
-		//XXX: Maybe a UI should be implemented first.
-		return null;
-	}
 
 	public void AttackTargetedUnit()
 	{
@@ -178,7 +170,7 @@ public class UnitManager : MonoBehaviour {
 
 	private void DestroyUnit(GameObject unit)
 	{
-		AllUnits.Remove(unit);
+		_pm.OwningPlayerLooses(unit);
 		Destroy(unit);
 	}
 
@@ -193,13 +185,12 @@ public class UnitManager : MonoBehaviour {
 
 	public bool HasUnitOnTile(int x, int y)
 	{
-		//TODO: differentiate between your units and other players units.
-		return AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
+		return _pm.GetCurrentPlayer().AllUnits.Any(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y);
 	}
 
 	public GameObject ChooseUnitAsSelectedOnTile(int x, int y)
 	{
-		SelectedUnit = AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
+		SelectedUnit = _pm.GetCurrentPlayer().AllUnits.Where(unit => unit.GetComponent<Unit>().TileX == x && unit.GetComponent<Unit>().TileY == y)
 			.First();
 
 		// only get selected when in Ready state.
