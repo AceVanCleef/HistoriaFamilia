@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 121315277}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,6 +610,11 @@ Prefab:
       propertyPath: Level
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114033122834090158, guid: 4cd4df09bf418c64495049a4100939e0,
+        type: 2}
+      propertyPath: myTrigger
+      value: Book
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61880687801063120, guid: 4cd4df09bf418c64495049a4100939e0, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4cd4df09bf418c64495049a4100939e0, type: 2}
@@ -884,7 +889,7 @@ GameObject:
   - component: {fileID: 1215204938}
   - component: {fileID: 1215204937}
   - component: {fileID: 1215204936}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1237,7 +1242,7 @@ GameObject:
   - component: {fileID: 1729313546}
   - component: {fileID: 1729313548}
   - component: {fileID: 1729313547}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1305,7 +1310,7 @@ GameObject:
   - component: {fileID: 1765613047}
   - component: {fileID: 1765613049}
   - component: {fileID: 1765613048}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1384,7 @@ GameObject:
   - component: {fileID: 1789713975}
   - component: {fileID: 1789713977}
   - component: {fileID: 1789713976}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1456,7 +1461,7 @@ GameObject:
   - component: {fileID: 1830301801}
   - component: {fileID: 1830301800}
   - component: {fileID: 1830301799}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1739,7 +1744,7 @@ GameObject:
   - component: {fileID: 1918055356}
   - component: {fileID: 1918055358}
   - component: {fileID: 1918055357}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: NameTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

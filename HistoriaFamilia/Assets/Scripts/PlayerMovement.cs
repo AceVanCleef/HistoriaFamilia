@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject obj;
     public PlayerInteraction interact;
     private bool bookbool, bedbool;
+    public string myTrigger;
     // Use this for initialization
     void Start()
     {
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     {
       
         MoveDirection = CalculateDirection();
+        TriggerSpave();
     }
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
@@ -79,14 +81,15 @@ public class PlayerMovement : MonoBehaviour
     {
         canvas.SetActive(true);
     }
-   
+   /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("I have collided with" + collision.gameObject);
        
-        if (collision.gameObject.name == "Book")
-        {
+         if (Input.GetKeyDown(KeyCode.Space)) {
             bookbool = true;
+
+            Debug.Log("Space key was pressed.");
+        
             //Add somwthing here  
             Invoke("Show", 1);
                 Debug.Log("UI Active");
@@ -104,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         }
         Debug.Log("send a message to Transition");
 
-    }
+    }*/
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -116,5 +119,18 @@ public class PlayerMovement : MonoBehaviour
     {
         levelName = name;
     }
- 
+    void TriggerSpave()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetComponent<Animator>().SetTrigger(myTrigger);
+            bookbool = true;
+
+            Debug.Log("Space key was pressed.");
+
+            //Add somwthing here  
+            Invoke("Show", 1);
+            Debug.Log("UI Active");
+        }
+    }
 }
