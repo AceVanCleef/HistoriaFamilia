@@ -151,7 +151,6 @@ MonoBehaviour:
   AttackBtn: {fileID: 178349257}
   WaitBtn: {fileID: 1005832011}
   CancelBtn: {fileID: 1871802152}
-  AllUnits: []
   BoardManager: {fileID: 863546212}
   UnitTypes:
   - Unit_Type: 0
@@ -224,6 +223,7 @@ MonoBehaviour:
       SpawnPosX: 5
       SpawnPosY: 4
     AllUnits: []
+    UnitColouring: {r: 0.9191176, g: 0.060823966, b: 0.060823966, a: 0.78431374}
   - PlayerID: 1
     TeamID: 1
     IsAIControlled: 1
@@ -244,6 +244,7 @@ MonoBehaviour:
       SpawnPosX: 7
       SpawnPosY: 4
     AllUnits: []
+    UnitColouring: {r: 0.1750834, g: 0.11159169, b: 0.9485294, a: 0.78431374}
 --- !u!1 &863546210
 GameObject:
   m_ObjectHideFlags: 0

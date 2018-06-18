@@ -101,6 +101,9 @@ public class UnitManager : MonoBehaviour {
 		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
+		//colouring the Units
+		go.GetComponentInChildren<SpriteRenderer>().material.color = p.UnitColouring;
+		// GetComponent function overview: https://docs.unity3d.com/ScriptReference/Component.html
 
 		p.AllUnits.Add(go);
 	}

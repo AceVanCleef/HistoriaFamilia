@@ -12,5 +12,7 @@ public class Player {
 	public List<UnitSpawnData> SpawnData;
 	[Tooltip("Stores which units are currently alive and fighting on the battlefield. Note: Do not use this field. Instead define units using Spawn Data field.")]
 	public List<GameObject> AllUnits;
+	[Tooltip("Defines with which color the sprites will be inked. Note: Alpha channel value must be larger than 0.")]
+	public Color UnitColouring;
 	
 }
