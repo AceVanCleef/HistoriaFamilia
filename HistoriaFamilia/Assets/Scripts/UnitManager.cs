@@ -103,7 +103,8 @@ public class UnitManager : MonoBehaviour {
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 		//colouring the Units
 		go.GetComponentInChildren<SpriteRenderer>().material.color = p.UnitColouring;
-		// GetComponent function overview: https://docs.unity3d.com/ScriptReference/Component.html
+		// How to change sprite colouring: https://www.youtube.com/watch?v=J66UkLJHzCY
+		// GetComponent functions overview: https://docs.unity3d.com/ScriptReference/Component.html
 
 		p.AllUnits.Add(go);
 	}
