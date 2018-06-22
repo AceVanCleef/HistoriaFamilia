@@ -1,4 +1,4 @@
-# Knowledge and Troubleshooting Archive - A list of used tutorials and community posts for technical problem sovling
+# Knowledge and Troubleshooting Archive - A list of used tutorials and community posts for technical problem solving
 
 
 ## Object movement: LERP
@@ -10,3 +10,4 @@
 
 ## Colouring sprites
 - [Unity Tutorial How To Change Gameobjects Sprite Color With C# Script Modifying Color Renderer Option](https://www.youtube.com/watch?v=J66UkLJHzCY&t=0s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=10)
+- [changing sprite color makes sprite disappear](https://answers.unity.com/questions/1144563/changing-sprite-color-makes-sprite-disappear.html)  
