@@ -38,7 +38,7 @@ public class Unit : MonoBehaviour {
     public UnitType.UnitArcheType Unit_Type;
 
 	// Health System
-	public int CurrentHealth;
+	public float CurrentHealth;
 
 	[SerializeField] //made visible in inspector for debugging.
 	private UnitState _unitState;
@@ -138,7 +138,7 @@ public class Unit : MonoBehaviour {
 		Debug.Log("hp view: " + _HPView);
 		hpViewPrefParent.transform.parent = this.transform;
 		hpViewPrefParent.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.6f, -1.0f);
-		SetHPText(CurrentHealth);
+		SetHPText((int) CurrentHealth);
 	}
 
 	public void SetHPText(int newHP) {

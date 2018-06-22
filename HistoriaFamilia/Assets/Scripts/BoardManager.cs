@@ -86,9 +86,12 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
+	public TileType GetTileTypeAt(int x, int y) {
+		return TileTypes[_tiles[x, y]];
+	}
 
 	public bool UnitCanEnterTile(int x, int y) {
-        TileType tt = TileTypes[_tiles[x, y]];
+        TileType tt = GetTileTypeAt(x, y); //TileTypes[_tiles[x, y]];
 
         // We could test the unit's walk/hover/fly type against various
         // terrain flags here to see if they are allowed to enter the tile.
@@ -313,7 +316,7 @@ public class BoardManager : MonoBehaviour {
 		{
 			//get moveCost:
 			Node currentNeighbour = startTile.Neighbours[i];
-			TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
+			TileType tt = GetTileTypeAt(currentNeighbour.x, currentNeighbour.y); //TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
 			int moveCost = tt.MovementCost;
 			//calculate remaining ???
 			int nextMoveCost = movePoints - moveCost;

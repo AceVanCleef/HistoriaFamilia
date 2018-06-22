@@ -11,3 +11,6 @@
 ## Colouring sprites
 - [Unity Tutorial How To Change Gameobjects Sprite Color With C# Script Modifying Color Renderer Option](https://www.youtube.com/watch?v=J66UkLJHzCY&t=0s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=10)
 - [changing sprite color makes sprite disappear](https://answers.unity.com/questions/1144563/changing-sprite-color-makes-sprite-disappear.html)  
+
+## Random Number Generation in Unity
+- [Random.Range (Documentation)](https://docs.unity3d.com/ScriptReference/Random.html)  

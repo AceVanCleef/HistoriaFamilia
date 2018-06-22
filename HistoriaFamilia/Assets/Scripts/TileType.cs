@@ -54,5 +54,7 @@ public class TileType {
 
 	public bool IsWalkable = true;
 
+	public int TerrainDefenseValue = 1;
+
 	// Add more attributes such as movement costs/fuel consumption
 }
