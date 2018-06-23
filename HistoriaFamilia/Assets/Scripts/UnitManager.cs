@@ -151,25 +151,39 @@ public class UnitManager : MonoBehaviour {
 	{
 		Unit selectedUnit = SelectedUnit.GetComponent<Unit>();
 		Unit targetedUnit = TargetedUnit.GetComponent<Unit>();
-		int su = (int) selectedUnit.Unit_Type;
 
 		selectedUnit.GetUnitState().SelectingTarget2Attacking();
 
-
-		//Todo: implement commander attack and defense bonuses.
-		//Todo: decide whether all units have 10 hp at max and higher attackpower and/or defensive values.
-		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower, 100f, selectedUnit.CurrentHealth,
-										100f, BoardManager.GetTileTypeAt(targetedUnit.TileX,targetedUnit.TileY).TerrainDefenseValue ,
-										targetedUnit.CurrentHealth);
-		targetedUnit.SetHPText( (int) (targetedUnit.CurrentHealth + 0.5) );
+		Attack(targetedUnit, selectedUnit);
 		if (targetedUnit.CurrentHealth < 0.01f)
 		{
 			DestroyUnit(TargetedUnit);
-			DeselectTarget(); //just for safety reasons. might be removed in the future.
+		} 
+		else 
+		{
+			//counter attack
+			Attack(selectedUnit, targetedUnit);
+			if (selectedUnit.CurrentHealth < 0.01f) 
+			{
+				DestroyUnit(SelectedUnit);
+			}
 		}
+		//clean up
 		selectedUnit.GetUnitState().Attacking2Resting();
 		ResetHightlightingOfTiles(_allSHMInAttackRange);
+		DeselectTarget();
+		DeselectUnit();
 		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
+	}
+
+	private void Attack(Unit target, Unit attacker) {
+		int ut = (int) attacker.Unit_Type;
+		
+		//Todo: implement commander attack and defense bonuses. Potential range: [80, 130]
+		target.CurrentHealth -= CalculateDamage(UnitTypes[ut].BaseAttackPower, 100f, attacker.CurrentHealth,
+										100f, BoardManager.GetTileTypeAt(target.TileX, target.TileY).TerrainDefenseValue ,
+										target.CurrentHealth);
+		target.SetHPText( (int) (target.CurrentHealth + 0.5) );
 	}
 
 	private float CalculateDamage(float baseAttPwr, float commanderAttackMultiplier, float attackerHP, 

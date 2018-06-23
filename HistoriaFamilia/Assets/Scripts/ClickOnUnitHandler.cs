@@ -69,7 +69,5 @@ public class ClickOnUnitHandler : MonoBehaviour {
 	private void AttackEnemy()
 	{
 		UnitManager.AttackTargetedUnit();
-		UnitManager.DeselectTarget();
-		UnitManager.DeselectUnit();
 	}
 }
