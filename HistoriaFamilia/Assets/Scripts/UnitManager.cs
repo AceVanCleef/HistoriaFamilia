@@ -98,7 +98,7 @@ public class UnitManager : MonoBehaviour {
 		unitScript.OwningPlayerID = p.PlayerID;
 		unitScript.Unit_Type = unitType;
         unitScript.Map = BoardManager;
-		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth * 10f;
+		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 		//colouring the Units
@@ -158,8 +158,8 @@ public class UnitManager : MonoBehaviour {
 
 		//Todo: implement commander attack and defense bonuses.
 		//Todo: decide whether all units have 10 hp at max and higher attackpower and/or defensive values.
-		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower, 1.0f, selectedUnit.CurrentHealth,
-										1.0f, BoardManager.GetTileTypeAt(targetedUnit.TileX,targetedUnit.TileY).TerrainDefenseValue ,
+		targetedUnit.CurrentHealth -= CalculateDamage(UnitTypes[su].BaseAttackPower, 100f, selectedUnit.CurrentHealth,
+										100f, BoardManager.GetTileTypeAt(targetedUnit.TileX,targetedUnit.TileY).TerrainDefenseValue ,
 										targetedUnit.CurrentHealth);
 		targetedUnit.SetHPText( (int) (targetedUnit.CurrentHealth + 0.5) );
 		if (targetedUnit.CurrentHealth < 0.01f)
@@ -172,14 +172,14 @@ public class UnitManager : MonoBehaviour {
 		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
 	}
 
-	private float CalculateDamage(float baseAttackPower, float commanderAttackMultiplier, float attackerHP, 
+	private float CalculateDamage(float baseAttPwr, float commanderAttackMultiplier, float attackerHP, 
 		float defendingCommanderDefenseValue, float defendingTerrainStars, float defenderHP)
 	{
 		//Formula: http://awbw.wikia.com/wiki/Damage_Formula
 
-		float randomNumber = Random.Range(0f , 10f);
+		float randomNumber = Random.Range(0f , 1f);
 		Debug.Log("rng Number" + randomNumber);
-		float damage = ( (baseAttackPower * commanderAttackMultiplier) / 100 + randomNumber) *
+		float damage = ( (baseAttPwr * commanderAttackMultiplier) / 100 + randomNumber) *
 			(attackerHP / 10) * 
 			( (200 - (defendingCommanderDefenseValue + defendingTerrainStars * defenderHP)) / 100);
 		Debug.Log("Dmg:" + damage);
