@@ -18,42 +18,12 @@ public class TileType {
 		Mountains
 	}
 
-	//public string Name;public string Name;
 	public TopographicalFeature Topography;
 	public GameObject TileVisualPrefab;
 
-	/*
-	// Tried to implement factory pattern for tile attributes such as cover, fuel consumption and iswalkable for unittype x etc.
-	public TileTypeAttributes TileAttributes;
-
-	public TileType()
-	{
-		switch (Topography)
-		{
-			case TopographicalFeature.Grassland: 
-				TileAttributes = new GrasslandAttributes();
-				Debug.Log("creating grassland");
-				break;
-			case TopographicalFeature.Forest: 
-				TileAttributes = new ForestAttributes();
-				Debug.Log("creating forest");
-				break;
-			case TopographicalFeature.Mountains: 
-				TileAttributes = new MountainsAttributes();
-				Debug.Log("creating mountains");
-				break;
-			default: 
-				TileAttributes = null;
-				break;
-		}
-	}
-	*/
-
-
+	[Range(1, 10)]
 	public int MovementCost = 1;
-
-	public bool IsWalkable = true;
-
+	[Range(-1, 5)]
 	public int TerrainDefenseValue = 1;
 
 	// Add more attributes such as movement costs/fuel consumption

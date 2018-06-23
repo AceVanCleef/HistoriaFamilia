@@ -22,9 +22,13 @@ public class UnitType {
 	public UnitArcheType Unit_Type;
 	public GameObject UnitVisualPrefab;
 
+	[Range(1, 10)]
 	public int MaxHealth = 10;
+	[Range(1, 10)]
 	public int MovementReach = 6;
+	[Range(0f, 10f)]
 	public float BaseAttackPower = 5;
+	[Range(1, 10)]
 	public float AttackRange = 1;
  	public List<TileType.TopographicalFeature> ProhibitedToWalkOn;
 }

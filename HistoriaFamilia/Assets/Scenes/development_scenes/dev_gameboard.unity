@@ -158,7 +158,7 @@ MonoBehaviour:
       type: 2}
     MaxHealth: 10
     MovementReach: 6
-    BaseAttackPower: 35
+    BaseAttackPower: 5
     AttackRange: 4
     ProhibitedToWalkOn: 
   - Unit_Type: 1
@@ -174,7 +174,7 @@ MonoBehaviour:
       type: 2}
     MaxHealth: 15
     MovementReach: 4
-    BaseAttackPower: 60
+    BaseAttackPower: 6
     AttackRange: 1
     ProhibitedToWalkOn: 02000000
   SelectedUnit: {fileID: 0}
@@ -291,19 +291,16 @@ MonoBehaviour:
     TileVisualPrefab: {fileID: 1382657848433486, guid: 611c3834566792a4f907ac86cba39939,
       type: 2}
     MovementCost: 2
-    IsWalkable: 1
     TerrainDefenseValue: 1
   - Topography: 2
     TileVisualPrefab: {fileID: 1825857283138250, guid: 4a2789e78248cd24cacf8a1b154562b8,
       type: 2}
     MovementCost: 4
-    IsWalkable: 1
     TerrainDefenseValue: 2
   - Topography: 0
     TileVisualPrefab: {fileID: 1993984281591342, guid: 276e14f0cb7982249830d71fc49e471d,
       type: 2}
     MovementCost: 1
-    IsWalkable: 1
     TerrainDefenseValue: 4
   BoardSizeX: 10
   BoardSizeY: 10
