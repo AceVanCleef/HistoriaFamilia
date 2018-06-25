@@ -32,9 +32,11 @@ A unit follows a state cycle that regulates what it can do in any moment.
 alt="game development on the go" width="240" height="180" border="10" /></a>
 
 
-### Historia Familia - Early (and probably final) Prototype Demo
-The currently final version of this project.
-
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=drRlSIyTVDc
-" target="_blank"><img src="http://img.youtube.com/vi/drRlSIyTVDc/0.jpg" 
-alt="game development on the go" width="240" height="180" border="10" /></a>
+# Known Issues (TBD)
+- A selected unit can't attack without moving from the spot.
+- Missing avoidance: Units are moving through other units
+- Ranged units should have a minimum range parameter meaning that they can't attack closeby themselves.
+- Ranged unity can't counter attack at all (like in AW)
+- Ranged unit's state cycle has to be ajusted so that they either have to attack or move, but when moved they can no longer attack.
+- Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
+- Adding a marker to currently selected unit or alternatively a cursor where the mouse is currently hovering. When a unit is selected, it will stay there.
