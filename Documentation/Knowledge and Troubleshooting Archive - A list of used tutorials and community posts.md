@@ -1,5 +1,7 @@
 # Knowledge and Troubleshooting Archive - A list of used tutorials and community posts for technical problem solving
 
+## How to install multiple versions of Unity
+- [Installing multiple versions of Unity, to have different versions for different projects.](https://forum.unity.com/threads/installing-multiple-versions-of-unity-to-have-different-versions-for-different-projects.505556/)
 
 ## Object movement: LERP
 - [Unity Tutorial 1 - Using "Vector3.Lerp" to move object from Point A to Point B](https://www.youtube.com/watch?v=k9FvVwd5pR4&t=175s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=7)

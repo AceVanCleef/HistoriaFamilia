@@ -40,3 +40,4 @@ alt="game development on the go" width="240" height="180" border="10" /></a>
 - Ranged unit's state cycle has to be ajusted so that they either have to attack or move, but when moved they can no longer attack.
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
 - Adding a marker to currently selected unit or alternatively a cursor where the mouse is currently hovering. When a unit is selected, it will stay there.
+- Fire range algorithm isn't always deterministic in the sense of not always consistently having a range of max range. Sometimes it is lower at individual spots or when e.g. max range = 3, anomalies can also be observed.
