@@ -33,7 +33,7 @@ alt="game development on the go" width="240" height="180" border="10" /></a>
 
 
 # Known Issues (TBD)
-- A selected unit can't attack without moving from the spot.
+- A selected unit can't attack without moving from the spot (Fix implemented. Requires testing).
 - Missing avoidance: Units are moving through other units
 - Ranged units should have a minimum range parameter meaning that they can't attack closeby themselves.
 - Ranged unity can't counter attack at all (like in AW)

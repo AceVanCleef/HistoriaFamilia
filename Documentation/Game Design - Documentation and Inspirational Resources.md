@@ -11,3 +11,4 @@
 ## AI Design
 - [Designing AI Algorithms For Turn-Based Strategy Games](https://www.gamasutra.com/view/feature/129959/designing_ai_algorithms_for_.php?page=1)    
 - [Create Groundbreaking Adaptive Games - coAdjoint Orbit](https://assetstore.unity.com/packages/tools/ai/create-groundbreaking-adaptive-games-coadjoint-orbit-14379 )   
+- [AI and Games: Facing Your F.E.A.R. [AI & Games Lecture #3]](https://www.youtube.com/watch?v=rf2T_j-FlDE)
