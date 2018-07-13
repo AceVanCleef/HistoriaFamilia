@@ -162,6 +162,8 @@ public class UnitManager : MonoBehaviour {
 		else 
 		{
 			//counter attack
+
+			//Todo: is in firing range?
 			Attack(selectedUnit, targetedUnit);
 			if (selectedUnit.CurrentHealth < 0.01f) 
 			{
@@ -300,8 +302,16 @@ public class UnitManager : MonoBehaviour {
 
 	private void AquireTarget() {
 		Unit su = SelectedUnit.GetComponent<Unit>();
-		if ( !su.GetUnitState().InUnitArrivedState) return;
-		su.GetUnitState().UnitArrived2SelectingTarget();
+		//Todo
+		//if ( !AnyTargetInRange()) return;
+		if (su.GetUnitState().InUnitSelectedState) {
+			su.GetUnitState().UnitSelected2SelectingTarget();
+		} else if (su.GetUnitState().InUnitArrivedState) {
+			su.GetUnitState().UnitArrived2SelectingTarget();
+		} else {
+			//invalid state.
+			return;
+		}
 		PrepareAttackRangeVisual();
 		//Todo: - display TargetSelector cursor in UI. - do logic stuff regarding selecting a target.
 	}
@@ -324,6 +334,10 @@ public class UnitManager : MonoBehaviour {
 		}
 		if (su.GetUnitState().InSelectingTargetState){
 			su.GetUnitState().SelectingTarget2UnitArrived();
+			//usability improvement: Transition from InSelectingTargetState to InUnitSelectedState in case
+			// the player chose to attack whitouth moving the target from its original position.
+			if (su.WasUnitUsedWithoutMovingToAnotherTile())
+				su.GetUnitState().UnitArrived2UnitSelected();
 			ResetHightlightingOfTiles(_allSHMInAttackRange);
 			HighlightTilesInMovementRange();
 		}
@@ -332,8 +346,15 @@ public class UnitManager : MonoBehaviour {
 	private void Wait() {
 		Debug.Log("Wait");
 		Unit su = SelectedUnit.GetComponent<Unit>();
-		if ( !su.GetUnitState().InUnitArrivedState) return;
-		su.GetUnitState().UnitArrived2Resting();
+		//include valid states for this transition.
+		if (su.GetUnitState().InUnitSelectedState) {
+			su.GetUnitState().UnitSelected2Resting();
+		} else if (su.GetUnitState().InUnitArrivedState) {
+			su.GetUnitState().UnitArrived2Resting();
+		} else {
+			//invalid state.
+			return;
+		}
 		HideUnitUI();
 		ResetHightlightingOfTiles(_allSHMInMovementRange);
 		ResetHightlightingOfTiles(_allSHMInAttackRange);

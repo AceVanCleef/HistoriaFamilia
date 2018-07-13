@@ -172,7 +172,7 @@ MonoBehaviour:
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
       type: 2}
-    MaxHealth: 15
+    MaxHealth: 10
     MovementReach: 4
     BaseAttackPower: 6
     AttackRange: 1

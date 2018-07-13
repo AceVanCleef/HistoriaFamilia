@@ -16,3 +16,11 @@
 
 ## Random Number Generation in Unity
 - [Random.Range (Documentation)](https://docs.unity3d.com/ScriptReference/Random.html)  
+
+## Unity ClickEvent handling system
+- [How to make gameplay ignore clicks on UI Button in Unity3D?](https://stackoverflow.com/questions/35529940/how-to-make-gameplay-ignore-clicks-on-ui-button-in-unity3d)
+- [Unity UI - Blocking clicks](https://www.youtube.com/watch?v=EVZiv7DLU6E)
+- "...make sure the Z index of the object is on top, even if you are making 2D games. The sorting layer is ignored and Z index take precedence instead." [Detecting Mouse Click on 2D Sprite](https://answers.unity.com/questions/574830/detecting-mouse-click-on-2d-sprite.html)
+
+## Logical XOR operation
+- [Logical XOR operator in C#: ^](http://becdetat.com/logical-xor-operator-in-c.html)

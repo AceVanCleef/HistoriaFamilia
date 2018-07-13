@@ -109,6 +109,16 @@ public class Unit : MonoBehaviour {
 			InUnitArrivedState = false;
 			InRestingState = true;
 		}
+		//when staying on spot.
+		public void UnitSelected2Resting () {
+			InUnitSelectedState = false;
+			InRestingState = true;
+		}
+		//Transition for Attack: for attacking from the spot
+		public void UnitSelected2SelectingTarget () {
+			InUnitSelectedState = false;
+			InSelectingTargetState = true;
+		}
 	}
 
 	public GameObject HPViewPrefab;
@@ -262,5 +272,9 @@ public class Unit : MonoBehaviour {
 		transform.position = Map.TileCoordToWorldCoord( _previousPosX, _previousPosY );
 		TileX = _previousPosX;
 		TileY = _previousPosY;
+	}
+
+	public bool WasUnitUsedWithoutMovingToAnotherTile() {
+		return TileX == _previousPosX && TileY == _previousPosY;
 	}
 }

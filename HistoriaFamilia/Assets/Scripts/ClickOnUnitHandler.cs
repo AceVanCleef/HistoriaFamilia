@@ -19,13 +19,7 @@ public class ClickOnUnitHandler : MonoBehaviour {
 	}
 
 	void OnMouseDown()
-	{
-		Debug.Log("Clicked on a unit. Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
-		
-		if (!UnitManager.IsUnitSelected()) {
-			SelectUnit();
-		}
-
+	{	
 		// Note: Work in progress. [Stefan]
 		if (UnitManager.IsUnitSelected() && !UnitManager.IsTargetSelected()) {
 			Unit su = UnitManager.GetSelectedUnit().GetComponent<Unit>();
@@ -34,14 +28,18 @@ public class ClickOnUnitHandler : MonoBehaviour {
 			if (su.GetUnitState().InSelectingTargetState && (su.TileX != _unit.TileX || su.TileY != _unit.TileY) ) {
 				TargetEnemy();
 			}
-			/* Todo: make this work.
 			if (su.GetUnitState().InUnitSelectedState && (su.TileX == _unit.TileX && su.TileY == _unit.TileY)) {
 				//Unit staying on the spot:.
 				Debug.Log("C: staying at SPOT");
 				su.GetUnitState().UnitSelected2UnitArrived();
 				return;
 			}
-			*/
+			
+		}
+
+		Debug.Log("Clicked on a unit. Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
+		if (!UnitManager.IsUnitSelected()) {
+			SelectUnit();
 		}
 	}
 
