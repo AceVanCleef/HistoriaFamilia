@@ -18,7 +18,6 @@ public class ClickOnTileHandler : MonoBehaviour {
 
 	void OnMouseDown()
 	{
-		Debug.Log("Klicked on Tile " + TilePositionX + ":" + TilePositionY + " called " + gameObject.name);
 		if ( UnitManager.IsUnitSelected() && UnitManager.CanSelectedUnitReachTileAt(TilePositionX, TilePositionY) ){
 			MoveSelectedUnit();
 		}
@@ -26,7 +25,6 @@ public class ClickOnTileHandler : MonoBehaviour {
 
 	private void MoveSelectedUnit()
 	{
-		Debug.Log("Move selected unit now!");
 		Map.GeneratePathTo(TilePositionX, TilePositionY);
         Unit su = UnitManager.GetSelectedUnit().GetComponent<Unit>();
 		su.MoveUnitToTileAt(TilePositionX, TilePositionY);

@@ -30,14 +30,12 @@ public class ClickOnUnitHandler : MonoBehaviour {
 			}
 			if (su.GetUnitState().InUnitSelectedState && (su.TileX == _unit.TileX && su.TileY == _unit.TileY)) {
 				//Unit staying on the spot:.
-				Debug.Log("C: staying at SPOT");
 				su.GetUnitState().UnitSelected2UnitArrived();
 				return;
 			}
 			
 		}
 
-		Debug.Log("Clicked on a unit. Has a Unit? " + UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY));
 		if (!UnitManager.IsUnitSelected()) {
 			SelectUnit();
 		}
@@ -48,7 +46,7 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		if (UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY))
 			{
 				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(_unit.TileX, _unit.TileY);
-				if (selectedUnit != null)	Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
+				//if (selectedUnit != null)	Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
 				UnitManager.BoardManager.MousePointer.SetCursorColorTo(Color.red);
 			}
 	}
@@ -59,7 +57,6 @@ public class ClickOnUnitHandler : MonoBehaviour {
 			{
 				//todo: check IsUnitINRange?
 				GameObject selectedTarget = UnitManager.TargetUnitAt(_unit.TileX, _unit.TileY);
-				Debug.Log("Selected TARGET is on (" + selectedTarget.GetComponent<Unit>().TileX + ":" + selectedTarget.GetComponent<Unit>().TileY + ")");
 				AttackEnemy();
 			}
 	}

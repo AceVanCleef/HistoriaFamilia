@@ -44,14 +44,9 @@ public class BoardManager : MonoBehaviour {
 	// extend the TileType.TopographicalFeature enum.
 	private void PreventEnumToIndexMappingErrorOFTileTypes()
 	{
-		Debug.Log("Entering Prevent Index error");
 		TileTypes = TileTypes.OrderBy(tt => tt.Topography)
 						.DistinctBy(tt => tt.Topography)
 						.ToArray();
-		foreach(TileType tile in TileTypes)
-		{
-			Debug.Log(tile.Topography + "-" + tile.MovementCost);
-		}
 	}
 
 	void GenerateMapData()
@@ -101,7 +96,6 @@ public class BoardManager : MonoBehaviour {
         // We could test the unit's walk/hover/fly type against various
         // terrain flags here to see if they are allowed to enter the tile.
 
-        Debug.Log("allowed to walk on:" + tt.Topography + "? " + UnitManager.IsAllowedToWalk(tt));
         return UnitManager.IsAllowedToWalk(tt);
 	}
 

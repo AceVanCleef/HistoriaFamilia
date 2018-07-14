@@ -32,7 +32,6 @@ public class MousePointer  : MonoBehaviour {
 	}
 
 	public void SetCursorPosition(int x, int y) {
-		Debug.Log("SetCursorPosition to" + x + " - " + y);
 		if (!DrawCursor) {
 			if (Cursor != null && Cursor.activeInHierarchy) {
 				Cursor.SetActive(false);

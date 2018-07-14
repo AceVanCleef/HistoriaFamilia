@@ -35,6 +35,7 @@ alt="game development on the go" width="240" height="180" border="10" /></a>
 # Known Issues (TBD)
 - A selected unit can't attack without moving from the spot (Fix implemented. Requires testing).
 - Ranged units should have a minimum range parameter meaning that they can't attack closeby themselves.
+- Attacked units (or only melee) can't counterattack a ranged unit attacking them from afar.
 - Ranged unity can't counter attack at all (like in AW)
 - Ranged unit's state cycle has to be ajusted so that they either have to attack or move, but when moved they can no longer attack.
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.

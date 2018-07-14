@@ -54,14 +54,9 @@ public class UnitManager : MonoBehaviour {
 	// extend the UnitType.UnitArcheType enum.
 	private void PreventEnumToIndexMappingErrorOFUnitTypes()
 	{
-		Debug.Log("Entering Prevent Index error of Units");
 		UnitTypes = UnitTypes.OrderBy(ut => ut.Unit_Type)
 					.DistinctBy(ut => ut.Unit_Type)
 					.ToArray();
-		foreach(UnitType unit in UnitTypes)
-		{
-			Debug.Log(unit.Unit_Type + "-" + unit.MovementReach);
-		}
 	}
 
 	// -------------------------- Unit Creation ---------------------------------
@@ -85,7 +80,6 @@ public class UnitManager : MonoBehaviour {
 		//???: rename unitType to unitTypeCode?
 
 		//instantiate at x, y as UnitArcheType unitType such as Archer, Infantry or others:
-		Debug.Log(x + "-" + y + " is " + unitType);
 		UnitType ut = UnitTypes[ (int) unitType ];
 		GameObject go = Instantiate(ut.UnitVisualPrefab, new Vector3(x, y, 0), 
 			Quaternion.identity) as GameObject;
@@ -195,11 +189,9 @@ public class UnitManager : MonoBehaviour {
 		//Formula: http://awbw.wikia.com/wiki/Damage_Formula
 
 		float randomNumber = Random.Range(0f , 1f);
-		Debug.Log("rng Number" + randomNumber);
 		float damage = ( (baseAttPwr * commanderAttackMultiplier) / 100 + randomNumber) *
 			(attackerHP / 10) * 
 			( (200 - (defendingCommanderDefenseValue + defendingTerrainStars * defenderHP)) / 100);
-		Debug.Log("Dmg:" + damage);
 		return damage;
 	}
 
@@ -273,7 +265,6 @@ public class UnitManager : MonoBehaviour {
         // UnitTypes[indextoselectunittypeattributes]
         //var CantWalkOn = SelectedUnit.GetComponent<Unit>().GetComponent<UnitType>().ProhibitedToWalkOn;
         int index = (int) SelectedUnit.GetComponent<Unit>().Unit_Type;
-        Debug.Log("unittype key: " + index + " is " + UnitTypes[index].Unit_Type);
         return !UnitTypes[index].ProhibitedToWalkOn.Contains(tile.Topography);
     }
 
@@ -288,13 +279,11 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	private void ShowUnitUI() {
-	Debug.Log("ShowUnitUI");
 		_displayUnitUI = true;
 		UnitUI.SetActive(_displayUnitUI);
 	}
 
 	private void HideUnitUI() {
-		Debug.Log("HideUnitUI");
 		_displayUnitUI = false;
 		UnitUI.SetActive(_displayUnitUI);
 	}
@@ -319,7 +308,6 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	private void Cancel() {
-		Debug.Log("Cancel");
 		Unit su = SelectedUnit.GetComponent<Unit>();
 		if (su.GetUnitState().InUnitSelectedState) {
 			su.GetUnitState().UnitSelected2Ready();
@@ -346,7 +334,6 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	private void Wait() {
-		Debug.Log("Wait");
 		Unit su = SelectedUnit.GetComponent<Unit>();
 		//include valid states for this transition.
 		if (su.GetUnitState().InUnitSelectedState) {
