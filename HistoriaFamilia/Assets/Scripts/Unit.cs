@@ -36,6 +36,8 @@ public class Unit : MonoBehaviour {
 	// identifies what UnitType it is by mapping Unit to UnitType.
     [HideInInspector]
     public UnitType.UnitArcheType Unit_Type;
+	[HideInInspector]
+	public bool IsRangedUnit = false;	//Todo: discuss with Fabian whether a ranged unit can move and shoot or just one or the other.
 
 	// Health System
 	public float CurrentHealth;

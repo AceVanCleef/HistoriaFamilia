@@ -159,7 +159,8 @@ MonoBehaviour:
     MaxHealth: 10
     MovementReach: 6
     BaseAttackPower: 5
-    AttackRange: 4
+    MaxAttackRange: 6
+    MinAttackRange: 2
     ProhibitedToWalkOn: 
   - Unit_Type: 1
     UnitVisualPrefab: {fileID: 1357806524081410, guid: 4ee13177b3f6a564aae9cde62f1abedf,
@@ -167,7 +168,8 @@ MonoBehaviour:
     MaxHealth: 10
     MovementReach: 6
     BaseAttackPower: 5
-    AttackRange: 1
+    MaxAttackRange: 1
+    MinAttackRange: 1
     ProhibitedToWalkOn: 
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
@@ -175,7 +177,8 @@ MonoBehaviour:
     MaxHealth: 10
     MovementReach: 4
     BaseAttackPower: 6
-    AttackRange: 1
+    MaxAttackRange: 1
+    MinAttackRange: 1
     ProhibitedToWalkOn: 02000000
   SelectedUnit: {fileID: 0}
 --- !u!4 &321084950
@@ -254,6 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863546211}
   - component: {fileID: 863546212}
+  - component: {fileID: 863546213}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -304,6 +308,21 @@ MonoBehaviour:
     TerrainDefenseValue: 4
   BoardSizeX: 10
   BoardSizeY: 10
+  MousePointer: {fileID: 0}
+--- !u!114 &863546213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 863546210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c305831261233a48a5db0a73a528286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cursor: {fileID: 0}
+  DrawCursor: 0
+  tileCursorSprite: {fileID: 21300000, guid: 5b5e3090ad605d4478dc3ced46aa4513, type: 3}
 --- !u!114 &1005832011 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114602506543940754, guid: b9e9a5f54777bee459ef84eb9ca0fd08,

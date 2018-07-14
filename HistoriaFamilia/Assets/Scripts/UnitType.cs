@@ -29,6 +29,8 @@ public class UnitType {
 	[Range(0f, 10f)]
 	public float BaseAttackPower = 5;
 	[Range(1, 10)]
-	public float AttackRange = 1;
+	public int MaxAttackRange = 1;
+	[Range(1, 10)]
+	public int MinAttackRange = 1;
  	public List<TileType.TopographicalFeature> ProhibitedToWalkOn;
 }

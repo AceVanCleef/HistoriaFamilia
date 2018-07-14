@@ -97,6 +97,7 @@ public class UnitManager : MonoBehaviour {
         unitScript.TileY = (int)go.transform.position.y;
 		unitScript.OwningPlayerID = p.PlayerID;
 		unitScript.Unit_Type = unitType;
+		unitScript.IsRangedUnit = ut.MaxAttackRange > 1;
         unitScript.Map = BoardManager;
 		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
 		//Initialize ClickOnUnitHandler.
@@ -112,7 +113,7 @@ public class UnitManager : MonoBehaviour {
 	// -------------------------- Targeting a hostile Unit ---------------------------------
 	private void PrepareAttackRangeVisual() {
 		Unit su = SelectedUnit.GetComponent<Unit>();
-		int attackRange = (int) UnitTypes[(int) su.Unit_Type].AttackRange;
+		int attackRange = UnitTypes[(int) su.Unit_Type].MaxAttackRange;
 		_tilesInAttackRange = BoardManager.GetTilesInAttackRange(su.TileX, su.TileY, attackRange);
 		ResetHightlightingOfTiles(_allSHMInMovementRange);
 		_allSHMInAttackRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
@@ -253,6 +254,7 @@ public class UnitManager : MonoBehaviour {
 	{
 		SelectedUnit = null;
 		HideUnitUI();
+		BoardManager.MousePointer.SetCursorColorTo(Color.white);
 	}
 
 	public GameObject GetSelectedUnit()

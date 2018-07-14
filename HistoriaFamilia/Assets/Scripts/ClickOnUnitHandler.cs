@@ -49,6 +49,7 @@ public class ClickOnUnitHandler : MonoBehaviour {
 			{
 				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(_unit.TileX, _unit.TileY);
 				if (selectedUnit != null)	Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
+				UnitManager.BoardManager.MousePointer.SetCursorColorTo(Color.red);
 			}
 	}
 
@@ -67,5 +68,11 @@ public class ClickOnUnitHandler : MonoBehaviour {
 	private void AttackEnemy()
 	{
 		UnitManager.AttackTargetedUnit();
+	}
+
+
+	void OnMouseEnter() {
+		UnitManager.BoardManager.MousePointer.DrawCursor = true;
+		UnitManager.BoardManager.MousePointer.SetCursorPosition(_unit.TileX, _unit.TileY);
 	}
 }

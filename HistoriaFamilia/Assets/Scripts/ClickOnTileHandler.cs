@@ -36,6 +36,8 @@ public class ClickOnTileHandler : MonoBehaviour {
 	void OnMouseEnter() {
 		_previousColor = SHM.GetCurrentColor();
 		SHM.SetToHoverColor();
+		Map.MousePointer.DrawCursor = true;
+		Map.MousePointer.SetCursorPosition(TilePositionX, TilePositionY);
 	}
 	
 	void OnMouseExit() {

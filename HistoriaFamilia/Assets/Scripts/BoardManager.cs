@@ -26,11 +26,16 @@ public class BoardManager : MonoBehaviour {
 	Node[,] graph;
 	List<Node> currentPath = null;
 
+	//Has to be moved up to the GameManager
+	public MousePointer MousePointer;
+
 	void Start () {
 
         GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisuals();
+
+		MousePointer = gameObject.GetComponent<MousePointer>();
 	}
 
 	// asserts correct mapping from TileType.TopographicalFeature to TileType[]'s index 

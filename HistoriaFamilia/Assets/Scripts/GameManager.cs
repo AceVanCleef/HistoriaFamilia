@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	//#ensure singleton pattern
 	public static GameManager instance = null;
 
-	//public BoardManager BoardScript;
+	//public BoardManager BoardManager;
 
 	// testing with lvl 3 because enemies start to appear from there.
 	private int level = 3;
