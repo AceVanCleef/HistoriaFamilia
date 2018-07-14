@@ -46,7 +46,6 @@ public class ClickOnUnitHandler : MonoBehaviour {
 		if (UnitManager.HasUnitOnTile(_unit.TileX, _unit.TileY))
 			{
 				GameObject selectedUnit = UnitManager.ChooseUnitAsSelectedOnTile(_unit.TileX, _unit.TileY);
-				//if (selectedUnit != null)	Debug.Log("Selected unit is on (" + selectedUnit.GetComponent<Unit>().TileX + ":" + selectedUnit.GetComponent<Unit>().TileY + ")");
 				UnitManager.BoardManager.MousePointer.SetCursorColorTo(Color.red);
 			}
 	}

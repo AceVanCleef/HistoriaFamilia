@@ -14,4 +14,6 @@ Since it is our first try building this type of game, the code will most likely 
 - Ranged and melee units.
 - Instead of production facilities for new units (Advance Wars like), players/AI can capture enemy units and place them after e.g. 2 turns on the gameboard as a part of their team. Inspiration: Shogi.
 - Topography vary each time a player starts a match.
+- Mountains add a MaxAttackRange bonus to ranged units able to climb them.
+- A player should be able to see a xx% prediction of how much damage a unit does to an targeted unit.
 - Win condition: TBD.

@@ -27,6 +27,9 @@
 ### Logical XOR operation
 - [Logical XOR operator in C#: ^](http://becdetat.com/logical-xor-operator-in-c.html)
 
+### Mouse Cursor on Tile Map
+- [Creating Tools in Unity - Grid Cursor & Painting Tiles](https://www.youtube.com/watch?v=B2s7QNAvrcU)
+
 
 ## Lessons learned for prototype Version 2
 

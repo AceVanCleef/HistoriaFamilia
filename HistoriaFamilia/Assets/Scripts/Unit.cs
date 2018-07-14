@@ -147,14 +147,18 @@ public class Unit : MonoBehaviour {
 		GameObject hpViewPrefParent = Instantiate(HPViewPrefab, new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
 		//3) Get child of prefab: 
 		_HPView = hpViewPrefParent.gameObject.transform.GetChild(0);
-		Debug.Log("hp view: " + _HPView);
 		hpViewPrefParent.transform.parent = this.transform;
 		hpViewPrefParent.transform.position = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.6f, -1.0f);
 		SetHPText((int) CurrentHealth);
 	}
 
 	public void SetHPText(int newHP) {
+		Debug.Log("SetHPText to " + newHP);
 		if (newHP < 0) return;
+		if (newHP < 1) {
+			_HPView.GetComponent<TextMesh>().text = "1";
+			return;
+		}
 		_HPView.GetComponent<TextMesh>().text = newHP.ToString();
 		//How to get the TextMesh: https://answers.unity.com/questions/624224/create-a-textmesh-in-c.html
 	}
