@@ -30,7 +30,7 @@ public class BoardManager : MonoBehaviour {
 	public MousePointer MousePointer;
 
 	//Debugging tools
-	private TileDebugTool tbt = new TileDebugTool();
+	private TileDebugTool tdt = new TileDebugTool();
 
 	void Start () {
 
@@ -326,16 +326,52 @@ public class BoardManager : MonoBehaviour {
 		}
 	}
 
-	public List<Node> GetTilesInAttackRange(int startPosX, int startPosY, int attackRange)
+	//Breadth first search (BFS)
+	public List<Node> GetTilesInAttackRange(int startPosX, int startPosY, int maxAttackRange, int minAttackRange)
 	{
-		List<Node> root = new List<Node>();
-		GetTilesInAttackRange(startPosX, startPosY, attackRange, root);
-		StartCoroutine(tbt.PrintDebugStack(Color.red));
-		return root;
+		if (minAttackRange < 0) {
+			minAttackRange = 0;
+			Debug.LogError("minAttackRange was below 0 and got corrected to 0");
+		}
+		if (minAttackRange >= maxAttackRange) {
+			throw new System.ArgumentException("MinAttackRange can't be larger than or equal to MaxAttackRange.");
+		}
+
+		List<Node> validTiles = new List<Node>();
+		int[,] distance = new int[BoardSizeX, BoardSizeY];
+		for(int x = 0; x < BoardSizeX; ++x) {
+			for (int y = 0; y < BoardSizeY; ++y) {
+				distance[x, y] = Int32.MaxValue;
+			}
+		}
+		distance[startPosX, startPosY] = 0;
+		Queue<Node> queue = new Queue<Node>();
+		queue.Enqueue( graph[startPosX, startPosY] );
+
+		//count?
+		while (queue.Count > 0) {
+			Node current = queue.Dequeue();
+			foreach(Node neighbour in current.Neighbours) {
+				if( distance[neighbour.x , neighbour.y] == Int32.MaxValue) {
+					distance[neighbour.x , neighbour.y] = 1 + distance[current.x, current.y];
+					if (distance[current.x, current.y] <= maxAttackRange) {
+						queue.Enqueue(neighbour);
+						tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
+					}
+				}
+			}
+			//dist > MinRange
+			if (distance[current.x, current.y] > minAttackRange && distance[current.x, current.y] <= maxAttackRange) {
+				validTiles.Add(current);
+			}
+		}
+
+		StartCoroutine(tdt.PrintDebugStack(Color.red));
+		return validTiles;
 	}
 
 	
-
+	/*
 	private void GetTilesInAttackRange(int startPosX, int startPosY, int attackRange, List<Node> validTiles) {
 		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
 		Node startTile = graph[startPosX, startPosY];
@@ -347,19 +383,19 @@ public class BoardManager : MonoBehaviour {
 		{
 			Vector3 start = new Vector3 (startTile.x, startTile.y, -1);
 			Vector3 end = new Vector3 (startTile.Neighbours[i].x, startTile.Neighbours[i].y, -1);
-			tbt.AddLine(start, end);
+			tdt.AddLine(start, end);
 
 			//get moveCost:
-			/*Node currentNeighbour = startTile.Neighbours[i];
-			TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
-			int moveCost = tt.MovementCost;*/
+			//Node currentNeighbour = startTile.Neighbours[i];
+			//TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
+			//int moveCost = tt.MovementCost;
 			//calculate remaining ???
 			//Debug.Log("attackRange = " + attackRange);
 			int nextAttackCost = attackRange - 1;
-			if (nextAttackCost >= 0 && !validTiles.Contains(startTile.Neighbours[i]))
+			if (nextAttackCost >= 0 )// && !validTiles.Contains(startTile.Neighbours[i]) )
 				GetTilesInAttackRange(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextAttackCost, validTiles);
 		}
-	}
+	}*/
 
 	
 

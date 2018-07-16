@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileDebugTool {
 
 	private Stack<Dictionary<Vector3, Vector3>> DrawLineStack = new Stack<Dictionary<Vector3, Vector3>>();
+	private float VisibilityDuration = 60.0f;
 
 	public void AddLine(Vector3 start, Vector3 end) {
 		Dictionary<Vector3, Vector3> line = new Dictionary<Vector3, Vector3>();
@@ -14,6 +15,10 @@ public class TileDebugTool {
 
 	public void EmptyDrawLineStack() {
 		DrawLineStack.Clear();
+	}
+
+	public void SetLineVisibilityDurationTo(float visibilityDuration) {
+		VisibilityDuration = VisibilityDuration;
 	}
 	
 
@@ -25,14 +30,14 @@ public class TileDebugTool {
         {
             Dictionary<Vector3, Vector3> line = DrawLineStack.Pop();
 			foreach( Vector3 key in line.Keys) {
-				DrawDebugLine(key, line[key], c, duration);
+				DrawDebugLine(key, line[key], c);
 			}
             yield return new WaitForSeconds(1);
         } while (DrawLineStack.Count > 0);
 	}
 
-	private void  DrawDebugLine(Vector3 start, Vector3 end, Color c,  float duration) {
-			Debug.DrawLine( start, end, c, duration, false);
+	private void  DrawDebugLine(Vector3 start, Vector3 end, Color c) {
+			Debug.DrawLine( start, end, c, VisibilityDuration, false);
 			Debug.Log("Drawing from " + start + " to " + end);
 	}
 }

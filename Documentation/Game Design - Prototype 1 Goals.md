@@ -16,4 +16,4 @@ Since it is our first try building this type of game, the code will most likely 
 - Topography vary each time a player starts a match.
 - Mountains add a MaxAttackRange bonus to ranged units able to climb them.
 - A player should be able to see a xx% prediction of how much damage a unit does to an targeted unit.
-- Win condition: TBD.
+- Win condition: Either defeat the enemy commander / general or conquer their headquarter.

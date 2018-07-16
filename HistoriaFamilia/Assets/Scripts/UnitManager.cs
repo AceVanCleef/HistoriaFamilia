@@ -48,6 +48,8 @@ public class UnitManager : MonoBehaviour {
 
     }
 
+	// -------------------------- UnitType mapping ---------------------------------
+
 	// asserts correct mapping from UnitType.UnitArcheType to UnitType[]'s index 
 	// and prevents duplicates of the same UnitType.UnitArcheType value.
 	// Note: If a designer wants to add two types of e.g. Archers such as Longbow- and CompositeBowArchers,  
@@ -57,6 +59,14 @@ public class UnitManager : MonoBehaviour {
 		UnitTypes = UnitTypes.OrderBy(ut => ut.Unit_Type)
 					.DistinctBy(ut => ut.Unit_Type)
 					.ToArray();
+	}
+
+	private UnitType GetUnitTypeOf(Unit u) {
+		return UnitTypes[(int) u.Unit_Type];
+	}
+
+	private UnitType GetUnitTypeBy(UnitType.UnitArcheType uat) {
+		return UnitTypes[(int) uat];
 	}
 
 	// -------------------------- Unit Creation ---------------------------------
@@ -80,7 +90,7 @@ public class UnitManager : MonoBehaviour {
 		//???: rename unitType to unitTypeCode?
 
 		//instantiate at x, y as UnitArcheType unitType such as Archer, Infantry or others:
-		UnitType ut = UnitTypes[ (int) unitType ];
+		UnitType ut = GetUnitTypeBy( unitType );
 		GameObject go = Instantiate(ut.UnitVisualPrefab, new Vector3(x, y, 0), 
 			Quaternion.identity) as GameObject;
 		go.transform.SetParent(_unitsHolder);
@@ -93,7 +103,7 @@ public class UnitManager : MonoBehaviour {
 		unitScript.Unit_Type = unitType;
 		unitScript.IsRangedUnit = ut.MaxAttackRange > 1;
         unitScript.Map = BoardManager;
-		unitScript.CurrentHealth = UnitTypes[(int) unitType].MaxHealth;
+		unitScript.CurrentHealth = ut.MaxHealth;
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 		//colouring the Units
@@ -107,8 +117,9 @@ public class UnitManager : MonoBehaviour {
 	// -------------------------- Targeting a hostile Unit ---------------------------------
 	private void PrepareAttackRangeVisual() {
 		Unit su = SelectedUnit.GetComponent<Unit>();
-		int attackRange = UnitTypes[(int) su.Unit_Type].MaxAttackRange;
-		_tilesInAttackRange = BoardManager.GetTilesInAttackRange(su.TileX, su.TileY, attackRange);
+		int maxAttackRange = GetUnitTypeOf(su).MaxAttackRange;
+		int minAttackRange = GetUnitTypeOf(su).MinAttackRange;
+		_tilesInAttackRange = BoardManager.GetTilesInAttackRange(su.TileX, su.TileY, maxAttackRange, minAttackRange);
 		ResetHightlightingOfTiles(_allSHMInMovementRange);
 		_allSHMInAttackRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
 		HighlightTilesInAttackRange();
@@ -174,10 +185,10 @@ public class UnitManager : MonoBehaviour {
 	}
 
 	private void Attack(Unit target, Unit attacker) {
-		int ut = (int) attacker.Unit_Type;
+		UnitType ut = GetUnitTypeOf(attacker);
 		
 		//Todo: implement commander attack and defense bonuses. Potential range: [80, 130]
-		target.CurrentHealth -= CalculateDamage(UnitTypes[ut].BaseAttackPower, 100f, attacker.CurrentHealth,
+		target.CurrentHealth -= CalculateDamage(ut.BaseAttackPower, 100f, attacker.CurrentHealth,
 										100f, BoardManager.GetTileTypeAt(target.TileX, target.TileY).TerrainDefenseValue ,
 										target.CurrentHealth);
 		target.SetHPText( (int) (target.CurrentHealth + 0.5) );
@@ -229,7 +240,7 @@ public class UnitManager : MonoBehaviour {
 		su.GetUnitState().Ready2UnitSelected();
 		ShowUnitUI();
 		//show movement range area on map
-		int movePoints = (int) UnitTypes[(int) su.Unit_Type].MovementReach;
+		int movePoints = (int) GetUnitTypeOf(su).MovementReach;
 		_validMoves = BoardManager.GetValidMoves(su.TileX, su.TileY, movePoints);
 		_allSHMInMovementRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_validMoves);
 		HighlightTilesInMovementRange();
@@ -264,8 +275,7 @@ public class UnitManager : MonoBehaviour {
     {
         // UnitTypes[indextoselectunittypeattributes]
         //var CantWalkOn = SelectedUnit.GetComponent<Unit>().GetComponent<UnitType>().ProhibitedToWalkOn;
-        int index = (int) SelectedUnit.GetComponent<Unit>().Unit_Type;
-        return !UnitTypes[index].ProhibitedToWalkOn.Contains(tile.Topography);
+        return !GetUnitTypeOf(SelectedUnit.GetComponent<Unit>()).ProhibitedToWalkOn.Contains(tile.Topography);
     }
 
 	public bool HasSelectedUnitReachedFinalDestination() {

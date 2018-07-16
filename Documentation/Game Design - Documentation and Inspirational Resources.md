@@ -18,7 +18,8 @@
 
 ## Unit Types
 - Archers: Can walk and shoot.
-- Siege weapons: Either walk or shoot.
+- Siege weapons: Either walk or shoot. Open question: Can they counter attack?
+  - Siege unit's state cycle has to be ajusted so that they either have to attack or move, but when moved they can no longer attack.
 - Cavalery archers: highly mobile, ranged units.
 - Knights (cavalery units): hevaily armored units.
 - Cavalery scouts: lighter armor, more mobility, larger scouting range in fog of war.

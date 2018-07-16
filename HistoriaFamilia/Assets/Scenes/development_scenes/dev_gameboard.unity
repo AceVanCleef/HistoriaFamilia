@@ -159,8 +159,8 @@ MonoBehaviour:
     MaxHealth: 10
     MovementReach: 6
     BaseAttackPower: 5
-    MaxAttackRange: 6
-    MinAttackRange: 2
+    MaxAttackRange: 4
+    MinAttackRange: 1
     ProhibitedToWalkOn: 
   - Unit_Type: 1
     UnitVisualPrefab: {fileID: 1357806524081410, guid: 4ee13177b3f6a564aae9cde62f1abedf,
@@ -309,8 +309,6 @@ MonoBehaviour:
   BoardSizeX: 10
   BoardSizeY: 10
   MousePointer: {fileID: 0}
-  DebugMarker: {fileID: 1610111618753982, guid: cb5f3e603279f7a45a14f6f267b2d625,
-    type: 2}
 --- !u!114 &863546213
 MonoBehaviour:
   m_ObjectHideFlags: 0
