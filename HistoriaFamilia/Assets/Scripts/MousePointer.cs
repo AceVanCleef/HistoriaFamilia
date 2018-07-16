@@ -25,7 +25,9 @@ public class MousePointer  : MonoBehaviour {
 
 
 	void InitialiseTileCursor() {
-		Cursor = Instantiate( new GameObject(), Vector3.zero, Quaternion.Euler(0,0,0)) as GameObject;
+		Cursor = new GameObject("Cursor");
+		Cursor.transform.position = Vector3.zero;
+		Cursor.transform.rotation = Quaternion.identity;
 		SpriteRenderer sr = Cursor.AddComponent<SpriteRenderer>();
 		sr.sprite = tileCursorSprite;
 		sr.sortingOrder = 9999;
