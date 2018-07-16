@@ -2,7 +2,7 @@
 
 ## Trouble Shooting (How to do / fix X) in Unity
 
-#3# How to install multiple versions of Unity
+### How to install multiple versions of Unity
 - [Installing multiple versions of Unity, to have different versions for different projects.](https://forum.unity.com/threads/installing-multiple-versions-of-unity-to-have-different-versions-for-different-projects.505556/)
 
 ### Object movement: LERP
@@ -33,7 +33,7 @@
 
 ## Git
 
-### Never type username and password when pushing by https
+### Never type username and password again when pushing by https
 - [Setup command - Trying to understand wincred with git for windows - confused](https://stackoverflow.com/questions/38333752/trying-to-understand-wincred-with-git-for-windows-confused)
 - [Git documentation: 7.14 Git Tools - Credential Storage](https://git-scm.com/book/en/v2/Git-Tools-Credential-Storage)
 
