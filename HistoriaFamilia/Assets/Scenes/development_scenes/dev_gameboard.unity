@@ -169,7 +169,7 @@ MonoBehaviour:
     MovementReach: 6
     BaseAttackPower: 5
     MaxAttackRange: 1
-    MinAttackRange: 1
+    MinAttackRange: 0
     ProhibitedToWalkOn: 
   - Unit_Type: 2
     UnitVisualPrefab: {fileID: 1784250042380684, guid: faf60c28b484b5443b74fca3571b2753,
@@ -178,7 +178,7 @@ MonoBehaviour:
     MovementReach: 4
     BaseAttackPower: 6
     MaxAttackRange: 1
-    MinAttackRange: 1
+    MinAttackRange: 0
     ProhibitedToWalkOn: 02000000
   SelectedUnit: {fileID: 0}
 --- !u!4 &321084950

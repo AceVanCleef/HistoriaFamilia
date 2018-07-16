@@ -347,8 +347,6 @@ public class BoardManager : MonoBehaviour {
 		distance[startPosX, startPosY] = 0;
 		Queue<Node> queue = new Queue<Node>();
 		queue.Enqueue( graph[startPosX, startPosY] );
-
-		//count?
 		while (queue.Count > 0) {
 			Node current = queue.Dequeue();
 			foreach(Node neighbour in current.Neighbours) {
@@ -356,7 +354,7 @@ public class BoardManager : MonoBehaviour {
 					distance[neighbour.x , neighbour.y] = 1 + distance[current.x, current.y];
 					if (distance[current.x, current.y] <= maxAttackRange) {
 						queue.Enqueue(neighbour);
-						tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
+						//tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
 					}
 				}
 			}
@@ -366,38 +364,9 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 
-		StartCoroutine(tdt.PrintDebugStack(Color.red));
+		//StartCoroutine(tdt.PrintDebugStack(Color.red));
 		return validTiles;
-	}
-
-	
-	/*
-	private void GetTilesInAttackRange(int startPosX, int startPosY, int attackRange, List<Node> validTiles) {
-		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
-		Node startTile = graph[startPosX, startPosY];
-
-		//Debug.Log("Currently at " + startTile.x + " , " + startTile.y);
-
-		validTiles.Add(startTile);
-		for (int i = 0; i < startTile.Neighbours.Count; i++)
-		{
-			Vector3 start = new Vector3 (startTile.x, startTile.y, -1);
-			Vector3 end = new Vector3 (startTile.Neighbours[i].x, startTile.Neighbours[i].y, -1);
-			tdt.AddLine(start, end);
-
-			//get moveCost:
-			//Node currentNeighbour = startTile.Neighbours[i];
-			//TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
-			//int moveCost = tt.MovementCost;
-			//calculate remaining ???
-			//Debug.Log("attackRange = " + attackRange);
-			int nextAttackCost = attackRange - 1;
-			if (nextAttackCost >= 0 )// && !validTiles.Contains(startTile.Neighbours[i]) )
-				GetTilesInAttackRange(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextAttackCost, validTiles);
-		}
-	}*/
-
-	
+	}	
 
 	public List<SpriteHighlightManager> GetSpriteHighlightManagersInRangeBy(List<Node> validTiles) {
 		//Getting all children from _boardHolder: https://answers.unity.com/questions/594210/get-all-children-gameobjects.html

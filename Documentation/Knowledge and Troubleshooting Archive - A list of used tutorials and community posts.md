@@ -30,6 +30,9 @@
 ### Mouse Cursor on Tile Map
 - [Creating Tools in Unity - Grid Cursor & Painting Tiles](https://www.youtube.com/watch?v=B2s7QNAvrcU)
 
+### Make two Sliders in Inspector dependent on each other
+- [Make 2 sliders dependent on each other](https://answers.unity.com/questions/1112804/make-2-sliders-dependent-on-each-other.html)
+
 
 ## Git
 
