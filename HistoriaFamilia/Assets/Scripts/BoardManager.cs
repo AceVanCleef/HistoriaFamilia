@@ -29,6 +29,9 @@ public class BoardManager : MonoBehaviour {
 	//Has to be moved up to the GameManager
 	public MousePointer MousePointer;
 
+	//Debugging tools
+	private TileDebugTool tbt = new TileDebugTool();
+
 	void Start () {
 
         GenerateMapData();
@@ -302,7 +305,6 @@ public class BoardManager : MonoBehaviour {
 	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
 	{
 		List<Node> root = new List<Node>();
-		Debug.Log("In GetValidMoves - root");
 		GetValidMoves(startPosX, startPosY, movePoints, root);
 		return root;
 	}
@@ -328,25 +330,38 @@ public class BoardManager : MonoBehaviour {
 	{
 		List<Node> root = new List<Node>();
 		GetTilesInAttackRange(startPosX, startPosY, attackRange, root);
+		StartCoroutine(tbt.PrintDebugStack(Color.red));
 		return root;
 	}
+
+	
 
 	private void GetTilesInAttackRange(int startPosX, int startPosY, int attackRange, List<Node> validTiles) {
 		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
 		Node startTile = graph[startPosX, startPosY];
+
+		//Debug.Log("Currently at " + startTile.x + " , " + startTile.y);
+
 		validTiles.Add(startTile);
 		for (int i = 0; i < startTile.Neighbours.Count; i++)
 		{
+			Vector3 start = new Vector3 (startTile.x, startTile.y, -1);
+			Vector3 end = new Vector3 (startTile.Neighbours[i].x, startTile.Neighbours[i].y, -1);
+			tbt.AddLine(start, end);
+
 			//get moveCost:
 			/*Node currentNeighbour = startTile.Neighbours[i];
 			TileType tt = TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
 			int moveCost = tt.MovementCost;*/
 			//calculate remaining ???
+			//Debug.Log("attackRange = " + attackRange);
 			int nextAttackCost = attackRange - 1;
 			if (nextAttackCost >= 0 && !validTiles.Contains(startTile.Neighbours[i]))
 				GetTilesInAttackRange(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextAttackCost, validTiles);
 		}
 	}
+
+	
 
 	public List<SpriteHighlightManager> GetSpriteHighlightManagersInRangeBy(List<Node> validTiles) {
 		//Getting all children from _boardHolder: https://answers.unity.com/questions/594210/get-all-children-gameobjects.html

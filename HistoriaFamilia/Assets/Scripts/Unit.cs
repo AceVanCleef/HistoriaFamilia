@@ -153,7 +153,6 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void SetHPText(int newHP) {
-		Debug.Log("SetHPText to " + newHP);
 		if (newHP < 0) return;
 		if (newHP < 1) {
 			_HPView.GetComponent<TextMesh>().text = "1";

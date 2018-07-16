@@ -309,6 +309,8 @@ MonoBehaviour:
   BoardSizeX: 10
   BoardSizeY: 10
   MousePointer: {fileID: 0}
+  DebugMarker: {fileID: 1610111618753982, guid: cb5f3e603279f7a45a14f6f267b2d625,
+    type: 2}
 --- !u!114 &863546213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,7 +489,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 0
+  Mute: 1
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
