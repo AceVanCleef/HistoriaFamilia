@@ -35,6 +35,5 @@ alt="game development on the go" width="240" height="180" border="10" /></a>
 # Known Issues (TBD)
 - Attacked units (or only melee) can't counterattack a ranged unit attacking them from afar.
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
-- Check if the algorithm responsible to determine where and how far a unit can move to works correctly.
 - When canceling from IsSelectingTarget state several times (probably back to ReadState), the unit gets teleported to Tile (0,0).
 - Rarely, the mouse Cursor throws an error for not being instantiated.

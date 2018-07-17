@@ -305,6 +305,7 @@ public class BoardManager : MonoBehaviour {
 	//Breadth first search (BFS)
 	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
 	{
+		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
 		List<Node> validTiles = new List<Node>();
 		int[,] distance = new int[BoardSizeX, BoardSizeY];
 		for(int x = 0; x < BoardSizeX; ++x) {
@@ -323,7 +324,7 @@ public class BoardManager : MonoBehaviour {
 					distance[neighbour.x , neighbour.y] = movementCost + distance[current.x, current.y];
 					if (distance[neighbour.x , neighbour.y] <= movePoints) {
 						queue.Enqueue(neighbour);
-						tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
+						//tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
 					}
 				}
 			}
@@ -332,35 +333,10 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 
-		Debug.Log("Count: " + validTiles.Count);
-		StartCoroutine(tdt.PrintDebugStack(Color.red));
+		//Debug.Log("Count: " + validTiles.Count);
+		//StartCoroutine(tdt.PrintDebugStack(Color.red));
 		return validTiles;
 	}
-	/*
-	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
-	{
-		List<Node> root = new List<Node>();
-		GetValidMoves(startPosX, startPosY, movePoints, root);
-		Debug.Log("Count: " + root.Count);
-		return root;
-	}
-
-	private void GetValidMoves(int startPosX, int startPosY, int movePoints, List<Node> validMoves) {
-		//How to: https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html
-		Node startTile = graph[startPosX, startPosY];
-		validMoves.Add(startTile);
-		for (int i = 0; i < startTile.Neighbours.Count; i++)
-		{
-			//get moveCost:
-			Node currentNeighbour = startTile.Neighbours[i];
-			TileType tt = GetTileTypeAt(currentNeighbour.x, currentNeighbour.y); //TileTypes[_tiles[currentNeighbour.x, currentNeighbour.y]];
-			int moveCost = tt.MovementCost;
-			//calculate remaining ???
-			int nextMoveCost = movePoints - moveCost;
-			if (nextMoveCost >= 0 )//&& !validMoves.Contains(startTile.Neighbours[i]))
-				GetValidMoves(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextMoveCost, validMoves);
-		}
-	}*/
 
 	//Breadth first search (BFS)
 	public List<Node> GetTilesInAttackRange(int startPosX, int startPosY, int maxAttackRange, int minAttackRange)

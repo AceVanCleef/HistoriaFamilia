@@ -8,6 +8,9 @@
 ### Object movement: LERP
 - [Unity Tutorial 1 - Using "Vector3.Lerp" to move object from Point A to Point B](https://www.youtube.com/watch?v=k9FvVwd5pR4&t=175s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=7)
 
+### Unit Movement and Attack Range
+- BFS for getting all tiles within walking or attack range: [How do I highlight all available paths with Dijkstra's algorithm on a tile based map?](https://answers.unity.com/questions/1063687/how-do-i-highlight-all-available-paths-with-dijkst.html?sort=oldest)
+
 ### Unit States
 - [The State Design Pattern vs. State Machine](https://www.codeproject.com/Articles/509234/The-State-Design-Pattern-vs-State-Machine)
 - [Don’t Re-invent Finite State Machines: How to Repurpose Unity’s Animator](https://medium.com/the-unity-developers-handbook/dont-re-invent-finite-state-machines-how-to-repurpose-unity-s-animator-7c6c421e5785)
@@ -32,6 +35,8 @@
 
 ### Make two Sliders in Inspector dependent on each other
 - [Make 2 sliders dependent on each other](https://answers.unity.com/questions/1112804/make-2-sliders-dependent-on-each-other.html)
+
+
 
 
 ## Git
