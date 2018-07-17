@@ -304,8 +304,11 @@ public class UnitManager : MonoBehaviour {
 		//Todo
 		//if ( !AnyTargetInRange()) return;
 		if (su.GetUnitState().InUnitSelectedState) {
+			//Attacking from the spot
+			su.StoreCurrentLocationAsPreviousPosition();
 			su.GetUnitState().UnitSelected2SelectingTarget();
 		} else if (su.GetUnitState().InUnitArrivedState) {
+			//Attacking after unit has been moved to another location.
 			su.GetUnitState().UnitArrived2SelectingTarget();
 		} else {
 			//invalid state.
@@ -317,19 +320,7 @@ public class UnitManager : MonoBehaviour {
 
 	private void Cancel() {
 		Unit su = SelectedUnit.GetComponent<Unit>();
-		if (su.GetUnitState().InUnitSelectedState) {
-			su.GetUnitState().UnitSelected2Ready();
-			HideUnitUI();
-			DeselectTarget();
-			DeselectUnit();
-
-			ResetHightlightingOfTiles(_allSHMInMovementRange);
-		}
-		if (su.GetUnitState().InUnitArrivedState) {
-			//move backwards.
-			su.TeleportToPreviousPosition();
-			su.GetUnitState().UnitArrived2UnitSelected();
-		}
+		//from most advance state...
 		if (su.GetUnitState().InSelectingTargetState){
 			su.GetUnitState().SelectingTarget2UnitArrived();
 			//usability improvement: Transition from InSelectingTargetState to InUnitSelectedState in case
@@ -338,6 +329,17 @@ public class UnitManager : MonoBehaviour {
 				su.GetUnitState().UnitArrived2UnitSelected();
 			ResetHightlightingOfTiles(_allSHMInAttackRange);
 			HighlightTilesInMovementRange();
+		} else if (su.GetUnitState().InUnitArrivedState) {
+			//move backwards.
+			su.TeleportToPreviousPosition();
+			su.GetUnitState().UnitArrived2UnitSelected();
+		} else if (su.GetUnitState().InUnitSelectedState) {			//...to first state.
+			su.GetUnitState().UnitSelected2Ready();
+			HideUnitUI();
+			DeselectTarget();
+			DeselectUnit();
+
+			ResetHightlightingOfTiles(_allSHMInMovementRange);
 		}
 	}
 

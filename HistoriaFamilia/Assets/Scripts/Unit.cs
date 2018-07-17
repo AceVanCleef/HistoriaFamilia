@@ -279,6 +279,12 @@ public class Unit : MonoBehaviour {
 		TileY = _previousPosY;
 	}
 
+	//required to set the answer of WasUnitUsedWithoutMovingToAnotherTile() to true.
+	public void StoreCurrentLocationAsPreviousPosition() {
+		_previousPosX = TileX;
+		_previousPosY = TileY;
+	}
+
 	public bool WasUnitUsedWithoutMovingToAnotherTile() {
 		return TileX == _previousPosX && TileY == _previousPosY;
 	}
