@@ -28,6 +28,7 @@ public class UnitType {
 	public int MovementReach = 6;
 	[Range(0f, 10f)]
 	public float BaseAttackPower = 5;
+	//Todo: make MaxAttackRange slider's lower boundary value equal to MinAttackRange silder's upper boundary value + 1. this must be dynamically adjusted.
 	[Range(1, 10)][Tooltip("1 => Melee Unit. Any value > 1 => ranged unit.")]
 	public int MaxAttackRange = 1;
 	[Range(0, 10)][Tooltip("Default value: 0. Set this to a higher value if this unit type has a blind spot where it can't shoot to. For melee units, leave this at 0.")]

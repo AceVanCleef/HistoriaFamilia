@@ -157,7 +157,7 @@ MonoBehaviour:
     UnitVisualPrefab: {fileID: 1094505156277608, guid: 494c65c819f1020439c994700ccf0a9d,
       type: 2}
     MaxHealth: 10
-    MovementReach: 6
+    MovementReach: 5
     BaseAttackPower: 5
     MaxAttackRange: 4
     MinAttackRange: 1

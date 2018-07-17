@@ -166,12 +166,12 @@ public class UnitManager : MonoBehaviour {
 		else 
 		{
 			//counter attack
-
-			//Todo: is in firing range?
-			Attack(selectedUnit, targetedUnit);
-			if (selectedUnit.CurrentHealth < 0.01f) 
-			{
-				DestroyUnit(SelectedUnit);
+			if (IsInFiringRange(selectedUnit, targetedUnit) ) {
+				Attack(selectedUnit, targetedUnit);
+				if (selectedUnit.CurrentHealth < 0.01f) 
+				{
+					DestroyUnit(SelectedUnit);
+				}
 			}
 		}
 		//clean up
@@ -180,6 +180,21 @@ public class UnitManager : MonoBehaviour {
 		DeselectTarget();
 		DeselectUnit();
 		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
+	}
+
+	private bool IsInFiringRange(Unit target, Unit attacker) {
+		//Strategy 1: using BoardManager.GetTilesInAttackRange().Contains(target.x, target.y) 
+		//			  --> BFS, Contains has a complexity of O(n)
+		//Strategy 2: calculation: MinRange <= |Diff_x| + |Diff_Y| <= MaxRange --> O(1)
+		//				Note: might only work for an attackable area shapend like a diamond.
+
+		//Strategy 2
+		int diffX = System.Math.Abs(attacker.TileX - target.TileX);
+		int diffY = System.Math.Abs(attacker.TileY - target.TileY);
+		UnitType ut = GetUnitTypeOf(attacker);
+		Debug.Log(ut.MinAttackRange + " < " + diffX + " + " + diffY + " <= " + ut.MaxAttackRange);
+		int sum = diffX + diffY;
+		return ut.MinAttackRange < sum && sum <= ut.MaxAttackRange;
 	}
 
 	private void Attack(Unit target, Unit attacker) {
