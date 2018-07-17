@@ -302,10 +302,46 @@ public class BoardManager : MonoBehaviour {
 
 	// -------------------------- Movement and Attack Range ---------------------------------
 
+	//Breadth first search (BFS)
+	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
+	{
+		List<Node> validTiles = new List<Node>();
+		int[,] distance = new int[BoardSizeX, BoardSizeY];
+		for(int x = 0; x < BoardSizeX; ++x) {
+			for (int y = 0; y < BoardSizeY; ++y) {
+				distance[x, y] = Int32.MaxValue;
+			}
+		}
+		distance[startPosX, startPosY] = 0;
+		Queue<Node> queue = new Queue<Node>();
+		queue.Enqueue( graph[startPosX, startPosY] );
+		while (queue.Count > 0) {
+			Node current = queue.Dequeue();
+			foreach(Node neighbour in current.Neighbours) {
+				if( distance[neighbour.x , neighbour.y] > movePoints) {
+					int movementCost = GetTileTypeAt(neighbour.x , neighbour.y).MovementCost;
+					distance[neighbour.x , neighbour.y] = movementCost + distance[current.x, current.y];
+					if (distance[neighbour.x , neighbour.y] <= movePoints) {
+						queue.Enqueue(neighbour);
+						tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
+					}
+				}
+			}
+			if (distance[current.x, current.y] > 0 && distance[current.x, current.y] <= movePoints) {
+				validTiles.Add(current);
+			}
+		}
+
+		Debug.Log("Count: " + validTiles.Count);
+		StartCoroutine(tdt.PrintDebugStack(Color.red));
+		return validTiles;
+	}
+	/*
 	public List<Node> GetValidMoves(int startPosX, int startPosY, int movePoints)
 	{
 		List<Node> root = new List<Node>();
 		GetValidMoves(startPosX, startPosY, movePoints, root);
+		Debug.Log("Count: " + root.Count);
 		return root;
 	}
 
@@ -321,10 +357,10 @@ public class BoardManager : MonoBehaviour {
 			int moveCost = tt.MovementCost;
 			//calculate remaining ???
 			int nextMoveCost = movePoints - moveCost;
-			if (nextMoveCost >= 0 && !validMoves.Contains(startTile.Neighbours[i]))
+			if (nextMoveCost >= 0 )//&& !validMoves.Contains(startTile.Neighbours[i]))
 				GetValidMoves(startTile.Neighbours[i].x, startTile.Neighbours[i].y, nextMoveCost, validMoves);
 		}
-	}
+	}*/
 
 	//Breadth first search (BFS)
 	public List<Node> GetTilesInAttackRange(int startPosX, int startPosY, int maxAttackRange, int minAttackRange)
@@ -352,7 +388,7 @@ public class BoardManager : MonoBehaviour {
 			foreach(Node neighbour in current.Neighbours) {
 				if( distance[neighbour.x , neighbour.y] == Int32.MaxValue) {
 					distance[neighbour.x , neighbour.y] = 1 + distance[current.x, current.y];
-					if (distance[current.x, current.y] <= maxAttackRange) {
+					if (distance[neighbour.x, neighbour.y] <= maxAttackRange) {
 						queue.Enqueue(neighbour);
 						//tdt.AddLine(new Vector3(current.x, current.y, -1.0f), new Vector3(neighbour.x, neighbour.y, -1.0f));
 					}

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TileDebugTool {
 
-	private Stack<Dictionary<Vector3, Vector3>> DrawLineStack = new Stack<Dictionary<Vector3, Vector3>>();
+	private Queue<Dictionary<Vector3, Vector3>> DrawLineStack = new Queue<Dictionary<Vector3, Vector3>>();
 	private float VisibilityDuration = 60.0f;
 
 	public void AddLine(Vector3 start, Vector3 end) {
 		Dictionary<Vector3, Vector3> line = new Dictionary<Vector3, Vector3>();
 		line.Add(start, end);
-		DrawLineStack.Push(line);
+		DrawLineStack.Enqueue(line);
 	}
 
 	public void EmptyDrawLineStack() {
@@ -28,7 +28,7 @@ public class TileDebugTool {
 		Debug.Log("------ Printing " + DrawLineStack.Count + " lines -----");
         do
         {
-            Dictionary<Vector3, Vector3> line = DrawLineStack.Pop();
+            Dictionary<Vector3, Vector3> line = DrawLineStack.Dequeue();
 			foreach( Vector3 key in line.Keys) {
 				DrawDebugLine(key, line[key], c);
 			}

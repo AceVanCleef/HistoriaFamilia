@@ -87,8 +87,6 @@ public class UnitManager : MonoBehaviour {
 	//eventually public if fabrics will call CreateUnitAt().
 	private void CreateUnitAt(int x, int y, UnitType.UnitArcheType unitType, Player p)
 	{
-		//???: rename unitType to unitTypeCode?
-
 		//instantiate at x, y as UnitArcheType unitType such as Archer, Infantry or others:
 		UnitType ut = GetUnitTypeBy( unitType );
 		GameObject go = Instantiate(ut.UnitVisualPrefab, new Vector3(x, y, 0), 
