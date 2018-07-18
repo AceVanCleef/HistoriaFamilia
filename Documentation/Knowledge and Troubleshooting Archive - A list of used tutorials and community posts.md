@@ -15,6 +15,12 @@
 - [The State Design Pattern vs. State Machine](https://www.codeproject.com/Articles/509234/The-State-Design-Pattern-vs-State-Machine)
 - [Don’t Re-invent Finite State Machines: How to Repurpose Unity’s Animator](https://medium.com/the-unity-developers-handbook/dont-re-invent-finite-state-machines-how-to-repurpose-unity-s-animator-7c6c421e5785)
 
+## AI Programming
+- [Programming NPC Behaviour with Finite State Machines in Unity Part 1](https://www.youtube.com/watch?v=NEvdyefORBo)
+- [Programming NPC Behaviour with Finite State Machines in Unity Part 2](https://www.youtube.com/watch?v=tdYsq96kCYI)
+- [Programming NPC Behaviour with Finite State Machines in Unity Part 3](https://www.youtube.com/watch?v=5qDadIloxvU)
+- [Combat AI for Action-Adventure Games Tutorial (Unity/C#) GOAP](https://www.youtube.com/watch?v=n6vn7d5R_2c)
+
 ### Colouring sprites
 - [Unity Tutorial How To Change Gameobjects Sprite Color With C# Script Modifying Color Renderer Option](https://www.youtube.com/watch?v=J66UkLJHzCY&t=0s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=10)
 - [changing sprite color makes sprite disappear](https://answers.unity.com/questions/1144563/changing-sprite-color-makes-sprite-disappear.html)  
