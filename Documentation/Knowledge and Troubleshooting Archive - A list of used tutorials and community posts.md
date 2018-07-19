@@ -42,7 +42,44 @@
 ### Make two Sliders in Inspector dependent on each other
 - [Make 2 sliders dependent on each other](https://answers.unity.com/questions/1112804/make-2-sliders-dependent-on-each-other.html)
 
+### Screen resolution and Aspect Ratio
+- [Managing Screen Resolution and Aspect Ratio in Unity 3D](http://www.aclockworkberry.com/managing-screen-resolution-and-aspect-ratio-in-unity-3d/)
 
+### Get width and height of a canvas
+- [Unity 4.6 UI Canvas width & height](https://answers.unity.com/questions/889220/unity-46-ui-canvas-width-height.html)
+
+### Animate UI
+- Formula: currentvalue += (finalvalue - currentvalue) * slidespeed: [Animation in 2D Unity Games: In-Depth Starter Guide](https://www.gamasutra.com/blogs/AlexRose/20130905/199662/Animation_in_2D_Unity_Games_InDepth_Starter_Guide.php)
+
+### Coroutines
+```C#
+void Update () {
+    ...
+    if (_wait) {
+		StartCoroutine( SlideOutAfter( 1.25 ) );
+	}
+    ...
+}
+
+private IEnumerator  SlideOutAfter(float seconds) {
+		_wait = false;	//prevent subsequent call of this coroutine.
+		//pause Coroutine for x seconds.
+        yield return new WaitForSeconds(seconds);
+		_slideOut = true;
+}
+```
+- [MonoBehaviour.StartCoroutine](https://docs.unity3d.com/ScriptReference/MonoBehaviour.StartCoroutine.html)
+
+#### IEnumerator - C#'s Iterator
+``` C#
+private IEnumerator ...():  
+```
+The return type is basically an iterator (Java). We can say: Iterator (Java) == IEnumerator (C#)  
+  
+* ienumerator.Current returns the current item.  
+* ienumerator.MoveNext() moves to the next item and returns true if it moved forward sucessfully.  
+* There is also a ienumerator.Reset() method, which sets the iterator to its original position, right infront of the first element in the collection.  
+- [IEnumerator Interface](https://msdn.microsoft.com/en-us/library/system.collections.ienumerator(v=vs.110).aspx)
 
 
 ## Git

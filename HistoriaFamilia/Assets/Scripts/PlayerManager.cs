@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour {
 
 	void Start() {
 		_currentPlayerID = FIRST_PLAYER_ID;
-		_currentPlayer = AllPlayers[0];
+		_currentPlayer = AllPlayers[FIRST_PLAYER_ID];
 	}
 
 	public Player GetCurrentPlayer() {
