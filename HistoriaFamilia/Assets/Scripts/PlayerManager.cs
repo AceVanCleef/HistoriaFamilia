@@ -11,9 +11,14 @@ public class PlayerManager : MonoBehaviour {
 	private Player _currentPlayer;
 	private int _currentPlayerID;
 
+	private AnnouncementUI _turnAnnouncer;
+
 	void Start() {
 		_currentPlayerID = FIRST_PLAYER_ID;
 		_currentPlayer = AllPlayers[FIRST_PLAYER_ID];
+		
+		_turnAnnouncer = GameObject.Find("TurnAnnouncementText").GetComponent<AnnouncementUI>();
+		_turnAnnouncer.AnnounceTurnOf(_currentPlayerID + 1);
 	}
 
 	public Player GetCurrentPlayer() {
@@ -27,12 +32,18 @@ public class PlayerManager : MonoBehaviour {
 	public Player NextPlayer () {
 		_currentPlayerID++;
 		// If last player finished turn, select the first player.
-		if (_currentPlayerID > AllPlayers.Count - 1) _currentPlayerID = FIRST_PLAYER_ID;
+		if (_currentPlayerID > AllPlayers.Count - 1) {
+			_currentPlayerID = FIRST_PLAYER_ID;
+			_turnAnnouncer.IncrementTurnCount();
+		}
 		_currentPlayer = AllPlayers[_currentPlayerID];
 		//reactivate units.
 		foreach (GameObject unit in _currentPlayer.AllUnits) {
 			unit.GetComponent<Unit>().GetUnitState().Resting2Ready();
 		}
+		//Announce next turn to player
+		_turnAnnouncer.AnnounceTurnOf(_currentPlayerID + 1);
+		Debug.Log(_turnAnnouncer);
 		return _currentPlayer;
 	}
 

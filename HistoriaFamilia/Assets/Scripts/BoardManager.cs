@@ -11,14 +11,17 @@ public class BoardManager : MonoBehaviour {
 	// utility variable - holds the GameBoard's children under one root node in unity's "Hierarchy" window.
 	private Transform _boardHolder;
 
+	[HideInInspector]
 	public UnitManager UnitManager;
 
+	[Header("Tile Types")]
 	public TileType[] TileTypes;	//defined in inspector.
 	//Idee für Indexsicherheit: public Dictionary<TileType.TopographicalFeature, TileType> TileTypez;
 
 	// stores the tile type key.
 	int[,] _tiles = null;
 
+	[Header("Board Dimension")]
 	public int BoardSizeX = 10;
 	public int BoardSizeY = 10;
 
@@ -26,6 +29,7 @@ public class BoardManager : MonoBehaviour {
 	Node[,] graph;
 	List<Node> currentPath = null;
 
+	[HideInInspector]
 	//Has to be moved up to the GameManager
 	public MousePointer MousePointer;
 
@@ -33,7 +37,7 @@ public class BoardManager : MonoBehaviour {
 	private TileDebugTool tdt = new TileDebugTool();
 
 	void Start () {
-
+		UnitManager = GameObject.Find("UnitManager").GetComponent<UnitManager>();
         GenerateMapData();
 		GeneratePathfindingGraph();
 		GenerateMapVisuals();

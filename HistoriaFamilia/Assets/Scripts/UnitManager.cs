@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UnitManager : MonoBehaviour {
 
+	[Header("Unit UI")]
 	//UnitUI (Attack, Wait, Cancel)
 	public GameObject UnitUI;
 	private bool _displayUnitUI = false;
@@ -21,14 +22,11 @@ public class UnitManager : MonoBehaviour {
 	[HideInInspector]
     public BoardManager BoardManager;
 
+	[Header("Unit Types")]
 	[Tooltip("Define what unit types do exist and which attribute values they have.")]
 	public UnitType[] UnitTypes;	//defined in inspector.
-
-
 	//note: each unit prefab can have its click handler which will inform the map to mark it as selected.
-	[SerializeField][Tooltip("Hint: Leave this empty.")]
 	private GameObject SelectedUnit;
-
 	private GameObject TargetedUnit;
 
 	//Unit movement and attacking range

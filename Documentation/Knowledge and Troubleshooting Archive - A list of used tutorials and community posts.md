@@ -5,6 +5,11 @@
 ### How to install multiple versions of Unity
 - [Installing multiple versions of Unity, to have different versions for different projects.](https://forum.unity.com/threads/installing-multiple-versions-of-unity-to-have-different-versions-for-different-projects.505556/)
 
+### Find GameObject and Components
+- Only recommended in Start() or Awake():
+  - [GameObject.Find](https://docs.unity3d.com/ScriptReference/GameObject.Find.html)
+  - If you wish to find a child GameObject, it is often easier to use [Transform.Find](https://docs.unity3d.com/ScriptReference/Transform.Find.html)
+
 ### Object movement: LERP
 - [Unity Tutorial 1 - Using "Vector3.Lerp" to move object from Point A to Point B](https://www.youtube.com/watch?v=k9FvVwd5pR4&t=175s&list=PLW5H12krTaY3XhCyksjj8WvtMIvYL5Tzq&index=7)
 
@@ -81,6 +86,9 @@ The return type is basically an iterator (Java). We can say: Iterator (Java) == 
 * There is also a ienumerator.Reset() method, which sets the iterator to its original position, right infront of the first element in the collection.  
 - [IEnumerator Interface](https://msdn.microsoft.com/en-us/library/system.collections.ienumerator(v=vs.110).aspx)
 
+
+### Inspector Manipulation
+- [7 Ways to Make Your Unity Components More User-Friendly](http://thehiddensignal.com/7-ways-to-make-your-unity-components-more-user-friendly/)
 
 ## Git
 

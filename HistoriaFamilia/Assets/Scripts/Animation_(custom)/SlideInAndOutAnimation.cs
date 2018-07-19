@@ -33,7 +33,6 @@ public class SlideInAndOutAnimation : MonoBehaviour {
 		t = tf;
 		t.position = StartPosition;
 		_animate = true;
-		Debug.Log("Transform there? " + t.name);
 	}
 
 	private bool _slideIn = true;
@@ -42,7 +41,6 @@ public class SlideInAndOutAnimation : MonoBehaviour {
 
 	private void ManageAnimation() {
 		//source: https://www.gamasutra.com/blogs/AlexRose/20130905/199662/Animation_in_2D_Unity_Games_InDepth_Starter_Guide.php
-		Debug.Log("Animate now?" + _animate);
 		if (_animate) {
 			if ( _slideIn ) {
 				t.position += (DisplayDestination - t.position) * SlideInSpeed;
@@ -61,6 +59,8 @@ public class SlideInAndOutAnimation : MonoBehaviour {
 
 				if ( HasReachedEndPosition() ) {
 					_animate = false;
+					_slideOut = false;
+					_slideIn = true;
 					//t.position = StartPosition;
 				}
 			}
