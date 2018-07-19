@@ -12,11 +12,17 @@ fought: The defense of the kingdom you live in even today against a mysterious a
 Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amCCZrsIhYkeCyngm/view?usp=sharing
 
 
+# Known Issues (TBD)
+- Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
+- Rarely, the mouse Cursor throws an error for not being instantiated.
+
+
+
 # Dev Log
 See videos about the development process, how the game progresses over time and what it has turned into until we had to hand it in at the end of the semester. This game might never be finished but it is interesting to see how much effort it goes into making it. Everything was programmed by ourselves, tutorials and guides consulted about how to do X or Y in Unity and the web browsed for place holder assets.
 
 
-### Generate units from Unity's inspector
+### 01 Generate units from Unity's inspector
 In Unity it is possible to define units (of your army) from the inspector. This simplifies the creation of more unit types in the future.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=xPgY7SaGWKs
@@ -24,7 +30,7 @@ In Unity it is possible to define units (of your army) from the inspector. This 
 alt="game development on the go" width="240" height="180" border="10" /></a>
 
 
-### Boolean flag based unit state machine in action
+### 02 Boolean flag based unit state machine in action
 A unit follows a state cycle that regulates what it can do in any moment.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=Q6GGvhfCCB4
@@ -32,6 +38,9 @@ A unit follows a state cycle that regulates what it can do in any moment.
 alt="game development on the go" width="240" height="180" border="10" /></a>
 
 
-# Known Issues (TBD)
-- Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
-- Rarely, the mouse Cursor throws an error for not being instantiated.
+### 04 First "real" match against myself
+Two players can now fight for dominance.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=JtYVlVH8QCQ
+" target="_blank"><img src="http://img.youtube.com/vi/JtYVlVH8QCQ/0.jpg" 
+alt="game development on the go" width="240" height="180" border="10" /></a>
