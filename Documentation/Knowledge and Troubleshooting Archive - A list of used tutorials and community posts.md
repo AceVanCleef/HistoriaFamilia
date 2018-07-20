@@ -20,7 +20,7 @@
 - [The State Design Pattern vs. State Machine](https://www.codeproject.com/Articles/509234/The-State-Design-Pattern-vs-State-Machine)
 - [Don’t Re-invent Finite State Machines: How to Repurpose Unity’s Animator](https://medium.com/the-unity-developers-handbook/dont-re-invent-finite-state-machines-how-to-repurpose-unity-s-animator-7c6c421e5785)
 
-## AI Programming
+### AI Programming
 - [Programming NPC Behaviour with Finite State Machines in Unity Part 1](https://www.youtube.com/watch?v=NEvdyefORBo)
 - [Programming NPC Behaviour with Finite State Machines in Unity Part 2](https://www.youtube.com/watch?v=tdYsq96kCYI)
 - [Programming NPC Behaviour with Finite State Machines in Unity Part 3](https://www.youtube.com/watch?v=5qDadIloxvU)

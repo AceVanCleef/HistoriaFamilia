@@ -43,7 +43,6 @@ public class PlayerManager : MonoBehaviour {
 		}
 		//Announce next turn to player
 		_turnAnnouncer.AnnounceTurnOf(_currentPlayerID + 1);
-		Debug.Log(_turnAnnouncer);
 		return _currentPlayer;
 	}
 

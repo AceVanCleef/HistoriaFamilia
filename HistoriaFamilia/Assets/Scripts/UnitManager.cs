@@ -100,6 +100,7 @@ public class UnitManager : MonoBehaviour {
 		unitScript.IsRangedUnit = ut.MaxAttackRange > 1;
         unitScript.Map = BoardManager;
 		unitScript.CurrentHealth = ut.MaxHealth;
+		unitScript.Crosshair = go.transform.Find("Crosshair").gameObject; //GO -> Transform -> child's transform -> child GameObject.
 		//Initialize ClickOnUnitHandler.
 		go.GetComponent<ClickOnUnitHandler>().UnitManager = this;
 		//colouring the Units
@@ -119,6 +120,18 @@ public class UnitManager : MonoBehaviour {
 		ResetHightlightingOfTiles(_allSHMInMovementRange);
 		_allSHMInAttackRange = BoardManager.GetSpriteHighlightManagersInRangeBy(_tilesInAttackRange);
 		HighlightTilesInAttackRange();
+		//activate Crosshairs of units in range:
+		ToggleCrosshairOfPotentialTargetsTo(true);
+	}
+
+	private void ToggleCrosshairOfPotentialTargetsTo(bool b) {
+		Unit su = SelectedUnit.GetComponent<Unit>();
+		foreach(GameObject hostile in _pm.GetAllHostileUnits() ) {
+			Unit u = hostile.GetComponent<Unit>();
+			if ( IsInFiringRange(u, su) ) {
+				u.Crosshair.SetActive(b);
+			}
+		}
 	}
 	
 	public bool HasEnemyOnTile(int x, int y)
@@ -175,6 +188,7 @@ public class UnitManager : MonoBehaviour {
 		//clean up
 		selectedUnit.GetUnitState().Attacking2Resting();
 		ResetHightlightingOfTiles(_allSHMInAttackRange);
+		ToggleCrosshairOfPotentialTargetsTo(false);
 		DeselectTarget();
 		DeselectUnit();
 		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
@@ -342,6 +356,7 @@ public class UnitManager : MonoBehaviour {
 				su.GetUnitState().UnitArrived2UnitSelected();
 			ResetHightlightingOfTiles(_allSHMInAttackRange);
 			HighlightTilesInMovementRange();
+			ToggleCrosshairOfPotentialTargetsTo(false);
 		} else if (su.GetUnitState().InUnitArrivedState) {
 			//move backwards.
 			su.TeleportToPreviousPosition();

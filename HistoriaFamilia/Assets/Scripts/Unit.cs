@@ -126,6 +126,11 @@ public class Unit : MonoBehaviour {
 	public GameObject HPViewPrefab;
 	private Transform _HPView;
 
+	//Crosshair: this unit is in firing range of SelectedUnit.
+	//[HideInInspector]
+	public GameObject Crosshair;
+
+
 	void Start()
 	{
 		// Set Position of selected unit.
