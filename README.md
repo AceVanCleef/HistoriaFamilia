@@ -15,6 +15,7 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 # Known Issues (TBD)
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
 - Rarely, the mouse Cursor throws an error for not being instantiated.
+- allied units shouldn't be able to walk through hostile units.
 
 
 
