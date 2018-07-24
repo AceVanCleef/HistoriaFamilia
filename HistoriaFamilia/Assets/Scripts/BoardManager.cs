@@ -70,6 +70,58 @@ public class BoardManager : MonoBehaviour {
 			}
 		}
 
+        //prototype map layout
+        // 1) forest
+        _tiles[0, 0] = (int) TileType.TopographicalFeature.Forest;
+        _tiles[1, 0] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[0, 1] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[3, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[4, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[5, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[6, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[8, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[9, 3] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[1, 4] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[6, 4] = (int)TileType.TopographicalFeature.Forest;
+        //second board half
+        _tiles[9, 9] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[8, 9] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[9, 8] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[6, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[5, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[4, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[3, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[1, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[0, 6] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[8, 5] = (int)TileType.TopographicalFeature.Forest;
+        _tiles[3, 5] = (int)TileType.TopographicalFeature.Forest;
+
+        // 2) mountains
+        _tiles[2, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[3, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[4, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[7, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[8, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[9, 2] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[7, 3] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[7, 4] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[8, 4] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[9, 4] = (int)TileType.TopographicalFeature.Mountains;
+        //second board half
+        _tiles[7, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[6, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[5, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[2, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[1, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[0, 7] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[2, 6] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[2, 5] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[1, 5] = (int)TileType.TopographicalFeature.Mountains;
+        _tiles[0, 5] = (int)TileType.TopographicalFeature.Mountains;
+
+
+
+        /* //Test map layout:
 		// creates U - shaped mountain range.
 		_tiles[4, 4] = 2;
 		_tiles[5, 4] = 2;
@@ -90,8 +142,8 @@ public class BoardManager : MonoBehaviour {
 			{
 				_tiles[x, y] = 1;
 			}
-		}
-	}
+		}*/
+    }
 
 	public TileType GetTileTypeAt(int x, int y) {
 		return TileTypes[_tiles[x, y]];

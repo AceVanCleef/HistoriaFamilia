@@ -16,6 +16,9 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
 - Rarely, the mouse Cursor throws an error for not being instantiated.
 - allied units shouldn't be able to walk through hostile units.
+- While a unit is LERPing, a player can click on attack and gets the tiles in attack range from where the unit has been in that instant.
+- If a player ends his turn by attacking a hostile unit, the attacked unit ends up being the selected unit of the next player.
+- HP text of units is hardly visible.
 
 
 

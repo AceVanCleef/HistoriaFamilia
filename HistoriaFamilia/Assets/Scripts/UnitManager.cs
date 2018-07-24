@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UnitManager : MonoBehaviour {
@@ -191,8 +191,27 @@ public class UnitManager : MonoBehaviour {
 		ToggleCrosshairOfPotentialTargetsTo(false);
 		DeselectTarget();
 		DeselectUnit();
+
+        //checks
+        if ( _pm.HasCurrentPlayerWon() )
+        {
+            _pm._turnAnnouncer.AnnounceMessage( "Player " + (_pm.GetCurrentPlayer().PlayerID + 1) + " has won.", "");
+            //load next scene
+            StartCoroutine(LoadEndScreen(3));
+            return;
+        }
 		if (_pm.HasCurrentPlayerUsedAllHisUnits() ) _pm.NextPlayer();
 	}
+
+    private IEnumerator LoadEndScreen(int seconds)
+    {
+        int secondsLeft = seconds;
+        do
+        {
+            yield return new WaitForSeconds(1);
+        } while (--secondsLeft > 0);
+        SceneManager.LoadScene("EndScreen");
+    }
 
 	private bool IsInFiringRange(Unit target, Unit attacker) {
 		//Strategy 1: using BoardManager.GetTilesInAttackRange().Contains(target.x, target.y) 

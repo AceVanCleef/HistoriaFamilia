@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour {
 	private Player _currentPlayer;
 	private int _currentPlayerID;
 
-	private AnnouncementUI _turnAnnouncer;
+	public AnnouncementUI _turnAnnouncer;
 
 	void Start() {
 		_currentPlayerID = FIRST_PLAYER_ID;
@@ -62,6 +62,6 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	public bool HasCurrentPlayerWon() {
-		return GetAllHostileUnits() == null;
+		return GetAllHostileUnits().Count == 0;
 	}
 }
