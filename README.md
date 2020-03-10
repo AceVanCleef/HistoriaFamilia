@@ -20,6 +20,9 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 - If a player ends his turn by attacking a hostile unit, the attacked unit ends up being the selected unit of the next player.
 - HP text of units is hardly visible.
 
+# Download
+
+From itch.io [here](https://stefan-wohlgensinger.itch.io/historia-familia).
 
 
 # Dev Log
