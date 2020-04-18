@@ -16,6 +16,11 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 - Command three unique unit types: Light Infantry, Phalanx and Archer.
 - Use the terrain to your advantage: A grassland is faster to cross while forest and mountains provide more cover.
 
+
+# Download
+
+From itch.io [here](https://stefan-wohlgensinger.itch.io/historia-familia).
+
 # Known Issues (TBD)
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
 - Rarely, the mouse Cursor throws an error for not being instantiated.
@@ -23,10 +28,6 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 - While a unit is LERPing, a player can click on attack and gets the tiles in attack range from where the unit has been in that instant.
 - If a player ends his turn by attacking a hostile unit, the attacked unit ends up being the selected unit of the next player.
 - HP text of units is hardly visible.
-
-# Download
-
-From itch.io [here](https://stefan-wohlgensinger.itch.io/historia-familia).
 
 
 # Dev Log
