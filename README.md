@@ -14,7 +14,7 @@ Read the complete game idea: https://drive.google.com/file/d/1BZwx1qvV4ick40_amC
 # Features
 - Turn-based tactics game inspired by Advance Wars: Play with your friend locally.
 - Command three unique unit types: Light Infantry, Phalanx and Archer.
-- Use the terrain to your advantage: A grassland is faster to cross while forest or mountains provides more cover.
+- Use the terrain to your advantage: A grassland is faster to cross while forest and mountains provide more cover.
 
 # Known Issues (TBD)
 - Improve map tile highlighting when moving, attacking or hovering with mouse, making them more distinct.
